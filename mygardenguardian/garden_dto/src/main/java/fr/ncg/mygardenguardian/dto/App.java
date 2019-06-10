@@ -1,4 +1,4 @@
-package fr.ncg;
+package fr.ncg.mygardenguardian.dto;
 
 /**
  * Hello world!
