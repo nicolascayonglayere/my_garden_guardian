@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Insert title here</title>
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	</head>
+	
+	<body>
+		<h1>S'INSCRIRE</h1>
+		<div>
+			<form th:action="@{/inscription}" th:object="${utilisateur}" method="POST">
+		        <div>Nom
+		        	<input type="text" th:field="*{nom}" />
+		        </div>
+		        <div>Prenom
+		        	<input type="text" th:field="*{prenom}" />
+		        </div>
+		        <div>Pseudo
+		        	<input type="text" th:field="*{pseudo}" />
+		        </div>
+		        <div>Mot de Passe
+			       	<input type="text" th:field="*{mdp}" /> 
+		        </div>
+		        			
+				<input type="submit" value="INSCRIPTION" />
+			</form>
+		</div>		
+			
+	
+	</body>
+</html>
