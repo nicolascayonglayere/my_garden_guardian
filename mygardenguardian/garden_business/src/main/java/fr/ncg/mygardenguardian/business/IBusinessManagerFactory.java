@@ -1,6 +1,7 @@
 package fr.ncg.mygardenguardian.business;
 
 import fr.ncg.mygardenguardian.business.contract.IAdhesionManager;
+import fr.ncg.mygardenguardian.business.contract.IParcelleManager;
 import fr.ncg.mygardenguardian.business.contract.IRoleManager;
 import fr.ncg.mygardenguardian.business.contract.IUtilisateurManager;
 
@@ -17,5 +18,9 @@ public interface IBusinessManagerFactory {
 	public IRoleManager getRoleManager();
 
 	public void setRoleManager(IRoleManager roleManager);
+
+	public IParcelleManager getParcelleManager();
+
+	public void setParcelleManager(IParcelleManager parcelleManager);
 
 }

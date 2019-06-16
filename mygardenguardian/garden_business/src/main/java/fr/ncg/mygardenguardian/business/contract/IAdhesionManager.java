@@ -1,9 +1,9 @@
 package fr.ncg.mygardenguardian.business.contract;
 
-import fr.ncg.mygardenguardian.entites.Adhesion;
+import fr.ncg.mygardenguardian.dto.AdhesionDTO;
 
 public interface IAdhesionManager {
 
-	public void saveAdhesion(Adhesion adhesion);
+	public AdhesionDTO saveAdhesion(AdhesionDTO adhesionDTO);
 
 }

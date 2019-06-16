@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 import fr.ncg.mygardenguardian.consumer.contract.AdhesionDao;
 import fr.ncg.mygardenguardian.consumer.contract.CoordonneesUtilisateurDao;
-import fr.ncg.mygardenguardian.consumer.contract.RoleDao;
+import fr.ncg.mygardenguardian.consumer.contract.ParcelleDao;
 import fr.ncg.mygardenguardian.consumer.contract.UtilisateurDao;
 
 @Component
@@ -14,7 +14,8 @@ public class DaoFactoryImpl implements IDaoFactory {
 	private AdhesionDao adhesionDao;
 	private UtilisateurDao utilisateurDao;
 	private CoordonneesUtilisateurDao coordonneesUtilisateurDao;
-	private RoleDao roleDao;
+	// private RoleDao roleDao;
+	private ParcelleDao parcelleDao;
 
 	@Override
 	public AdhesionDao getAdhesionDao() {
@@ -49,15 +50,26 @@ public class DaoFactoryImpl implements IDaoFactory {
 		this.coordonneesUtilisateurDao = coordonneesUtilisateurDao;
 	}
 
+	// @Override
+	// public RoleDao getRoleDao() {
+	// return this.roleDao;
+	// }
+	//
+	// @Autowired
+	// @Override
+	// public void setRoleDao(RoleDao roleDao) {
+	// this.roleDao = roleDao;
+	// }
+	//
 	@Override
-	public RoleDao getRoleDao() {
-		return this.roleDao;
+	public ParcelleDao getParcelleDao() {
+		return this.parcelleDao;
 	}
 
 	@Autowired
 	@Override
-	public void setRoleDao(RoleDao roleDao) {
-		this.roleDao = roleDao;
+	public void setParcelleDao(ParcelleDao parcelleDao) {
+		this.parcelleDao = parcelleDao;
 	}
 
 }

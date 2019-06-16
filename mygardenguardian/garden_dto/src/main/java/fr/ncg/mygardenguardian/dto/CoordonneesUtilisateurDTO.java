@@ -1,41 +1,22 @@
-package fr.ncg.mygardenguardian.entites;
+package fr.ncg.mygardenguardian.dto;
 
-import java.io.Serializable;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+@Component
+public class CoordonneesUtilisateurDTO {
 
-@Entity
-@Table(name = "coordonnees_utilisateur", schema = "garden_guardian")
-public class CoordonneesUtilisateur implements Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_coordonnee")
 	private Integer idCoordonneesUtilisateur;
-	@Column(name = "portable")
 	private Integer numPortable;
-	@Column(name = "email")
 	private String email;
-	@Column(name = "adresse")
 	private String adresse;
-	@Column(name = "ville")
 	private String ville;
-	@Column(name = "code_postal")
 	private Integer codePostal;
 
-	public CoordonneesUtilisateur() {
+	public CoordonneesUtilisateurDTO() {
 	}
 
-	public CoordonneesUtilisateur(Integer numPortable, String email, String adresse, String ville, Integer codePostal) {
+	public CoordonneesUtilisateurDTO(Integer numPortable, String email, String adresse, String ville,
+			Integer codePostal) {
 		this.numPortable = numPortable;
 		this.email = email;
 		this.adresse = adresse;
@@ -49,6 +30,14 @@ public class CoordonneesUtilisateur implements Serializable {
 
 	public void setIdCoordonneesUtilisateur(Integer idCoordonneesUtilisateur) {
 		this.idCoordonneesUtilisateur = idCoordonneesUtilisateur;
+	}
+
+	public Integer getNumPortable() {
+		return this.numPortable;
+	}
+
+	public void setNumPortable(Integer numPortable) {
+		this.numPortable = numPortable;
 	}
 
 	public String getEmail() {
@@ -83,17 +72,9 @@ public class CoordonneesUtilisateur implements Serializable {
 		this.codePostal = codePostal;
 	}
 
-	public Integer getNumPortable() {
-		return this.numPortable;
-	}
-
-	public void setNumPortable(Integer numPortable) {
-		this.numPortable = numPortable;
-	}
-
 	@Override
 	public String toString() {
-		return "CoordonneesUtilisateur [idCoordonneesUtilisateur=" + this.idCoordonneesUtilisateur + ", numPortable="
+		return "CoordonneesUtilisateurDTO [idCoordonneesUtilisateur=" + this.idCoordonneesUtilisateur + ", numPortable="
 				+ this.numPortable + ", email=" + this.email + ", adresse=" + this.adresse + ", ville=" + this.ville
 				+ ", codePostal=" + this.codePostal + "]";
 	}

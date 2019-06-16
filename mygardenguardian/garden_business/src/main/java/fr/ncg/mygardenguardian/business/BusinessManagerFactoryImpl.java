@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import fr.ncg.mygardenguardian.business.contract.IAdhesionManager;
+import fr.ncg.mygardenguardian.business.contract.IParcelleManager;
 import fr.ncg.mygardenguardian.business.contract.IRoleManager;
 import fr.ncg.mygardenguardian.business.contract.IUtilisateurManager;
 
@@ -13,6 +14,7 @@ public class BusinessManagerFactoryImpl implements IBusinessManagerFactory {
 	private IAdhesionManager adhesionManager;
 	private IUtilisateurManager utilisateurManager;
 	private IRoleManager roleManager;
+	private IParcelleManager parcelleManager;
 
 	@Override
 	public IAdhesionManager getAdhesionManager() {
@@ -45,6 +47,17 @@ public class BusinessManagerFactoryImpl implements IBusinessManagerFactory {
 	@Override
 	public void setRoleManager(IRoleManager roleManager) {
 		this.roleManager = roleManager;
+	}
+
+	@Override
+	public IParcelleManager getParcelleManager() {
+		return this.parcelleManager;
+	}
+
+	@Autowired
+	@Override
+	public void setParcelleManager(IParcelleManager parcelleManager) {
+		this.parcelleManager = parcelleManager;
 	}
 
 }

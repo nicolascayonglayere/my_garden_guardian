@@ -2,7 +2,7 @@ package fr.ncg.mygardenguardian.consumer;
 
 import fr.ncg.mygardenguardian.consumer.contract.AdhesionDao;
 import fr.ncg.mygardenguardian.consumer.contract.CoordonneesUtilisateurDao;
-import fr.ncg.mygardenguardian.consumer.contract.RoleDao;
+import fr.ncg.mygardenguardian.consumer.contract.ParcelleDao;
 import fr.ncg.mygardenguardian.consumer.contract.UtilisateurDao;
 
 public interface IDaoFactory {
@@ -19,8 +19,11 @@ public interface IDaoFactory {
 
 	public void setCoordonneesUtilisateurDao(CoordonneesUtilisateurDao coordonneesUtilisateurDao);
 
-	public RoleDao getRoleDao();
+	// public RoleDao getRoleDao();
+	//
+	// public void setRoleDao(RoleDao roleDao);
 
-	public void setRoleDao(RoleDao roleDao);
+	public ParcelleDao getParcelleDao();
 
+	public void setParcelleDao(ParcelleDao parcelleDao);
 }

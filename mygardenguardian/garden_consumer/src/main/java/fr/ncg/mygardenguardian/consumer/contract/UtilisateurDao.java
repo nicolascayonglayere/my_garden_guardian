@@ -8,4 +8,5 @@ import fr.ncg.mygardenguardian.entites.Utilisateur;
 @Repository
 public interface UtilisateurDao extends JpaRepository<Utilisateur, Integer> {
 
+	public Utilisateur findByNomAndPrenom(String nom, String prenom);
 }

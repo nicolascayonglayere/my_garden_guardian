@@ -3,12 +3,14 @@ package fr.ncg.mygardenguardian.entites;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -25,9 +27,11 @@ public class Adhesion implements Serializable {
 	private Integer idAdhesion;
 	@Column(name = "date_adhesion", nullable = false)
 	private Date dateAdhesion;
-	@OneToOne
+	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.REFRESH })
+	@JoinColumn(name = "id_parcelle")
 	private Parcelle parcelle;
-	@OneToOne
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
+	@JoinColumn(name = "id_utilisateur")
 	private Utilisateur utilisateur;
 
 	public Adhesion() {

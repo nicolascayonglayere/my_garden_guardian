@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Insert title here</title>
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">	
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	</head>
+	
+	<body>
+		<div class="container ">
+			<div class="jumbotron jumbotron-fluid">
+				<div class="container text-center">
+					<h1 class="display-3" th:text="#{inscription.jardinier}"></h1>
+				</div>
+			</div>
+
+			<div class="container">
+				<form class="form-horizontal was-validated" th:action="@{/inscription_jardinier}" th:object="${inscriptionFormulaire}" method="POST">
+			        <div class="form-group row">
+			        	<label for="nom" class="col-2 col-form-label"  th:text="#{inscription.nom}"></label>
+			        	<div class="col-10">
+			        		<input id="nom" class="form-control" type="text" placeholder="Nom" th:field="*{nom}" required/>
+			        		<div class="invalid-feedback" th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}" th:value="#{erreur.nom}"></div>
+			        	</div>
+			        </div>
+			        
+			        <div class="form-group row">
+			        	<label for="prenom" class="col-2 col-form-label" th:text="#{inscription.prenom}"></label>
+			        	<div class="col-10">
+			        		<input id="prenom" class="form-control" type="text" placeholder="prenom" th:field="*{prenom}" required/>
+			        		<div class="invalid-feedback" th:if="${#fields.hasErrors('prenom')}" th:errors="*{prenom}" th:value="#{erreur.prenom}"></div>
+		        		</div>
+			        </div>
+			        
+			        <div class="form-group row">
+			        	<label for="mdp" class="col-2 col-form-label" th:text="#{inscription.mdp}"></label>
+			        	<div class="col-10">
+				       		<input class="form-control" type="password" placeholder="mdp" id="mdp" th:field="*{mdp}" required/>
+				       		<div class="invalid-feedback" th:if="${#fields.hasErrors('mdp')}" th:errors="*{mdp}" th:value="#{erreur.mdp}"></div>
+				       	</div> 
+			        </div>
+			        
+			        <div class="form-group row">
+			        	<label for="portable" class="col-2 col-form-label" th:text="#{inscription.portable}"></label>
+			        	<div class="col-10">
+			        		<input class="form-control" type="tel" placeholder="01-23-45-67-89" id="portable" th:field="*{numPortable}" required/>
+			        		<div class="invalid-feedback" th:if="${#fields.hasErrors('numPortable')}" th:errors="*{numPortable}" th:value="#{erreur.portable}"></div>
+		        		</div>
+			        </div>
+			        
+			        <div class="form-group row">
+			        	<label for="email" class="col-2 col-form-label" th:text="#{inscription.email}"></label>
+		        		<div class="col-10">
+			        		<input class="form-control" type="email" placeholder="jardins@example.com" id="email" th:field="*{email}" required/>
+			        		<div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:value="#{erreur.email}"></div>
+		        		</div>
+			        </div>
+			        
+			        <div class="form-group row">
+			        	<label for="adresse" class="col-2 col-form-label" th:text="#{inscription.adresse}"></label>
+			        	<div class="col-10">
+			        		<input class="form-control" type="text" placeholder="mon adresse" id="adresse" th:field="*{adresse}" required/>
+			        		<div class="invalid-feedback" th:if="${#fields.hasErrors('adresse')}" th:errors="*{adresse}" th:value="#{erreur.adresse}"></div>
+		        		</div>
+			        </div>
+			        
+			        <div class="form-group row">
+			        	<label for="ville" class="col-2 col-form-label" th:text="#{inscription.ville}"></label>
+			        	<div class="col-10">
+			        		<input class="form-control" type="text" placeholder="ma Ville" id="ville" th:field="*{ville}" required/>
+			        		<div class="invalid-feedback" th:if="${#fields.hasErrors('ville')}" th:errors="*{ville}" th:value="#{erreur.ville}"></div>
+		        		</div>
+			        </div>
+			        <div class="form-group row">
+			        	<label for="postal" class="col-2 col-form-label" th:text="#{inscription.postal}"></label>
+			        	<div class="col-10">
+			        		<input class="form-control" type="number" placeholder="01242" id="postal" th:field="*{codePostal}" required/>
+			        		<div class="invalid-feedback" th:if="${#fields.hasErrors('codePostal')}" th:errors="*{codePostal}" th:value="#{erreur.postal}"></div>
+		        		</div>
+			        </div>
+			        
+			        <div class="form-group row">
+			        	 <label for="role" class="col-2 col-form-label" th:text="#{inscription.role}"></label>
+			        	 <div class="col-10">
+				             <select class="form-control" id="role" th:field="*{role}"> 
+						      	<option th:each="role : ${roleListe}" th:value="${role}" th:text="${role}" /> 
+						     </select>
+					     </div>
+			        </div>
+			        
+			        <div class="form-group row">
+			        	 <label for="parcelle" class="col-2 col-form-label" th:text="#{inscription.parcelle}"></label>
+			        	 <div class="col-10">
+				             <select class="form-control" id="parcelle" th:field="*{idParcelle}"> 
+						      	<option th:each="parcelleDTO : ${parcelleListe}" th:value="${parcelleDTO.getIdParcelle()}" th:text="${parcelleDTO.code}" /> 
+						     </select>
+					     </div>		        	
+			        </div>
+			        <div class="form-group row">		        
+						<input type="submit" class="btn btn-primary btn-lg" th:value="#{bouton.inscription}"/>
+					</div>
+				</form>
+			</div>		
+		</div>	
+	
+	</body>
+</html>

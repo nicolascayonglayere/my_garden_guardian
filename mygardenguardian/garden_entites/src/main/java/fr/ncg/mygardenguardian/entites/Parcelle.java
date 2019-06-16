@@ -24,7 +24,7 @@ public class Parcelle implements Serializable {
 	@Column(name = "surface")
 	private double surface;
 	@Column(name = "code")
-	private int code;
+	private String code;
 
 	public Parcelle() {
 	}
@@ -45,11 +45,11 @@ public class Parcelle implements Serializable {
 		this.surface = surface;
 	}
 
-	public int getCode() {
+	public String getCode() {
 		return this.code;
 	}
 
-	public void setCode(int code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 
