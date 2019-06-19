@@ -23,6 +23,7 @@ public class ParcelleManagerImpl implements IParcelleManager {
 	public List<ParcelleDTO> trouverToutesParcellesVides() {
 		List<ParcelleDTO> maListeParcellesVides = new ArrayList<ParcelleDTO>();
 		for (Parcelle p : this.daoFacto.getParcelleDao().trouverParcelleVide()) {
+			// .findByOccupation(false)) {
 			maListeParcellesVides.add(ParcelleMapper.fromParcelleToParcelleDTO(p));
 		}
 		return maListeParcellesVides;

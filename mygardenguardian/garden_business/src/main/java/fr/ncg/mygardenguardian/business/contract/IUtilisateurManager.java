@@ -10,4 +10,10 @@ public interface IUtilisateurManager {
 
 	public List<UtilisateurDTO> trouverJardiniers();
 
+	public void supprimerUtilisateur(UtilisateurDTO utilisateur);
+
+	public UtilisateurDTO trouverUtilisateurParId(Integer idUtilisateur);
+
+	public boolean verifExistenceUtilisateur(UtilisateurDTO utilisateur);
+
 }

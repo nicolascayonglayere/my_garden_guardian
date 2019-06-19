@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>Insert title here</title>
-	    <meta name="viewport" content="width=device-width, initial-scale=1">
-	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">	
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		<div th:replace="includes/_head::head"></div>
+		<title>Nouvelle Inscription</title>
 	</head>
 	
 	<body>
 		<div class="container ">
+			<div th:replace="includes/_navbar::navigation"></div>
 			<div class="jumbotron jumbotron-fluid">
 				<div class="container text-center">
 					<h1 class="display-3" th:text="#{inscription.jardinier}"></h1>
@@ -17,12 +15,12 @@
 			</div>
 
 			<div class="container">
-				<form class="form-horizontal was-validated" th:action="@{/inscription_jardinier}" th:object="${inscriptionFormulaire}" method="POST">
+				<form class="form-horizontal was-validated" th:action="@{/admin/inscription_jardinier}" th:object="${inscriptionFormulaire}" method="POST">
 			        <div class="form-group row">
 			        	<label for="nom" class="col-2 col-form-label"  th:text="#{inscription.nom}"></label>
 			        	<div class="col-10">
-			        		<input id="nom" class="form-control" type="text" placeholder="Nom" th:field="*{nom}" required/>
-			        		<div class="invalid-feedback" th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}" th:value="#{erreur.nom}"></div>
+			        		<input id="nom" class="form-control" type="text" placeholder="Nom" th:field="*{nom}" th:classappend="${#fields.errors('nom')} ? is-invalid" required/>
+			        		<div class="invalid-feedback" th:errors="*{nom}">Nom Error</div>
 			        	</div>
 			        </div>
 			        
@@ -30,7 +28,7 @@
 			        	<label for="prenom" class="col-2 col-form-label" th:text="#{inscription.prenom}"></label>
 			        	<div class="col-10">
 			        		<input id="prenom" class="form-control" type="text" placeholder="prenom" th:field="*{prenom}" required/>
-			        		<div class="invalid-feedback" th:if="${#fields.hasErrors('prenom')}" th:errors="*{prenom}" th:value="#{erreur.prenom}"></div>
+			        		<div class="invalid-feedback" th:if="${#fields.hasErrors('prenom')}" th:errors="*{prenom}">Prenom Error</div>
 		        		</div>
 			        </div>
 			        
@@ -45,7 +43,7 @@
 			        <div class="form-group row">
 			        	<label for="portable" class="col-2 col-form-label" th:text="#{inscription.portable}"></label>
 			        	<div class="col-10">
-			        		<input class="form-control" type="tel" placeholder="01-23-45-67-89" id="portable" th:field="*{numPortable}" required/>
+			        		<input class="form-control" type="tel" placeholder="0123456789" id="portable" th:field="*{numPortable}" required/>
 			        		<div class="invalid-feedback" th:if="${#fields.hasErrors('numPortable')}" th:errors="*{numPortable}" th:value="#{erreur.portable}"></div>
 		        		</div>
 			        </div>
@@ -102,8 +100,8 @@
 						<input type="submit" class="btn btn-primary btn-lg" th:value="#{bouton.inscription}"/>
 					</div>
 				</form>
-			</div>		
+			</div>
+			<div th:replace="includes/_footer::footer"></div>		
 		</div>	
-	
 	</body>
 </html>

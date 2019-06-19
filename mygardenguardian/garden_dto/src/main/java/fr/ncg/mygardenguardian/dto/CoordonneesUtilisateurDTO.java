@@ -1,22 +1,19 @@
 package fr.ncg.mygardenguardian.dto;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class CoordonneesUtilisateurDTO {
 
 	private Integer idCoordonneesUtilisateur;
-	private Integer numPortable;
+	private String numPortable;
 	private String email;
 	private String adresse;
 	private String ville;
-	private Integer codePostal;
+	private String codePostal;
 
 	public CoordonneesUtilisateurDTO() {
 	}
 
-	public CoordonneesUtilisateurDTO(Integer numPortable, String email, String adresse, String ville,
-			Integer codePostal) {
+	public CoordonneesUtilisateurDTO(String numPortable, String email, String adresse, String ville,
+			String codePostal) {
 		this.numPortable = numPortable;
 		this.email = email;
 		this.adresse = adresse;
@@ -30,14 +27,6 @@ public class CoordonneesUtilisateurDTO {
 
 	public void setIdCoordonneesUtilisateur(Integer idCoordonneesUtilisateur) {
 		this.idCoordonneesUtilisateur = idCoordonneesUtilisateur;
-	}
-
-	public Integer getNumPortable() {
-		return this.numPortable;
-	}
-
-	public void setNumPortable(Integer numPortable) {
-		this.numPortable = numPortable;
 	}
 
 	public String getEmail() {
@@ -64,11 +53,19 @@ public class CoordonneesUtilisateurDTO {
 		this.ville = ville;
 	}
 
-	public Integer getCodePostal() {
+	public String getNumPortable() {
+		return this.numPortable;
+	}
+
+	public void setNumPortable(String numPortable) {
+		this.numPortable = numPortable;
+	}
+
+	public String getCodePostal() {
 		return this.codePostal;
 	}
 
-	public void setCodePostal(Integer codePostal) {
+	public void setCodePostal(String codePostal) {
 		this.codePostal = codePostal;
 	}
 

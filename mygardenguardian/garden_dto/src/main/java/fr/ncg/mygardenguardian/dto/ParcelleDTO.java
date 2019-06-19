@@ -1,13 +1,11 @@
 package fr.ncg.mygardenguardian.dto;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class ParcelleDTO {
 
 	private Integer idParcelle;
 	private double surface;
 	private String code;
+	// private boolean occupation;
 
 	public ParcelleDTO() {
 	}
@@ -15,6 +13,7 @@ public class ParcelleDTO {
 	public ParcelleDTO(double surface, String code) {
 		this.surface = surface;
 		this.code = code;
+		// this.occupation = occupation;
 	}
 
 	public Integer getIdParcelle() {
@@ -41,9 +40,18 @@ public class ParcelleDTO {
 		this.code = code;
 	}
 
+	// public boolean isOccupation() {
+	// return this.occupation;
+	// }
+	//
+	// public void setOccupation(boolean occupation) {
+	// this.occupation = occupation;
+	// }
+
 	@Override
 	public String toString() {
-		return "ParcelleDTO [idParcelle=" + this.idParcelle + ", surface=" + this.surface + ", code=" + this.code + "]";
+		return "ParcelleDTO [idParcelle=" + this.idParcelle + ", surface=" + this.surface + ", code=" + this.code
+				+ ", occupation=" + 00 + "]";
 	}
 
 }

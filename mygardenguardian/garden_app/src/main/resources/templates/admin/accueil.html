@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<div th:replace="includes/_head::head"></div>
+		<title>Accueil</title>			
+	</head>
+	
+	<body>
+		<div class="container">
+			<div th:replace="includes/_navbar::navigation"></div>
+
+			<div class="jumbotron jumbotron-fluid">
+				<div class="container text-center">
+					<h1 class="display-3" th:text="#{accueil.animateur}"></h1>
+				</div>
+			</div>		
+			
+
+			<div th:if="${not #lists.isEmpty(mesJardiniersSuppr)}">
+				<h2><span th:text="#{message.annulation}"></span></h2>
+				<table id="table_jardi_suppr" class="display">
+				    <thead>
+				        <tr>
+				            <th><span th:text="#{inscription.nom}"></span></th>
+				            <th><span th:text="#{inscription.prenom}"></span></th>
+				            <th><span th:text="#{inscription.email}"></span></th>
+				            <th><span th:text="#{inscription.portable}"></span></th>
+				            <th><span th:text="#{inscription.adresse}"></span></th>
+				            <th><span th:text="#{inscription.postal}"></span></th>
+				            <th><span th:text="#{inscription.ville}"></span></th>
+				        </tr>
+				    </thead>
+					<tbody>
+				    	<tr th:each="utilisateurDTO : ${mesJardiniersSuppr}">
+				    		<td><span th:utext="${utilisateurDTO.nom}"></span></td>
+				    		<td><span th:utext="${utilisateurDTO.prenom}"></span></td>
+				    		<td><span th:utext="${utilisateurDTO.coordonneeUtilisateurDTO.email}"></span></td>
+				    		<td><span th:utext="${utilisateurDTO.coordonneeUtilisateurDTO.numPortable}"></span></td>
+				    		<td><span th:utext="${utilisateurDTO.coordonneeUtilisateurDTO.adresse}"></span></td>
+				    		<td><span th:utext="${utilisateurDTO.coordonneeUtilisateurDTO.codePostal}"></span></td>
+				    		<td><span th:utext="${utilisateurDTO.coordonneeUtilisateurDTO.ville}"></span></td>
+				    	</tr>
+				    </tbody>
+				</table>
+			</div>	
+			
+			<div th:if="${monInscription != null && monInscription.utilisateurDTO != null}">
+				<h2><span th:text="#{message.inscription}"></span></h2>
+				<table id="table_inscription" class="display">
+				    <thead>
+				        <tr>
+				            <th><span th:text="#{inscription.nom}"></span></th>
+				            <th><span th:text="#{inscription.prenom}"></span></th>
+				            <th><span th:text="#{inscription.email}"></span></th>
+				            <th><span th:text="#{inscription.portable}"></span></th>
+				            <th><span th:text="#{inscription.adresse}"></span></th>
+				            <th><span th:text="#{inscription.postal}"></span></th>
+				            <th><span th:text="#{inscription.ville}"></span></th>
+				            <th><span th:text="#{inscription.parcelle}"></span></th>
+				        </tr>
+				    </thead>
+				    <tbody>
+				    	<tr>
+				    		<td><span th:text="${monInscription.utilisateurDTO.nom}"></span></td>
+				    		<td><span th:text="${monInscription.utilisateurDTO.prenom}"></span></td>
+				    		<td><span th:text="${monInscription.utilisateurDTO.coordonneeUtilisateurDTO.email}"></span></td>
+				    		<td><span th:text="${monInscription.utilisateurDTO.coordonneeUtilisateurDTO.numPortable}"></span></td>
+				    		<td><span th:text="${monInscription.utilisateurDTO.coordonneeUtilisateurDTO.adresse}"></span></td>
+				    		<td><span th:text="${monInscription.utilisateurDTO.coordonneeUtilisateurDTO.codePostal}"></span></td>
+				    		<td><span th:text="${monInscription.utilisateurDTO.coordonneeUtilisateurDTO.ville}"></span></td>
+				    		<td><span th:text="${monInscription.parcelleDTO.code}"></span></td>
+				    	</tr>
+				    </tbody>
+				</table>
+			</div>				
+			
+			<div th:if="${not #lists.isEmpty(jardiniersRenouveles)}">
+				<h2><span th:text="#{message.renouvellement}"></span></h2>
+				<table id="table_jardi_renouvel" class="display">
+				    <thead>
+				        <tr>
+				            <th><span th:text="#{inscription.nom}"></span></th>
+				            <th><span th:text="#{inscription.prenom}"></span></th>
+				            <th><span th:text="#{inscription.email}"></span></th>
+				            <th><span th:text="#{inscription.portable}"></span></th>
+				            <th><span th:text="#{inscription.adresse}"></span></th>
+				            <th><span th:text="#{inscription.postal}"></span></th>
+				            <th><span th:text="#{inscription.ville}"></span></th>
+				            <th><span th:text="#{inscription.parcelle}"></span></th>
+				        </tr>
+				    </thead>
+					<tbody>
+				    	<tr th:each="adhesionDTO : ${jardiniersRenouveles}">
+				    		<td><span th:utext="${adhesionDTO.utilisateurDTO.nom}"></span></td>
+				    		<td><span th:utext="${adhesionDTO.utilisateurDTO.prenom}"></span></td>
+				    		<td><span th:utext="${adhesionDTO.utilisateurDTO.coordonneeUtilisateurDTO.email}"></span></td>
+				    		<td><span th:utext="${adhesionDTO.utilisateurDTO.coordonneeUtilisateurDTO.numPortable}"></span></td>
+				    		<td><span th:utext="${adhesionDTO.utilisateurDTO.coordonneeUtilisateurDTO.adresse}"></span></td>
+				    		<td><span th:utext="${adhesionDTO.utilisateurDTO.coordonneeUtilisateurDTO.codePostal}"></span></td>
+				    		<td><span th:utext="${adhesionDTO.utilisateurDTO.coordonneeUtilisateurDTO.ville}"></span></td>
+				    		<td><span th:utext="${adhesionDTO.parcelleDTO.code}"></span></td>
+				    	</tr>
+				    </tbody>
+				</table>
+			</div>						
+		
+			<div th:if="${not #lists.isEmpty(parcellesListe)}">
+				<h2><span th:text="#{accueil.vide}"></span></h2>
+				<table id="table_parcelle" class="display">
+				    <thead>
+				        <tr>
+				            <th><span th:text="#{parcelleTab.code}"></span></th>
+				            <th><span th:text="#{parcelleTab.surface}"></span></th>
+				        </tr>
+				    </thead>
+				    <tbody>
+				    	<tr th:each="parcelleDTO : ${parcellesListe}">
+				    		<td><span th:utext="${parcelleDTO.code}"></span></td>
+				    		<td><span th:utext="${parcelleDTO.surface}"></span></td>
+				    	</tr>
+				    </tbody>
+				</table>
+			</div>
+			
+			<div th:if="${#lists.isEmpty(parcellesListe)}">
+				<h2>ATTENTION IL N'Y A PLUS DE PARCELLES VIDES !!</h2>
+			</div>
+			<div th:replace="includes/_footer::footer"></div>
+		</div>			
+	</body>
+	<script type="text/javascript">
+		$(document).ready( function () {
+		    $('#table_jardi_suppr').DataTable(),
+		    $('#table_inscription').DataTable(),
+		    $('#table_jardi_renouvel').DataTable(),
+		    $('#table_parcelle').DataTable();
+		} );	
+	</script>
+</html>
