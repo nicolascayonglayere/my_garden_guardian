@@ -3,8 +3,11 @@ package fr.ncg.mygardenguardian.webapp.controller;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
+import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +31,8 @@ import fr.ncg.mygardenguardian.webapp.formulaire.ModificationFormulaire;
 public class Inscription {
 
 	private IBusinessManagerFactory managerFactory;
+	@Autowired
+	private Validator validator;
 
 	@GetMapping("/admin/inscription_jardinier")
 	public String getInscriptionJardinier(@ModelAttribute AdhesionDTO adhesion, BindingResult errors, Model model) {
@@ -39,12 +44,15 @@ public class Inscription {
 		return ("admin/inscription_jardinier");
 	}
 
+	// @ExceptionHandler(PasswordsEqualConstraint.class)
 	@PostMapping("/admin/inscription_jardinier")
 	public String inscriptionJardinier(
 			@Valid @ModelAttribute("inscriptionFormulaire") @RequestBody InscriptionFormulaire inscriptionFormulaire,
 			BindingResult errors, Model model, RedirectAttributes monInscrit) {
-
-		if (errors.hasErrors()) {
+		Set<ConstraintViolation<@Valid InscriptionFormulaire>> failures = this.validator
+				.validate(inscriptionFormulaire);
+		if (errors.hasErrors() || !failures.isEmpty()) {
+			System.out.println(errors.toString());
 			model.addAttribute("errors", errors.getAllErrors());
 			model.addAttribute("roleListe", this.initRole());
 			model.addAttribute("parcelleListe",

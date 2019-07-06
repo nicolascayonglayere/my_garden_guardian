@@ -4,6 +4,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
+import fr.ncg.mygardenguardian.webapp.validator.PasswordsEqualConstraint;
+
+@PasswordsEqualConstraint(message = "passwords are not equal")
 public class InscriptionFormulaire {
 
 	@NotBlank(message = "Un nom est requis")
@@ -12,8 +15,11 @@ public class InscriptionFormulaire {
 	private String prenom;
 	@NotBlank(message = "Un mot de passe est requis")
 	private String mdp;
-	@NotBlank(message = "Saisissez un numéro de portbale : 01-23-45-67-89")
-	@Pattern(regexp = "(\\d{2}-){4}\\d{2}", message = "Saisissez un numéro de portbale : 01-23-45-67-89")
+	@NotBlank(message = "Un mot de passe est requis")
+	@Valid
+	private String mdpConfirm;
+	@NotBlank(message = "Saisissez un numéro de portable : 01-23-45-67-89")
+	@Pattern(regexp = "(\\d{2}-){4}\\d{2}", message = "Saisissez un numéro de portable : 01-23-45-67-89")
 	@Valid
 	private String numPortable;
 	@NotBlank(message = "Saisissez un email valide")
@@ -116,6 +122,14 @@ public class InscriptionFormulaire {
 				+ ", numPortable=" + this.numPortable + ", email=" + this.email + ", adresse=" + this.adresse
 				+ ", codePostal=" + this.codePostal + ", ville=" + this.ville + ", role=" + this.role + ", idParcelle="
 				+ this.idParcelle + "]";
+	}
+
+	public String getMdpConfirm() {
+		return this.mdpConfirm;
+	}
+
+	public void setMdpConfirm(String mdpConfirm) {
+		this.mdpConfirm = mdpConfirm;
 	}
 
 }
