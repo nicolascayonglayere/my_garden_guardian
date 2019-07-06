@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<div th:replace="includes/_head::head"></div>
+		<title>Liste jardiniers</title>
+	</head>
+	
+	<body>
+		<div class="container">
+			<div th:replace="includes/_navbar::navigation"></div>
+			<div class="jumbotron jumbotron-fluid">
+				<div class="container text-center">
+					<h1 class="display-3" th:text="#{menu.suppression}"></h1>
+				</div>
+			</div>								
+		
+			<form th:action="@{/admin/supprimer_jardinier}" th:object="${modificationFormulaire}" method="POST">
+				<table id="table_id" class="display">
+				    <thead>
+				        <tr>
+				        	<th></th>
+				            <th><span th:text="#{inscription.nom}"></span></th>
+				            <th><span th:text="#{inscription.prenom}"></span></th>
+				            <th><span th:text="#{inscription.email}"></span></th>
+				            <th><span th:text="#{inscription.portable}"></span></th>
+				            <th><span th:text="#{inscription.adresse}"></span></th>
+				            <th><span th:text="#{inscription.postal}"></span></th>
+				            <th><span th:text="#{inscription.ville}"></span></th>
+				            <th><span th:text="#{inscription.parcelle}"></span></th>
+				        </tr>
+				    </thead>
+				    <tbody>
+		
+				    	<tr th:each="adhesionDTO : ${jardiniersListe}">
+				    		<td><input type="checkbox" name="jardinierSuppr" th:field=*{jardinierSuppr} th:value="${__${adhesionDTO.idAdhesion}__}"></td>
+				    		<td><span th:utext="${adhesionDTO.utilisateurDTO.nom}"></span></td>
+				    		<td><span th:utext="${adhesionDTO.utilisateurDTO.prenom}"></span></td>
+				    		<td><span th:utext="${adhesionDTO.utilisateurDTO.coordonneeUtilisateurDTO.email}"></span></td>
+				    		<td><span th:utext="${adhesionDTO.utilisateurDTO.coordonneeUtilisateurDTO.numPortable}"></span></td>
+				    		<td><span th:utext="${adhesionDTO.utilisateurDTO.coordonneeUtilisateurDTO.adresse}"></span></td>
+				    		<td><span th:utext="${adhesionDTO.utilisateurDTO.coordonneeUtilisateurDTO.codePostal}"></span></td>
+				    		<td><span th:utext="${adhesionDTO.utilisateurDTO.coordonneeUtilisateurDTO.ville}"></span></td>
+				    		<td><span th:utext="${adhesionDTO.parcelleDTO.code}"></span></td>
+				    	</tr>
+				    	
+				    </tbody>
+				</table>
+				<input type="submit" class="btn btn-primary btn-lg" th:value="#{bouton.suppression}"/>
+			</form>
+			<div th:replace="includes/_footer::footer"></div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(document).ready(function() {
+		    $('#table_id').DataTable( {
+		        columnDefs: [ {
+		            orderable: false,
+		            className: 'select-checkbox',
+		            targets:   0
+		        } ],
+		        select: {
+		            style:    'os',
+		            selector: 'td:first-child'
+		        },
+		        order: [ [ 1, 'asc' ] ]
+		    } );
+		} );	
+	</script>
+	
+</html>

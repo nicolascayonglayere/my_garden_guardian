@@ -1,0 +1,29 @@
+<header th:fragment="navigation">
+	<nav class="navbar navbar-expand-sm bg-light navbar-light">
+	  <ul class="navbar-nav">
+	    <li class="nav-item">
+	  		<a class="navbar-brand" th:href="@{accueil}">
+	    		<i class="fas fa-seedling"></i>
+  			</a>	      
+	    </li>	  	
+	    <li class="nav-item dropdown">
+	      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown" th:text="#{menu.jardiniers}">
+<!-- 	       	GESTION JARDINIERS -->
+	      </a>
+	      <div class="dropdown-menu">
+	        <a class="dropdown-item" th:href="@{inscription_jardinier}" th:text="#{inscription.jardinier}"></a>
+	        <a class="dropdown-item" th:href="@{renouvellement_adhesion}" th:text="#{menu.renouvellement}"></a>
+	        <a class="dropdown-item" th:href="@{supprimer_jardinier}" th:text="#{menu.suppression}"></a>
+	        <a class="dropdown-item" th:href="@{lister_jardinier}" th:text="#{menu.lister}"></a>
+	      </div>
+	    </li>			    
+	    
+	    <li class="nav-item">
+	      <a class="nav-link" href="#">Link</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" href="#">Link</a>
+	    </li>
+	  </ul>
+	</nav>
+</header>

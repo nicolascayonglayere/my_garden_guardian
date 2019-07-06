@@ -12,6 +12,7 @@ public class ParcelleMapper {
 		}
 		parcelleDTO.setCode(p.getCode());
 		parcelleDTO.setSurface(p.getSurface());
+		// parcelleDTO.setOccupation(p.isOccupation());
 		return parcelleDTO;
 	}
 
@@ -22,6 +23,7 @@ public class ParcelleMapper {
 		}
 		maParcelle.setCode(p.getCode());
 		maParcelle.setSurface(p.getSurface());
+		// maParcelle.setOccupation(p.isOccupation());
 		return maParcelle;
 	}
 

@@ -25,8 +25,16 @@ public class Parcelle implements Serializable {
 	private double surface;
 	@Column(name = "code")
 	private String code;
+	// @Column(name = "occupation")
+	// private boolean occupation;
 
 	public Parcelle() {
+	}
+
+	public Parcelle(double surface, String code) {
+		this.surface = surface;
+		this.code = code;
+		// this.occupation = occupation;
 	}
 
 	public Integer getIdParcelle() {
@@ -53,9 +61,18 @@ public class Parcelle implements Serializable {
 		this.code = code;
 	}
 
+	// public boolean isOccupation() {
+	// return this.occupation;
+	// }
+	//
+	// public void setOccupation(boolean occupation) {
+	// this.occupation = occupation;
+	// }
+
 	@Override
 	public String toString() {
-		return "Parcelle [idParcelle=" + this.idParcelle + ", surface=" + this.surface + ", code=" + this.code + "]";
+		return "Parcelle [idParcelle=" + this.idParcelle + ", surface=" + this.surface + ", code=" + this.code
+				+ ", occupation=" + 00 + "]";
 	}
 
 }

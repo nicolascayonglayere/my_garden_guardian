@@ -1,8 +1,5 @@
 package fr.ncg.mygardenguardian.dto;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class UtilisateurDTO {
 
 	private Integer idUtilisateur;

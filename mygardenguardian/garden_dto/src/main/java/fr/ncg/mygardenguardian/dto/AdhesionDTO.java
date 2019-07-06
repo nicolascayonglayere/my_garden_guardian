@@ -2,23 +2,22 @@ package fr.ncg.mygardenguardian.dto;
 
 import java.util.Date;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class AdhesionDTO {
 
 	private Integer idAdhesion;
 	private Date dateAdhesion;
 	private ParcelleDTO parcelleDTO;
 	private UtilisateurDTO utilisateurDTO;
+	private boolean archive;
+	private Date dateAnnulation;
 
 	public AdhesionDTO() {
 	}
 
-	public AdhesionDTO(Date dateAdhesion, ParcelleDTO parcelleDTO, UtilisateurDTO utilisateurDTO) {
+	public AdhesionDTO(Date dateAdhesion, boolean archive, Date dateAnnulation) {
 		this.dateAdhesion = dateAdhesion;
-		this.parcelleDTO = parcelleDTO;
-		this.utilisateurDTO = utilisateurDTO;
+		this.archive = archive;
+		this.dateAnnulation = dateAnnulation;
 	}
 
 	public Integer getIdAdhesion() {
@@ -53,9 +52,27 @@ public class AdhesionDTO {
 		this.utilisateurDTO = utilisateurDTO;
 	}
 
+	public boolean isArchive() {
+		return this.archive;
+	}
+
+	public void setArchive(boolean archive) {
+		this.archive = archive;
+	}
+
+	public Date getDateAnnulation() {
+		return this.dateAnnulation;
+	}
+
+	public void setDateAnnulation(Date dateAnnulation) {
+		this.dateAnnulation = dateAnnulation;
+	}
+
 	@Override
 	public String toString() {
-		return "AdhesionDTO [idAdhesion=" + this.idAdhesion + ", dateAdhesion=" + this.dateAdhesion + "]";
+		return "AdhesionDTO [idAdhesion=" + this.idAdhesion + ", dateAdhesion=" + this.dateAdhesion + ", parcelleDTO="
+				+ this.parcelleDTO + ", utilisateurDTO=" + this.utilisateurDTO + ", archive=" + this.archive
+				+ ", dateAnnulation=" + this.dateAnnulation + "]";
 	}
 
 }

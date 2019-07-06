@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+      
+	<div th:fragment="footer">
+        <footer class="footer">
+        	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-2 mt-sm-5 text-center">
+		        <!-- this is footer -->
+		        mygardeguardian.com
+	            <span sec:authorize="isAuthenticated()">
+	                | Logged user: <span sec:authentication="name"></span> |
+	                Roles: <span sec:authentication="principal.authorities"></span> |
+	                <a th:href="@{/logout}">Sign Out</a>
+	            </span>
+				<br/>
+				<div class="social text-center">
+					<a class="btn btn-default btn-sm" th:href="@{https://www.facebook.com}"><i class="fab fa-facebook"></i></a>
+					<a class="btn btn-default btn-sm" th:href="@{https://www.twitter.com}"><i class="fab fa-twitter-square"></i></a>
+					<a class="btn btn-default btn-sm" th:href="@{https://www.instagram.com}"><i class="fab fa-instagram"></i></a>
+					<a class="btn btn-default btn-sm" th:href="@{https://www.google.com}"><i class="fab fa-google-plus"></i></a>
+				</div>
+				<br/>				
+				<span th:text="#{footer.moi}"></span>
+				<a th:href="@{https://www.openclassrooms.com/fr/}"><span th:text="#{footer.oc}"></span></a>
+			</div>
+        </footer> 
+	</div>
+</html>

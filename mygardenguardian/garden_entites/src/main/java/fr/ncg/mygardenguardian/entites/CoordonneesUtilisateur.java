@@ -22,7 +22,7 @@ public class CoordonneesUtilisateur implements Serializable {
 	@Column(name = "id_coordonnee")
 	private Integer idCoordonneesUtilisateur;
 	@Column(name = "portable")
-	private Integer numPortable;
+	private String numPortable;
 	@Column(name = "email")
 	private String email;
 	@Column(name = "adresse")
@@ -30,12 +30,12 @@ public class CoordonneesUtilisateur implements Serializable {
 	@Column(name = "ville")
 	private String ville;
 	@Column(name = "code_postal")
-	private Integer codePostal;
+	private String codePostal;
 
 	public CoordonneesUtilisateur() {
 	}
 
-	public CoordonneesUtilisateur(Integer numPortable, String email, String adresse, String ville, Integer codePostal) {
+	public CoordonneesUtilisateur(String numPortable, String email, String adresse, String ville, String codePostal) {
 		this.numPortable = numPortable;
 		this.email = email;
 		this.adresse = adresse;
@@ -75,20 +75,20 @@ public class CoordonneesUtilisateur implements Serializable {
 		this.ville = ville;
 	}
 
-	public Integer getCodePostal() {
-		return this.codePostal;
-	}
-
-	public void setCodePostal(Integer codePostal) {
-		this.codePostal = codePostal;
-	}
-
-	public Integer getNumPortable() {
+	public String getNumPortable() {
 		return this.numPortable;
 	}
 
-	public void setNumPortable(Integer numPortable) {
+	public void setNumPortable(String numPortable) {
 		this.numPortable = numPortable;
+	}
+
+	public String getCodePostal() {
+		return this.codePostal;
+	}
+
+	public void setCodePostal(String codePostal) {
+		this.codePostal = codePostal;
 	}
 
 	@Override

@@ -2,8 +2,11 @@ package fr.ncg.mygardenguardian.webapp.formulaire;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
+import fr.ncg.mygardenguardian.webapp.validator.PasswordsEqualConstraint;
+
+@PasswordsEqualConstraint(message = "passwords are not equal")
 public class InscriptionFormulaire {
 
 	@NotBlank(message = "Un nom est requis")
@@ -12,17 +15,22 @@ public class InscriptionFormulaire {
 	private String prenom;
 	@NotBlank(message = "Un mot de passe est requis")
 	private String mdp;
-	@NotNull(message = "Saisissez un numéro de portbale : 01-23-45-67-89")
+	@NotBlank(message = "Un mot de passe est requis")
 	@Valid
-	private Integer numPortable;
+	private String mdpConfirm;
+	@NotBlank(message = "Saisissez un numéro de portable : 01-23-45-67-89")
+	@Pattern(regexp = "(\\d{2}-){4}\\d{2}", message = "Saisissez un numéro de portable : 01-23-45-67-89")
+	@Valid
+	private String numPortable;
 	@NotBlank(message = "Saisissez un email valide")
 	@Valid
 	private String email;
 	@NotBlank(message = "Adresse requise")
 	private String adresse;
-	@NotNull(message = "Saisissez un code postal : 12345")
+	@NotBlank(message = "Saisissez un code postal : 12345")
+	@Pattern(regexp = "\\d{5}", message = "Saisissez un code postal : 12345")
 	@Valid
-	private Integer codePostal;
+	private String codePostal;
 	@NotBlank(message = "Ville requise")
 	private String ville;
 	private String role;
@@ -52,11 +60,11 @@ public class InscriptionFormulaire {
 		this.mdp = mdp;
 	}
 
-	public Integer getNumPortable() {
+	public String getNumPortable() {
 		return this.numPortable;
 	}
 
-	public void setNumPortable(Integer numPortable) {
+	public void setNumPortable(String numPortable) {
 		this.numPortable = numPortable;
 	}
 
@@ -84,11 +92,11 @@ public class InscriptionFormulaire {
 		this.role = role;
 	}
 
-	public Integer getCodePostal() {
+	public String getCodePostal() {
 		return this.codePostal;
 	}
 
-	public void setCodePostal(Integer codePostal) {
+	public void setCodePostal(String codePostal) {
 		this.codePostal = codePostal;
 	}
 
@@ -106,6 +114,22 @@ public class InscriptionFormulaire {
 
 	public void setIdParcelle(Integer idParcelle) {
 		this.idParcelle = idParcelle;
+	}
+
+	@Override
+	public String toString() {
+		return "InscriptionFormulaire [nom=" + this.nom + ", prenom=" + this.prenom + ", mdp=" + this.mdp
+				+ ", numPortable=" + this.numPortable + ", email=" + this.email + ", adresse=" + this.adresse
+				+ ", codePostal=" + this.codePostal + ", ville=" + this.ville + ", role=" + this.role + ", idParcelle="
+				+ this.idParcelle + "]";
+	}
+
+	public String getMdpConfirm() {
+		return this.mdpConfirm;
+	}
+
+	public void setMdpConfirm(String mdpConfirm) {
+		this.mdpConfirm = mdpConfirm;
 	}
 
 }

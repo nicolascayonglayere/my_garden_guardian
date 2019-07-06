@@ -30,17 +30,21 @@ public class Adhesion implements Serializable {
 	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.REFRESH })
 	@JoinColumn(name = "id_parcelle")
 	private Parcelle parcelle;
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
+	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.REFRESH })
 	@JoinColumn(name = "id_utilisateur")
 	private Utilisateur utilisateur;
+	@Column(name = "archive")
+	private boolean archive;
+	@Column(name = "date_annulation")
+	private Date dateAnnulation;
 
 	public Adhesion() {
 	}
 
-	public Adhesion(Date dateAdhesion, Parcelle parcelle, Utilisateur utilisateur) {
+	public Adhesion(Date dateAdhesion, boolean archive, Date dateAnnulation) {
 		this.dateAdhesion = dateAdhesion;
-		this.parcelle = parcelle;
-		this.utilisateur = utilisateur;
+		this.archive = archive;
+		this.dateAnnulation = dateAnnulation;
 	}
 
 	public Integer getIdAdhesion() {
@@ -75,10 +79,27 @@ public class Adhesion implements Serializable {
 		this.utilisateur = utilisateur;
 	}
 
+	public boolean isArchive() {
+		return this.archive;
+	}
+
+	public void setArchive(boolean archive) {
+		this.archive = archive;
+	}
+
+	public Date getDateAnnulation() {
+		return this.dateAnnulation;
+	}
+
+	public void setDateAnnulation(Date dateAnnulation) {
+		this.dateAnnulation = dateAnnulation;
+	}
+
 	@Override
 	public String toString() {
 		return "Adhesion [idAdhesion=" + this.idAdhesion + ", dateAdhesion=" + this.dateAdhesion + ", parcelle="
-				+ this.parcelle + ", utilisateur=" + this.utilisateur + "]";
+				+ this.parcelle + ", utilisateur=" + this.utilisateur + ", archive=" + this.archive
+				+ ", dateAnnulation=" + this.dateAnnulation + "]";
 	}
 
 }
