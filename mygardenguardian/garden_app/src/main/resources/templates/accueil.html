@@ -1,0 +1,106 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+	<head>
+		<div th:replace="includes/_head::head"/>
+		<title>Accueil</title>
+	</head>
+	
+	<body>
+		<div class="container">
+			<div th:each="role : ${#authentication.getPrincipal().getAuthorities()}">
+				<div th:if="${#strings.toString(role) == 'ROLE_Administrateur'}">
+					<div th:replace="includes/_navbar::navigation"></div>
+				</div>		
+				<div th:if="${#strings.toString(role) == 'ROLE_Jardinier'}">
+					<div th:replace="includes/_navbar::navigation_jardinier"></div>
+				</div>					
+			</div>
+
+			<div class="jumbotron jumbotron-fluid">
+				<div class="container text-center">
+					<h1 class="display-3" th:text="#{accueil.accueil}"></h1>
+				</div>
+			</div>		
+			<span th:text ="${#authentication.getPrincipal().getUsername()}"></span>
+			
+				<h2>weather forcast</h2>
+				<button id="btn">view</button>
+				<p id="test">change me</p>
+				<p id="place">place</p>
+				<p id="temp">temperature</p>
+				<p id="description">description</p>		
+				
+			<div class="weather-wrapper hide"> <img src="" class="weather-icon" alt="Weather Icon" />
+			<p><strong>Place</strong> <br />
+			<span class="weather-place"></span></p>
+			<p><strong>Temperature</strong> <br />
+			<span class="weather-temperature"></span> (<span class="weather-min-temperature"></span> - <span class="weather-max-temperature"></span>)</p>
+			<p><strong>Description</strong> <br />
+			<span class="weather-description capitalize"></span></p>
+			<p><strong>Humidity</strong> <br />
+			<span class="weather-humidity"></span></p>
+			<p><strong>Wind speed</strong> <br />
+			<span class="weather-wind-speed"></span></p>
+			<p><strong>Sunrise</strong> <br />
+			<span class="weather-sunrise"></span></p>
+			<p><strong>Sunset</strong> <br />
+			<span class="weather-sunset"></span></p>
+			</div>					
+			
+			<div th:replace="includes/_footer::footer"></div>
+		</div>
+	</body>
+	
+	<script type="text/javascript">
+	var getWeather = function(data) {
+	    $.getJSON('http://api.openweathermap.org/data/2.5/weather', {
+	        lat: data.lat,
+	        lon: data.lon,
+	        appid: "25c1111fa9080c7670002626f2a5aa63" // change this
+	    }, showWeather, 'jsonp');
+	};
+
+	var showWeather = function(data) {
+	    $("#test").text("I AM CHANGED. THANKS!")
+	    $("#temp").text(data.main.temp)
+	    $("#description").text(data.weather[0].description)
+	    $("#place").text(data.name)
+	};
+
+	$(document).ready(function() {
+	    $("#btn").click(function() {
+	        $.getJSON('http://ip-api.com/json', getWeather, 'jsonp')
+	    })
+	})
+	
+	$(function() {
+  
+  $('.weather-temperature').openWeather({
+  city: 'Villeneuve sur lot, France', // city name, country / province/ state
+  lat: '44.4', // defines the latitude
+  lng: '0.7167', // defines the longitude
+  key: '25c1111fa9080c7670002626f2a5aa63',
+  units: "c", // defines the type of units (c or f).
+  lang: 'fr',
+  descriptionTarget: '.weather-description',
+  windSpeedTarget: '.weather-wind-speed',
+  minTemperatureTarget: '.weather-min-temperature',
+  maxTemperatureTarget: '.weather-max-temperature',
+  humidityTarget: '.weather-humidity',
+  sunriseTarget: '.weather-sunrise',
+  sunsetTarget: '.weather-sunset',
+  placeTarget: '.weather-place',
+  iconTarget: '.weather-icon',
+  customIcons: 'src/img/icons/weather/',
+  success: function() {
+
+    //show weather
+    $('.weather-wrapper').show();
+
+  },
+  error: function(message) {}
+  });
+
+});
+	</script>
+</html>

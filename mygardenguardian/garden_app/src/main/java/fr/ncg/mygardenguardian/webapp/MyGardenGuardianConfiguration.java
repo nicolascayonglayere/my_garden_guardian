@@ -28,12 +28,13 @@ public class MyGardenGuardianConfiguration extends WebSecurityConfigurerAdapter 
 
 		http.csrf().disable();
 		http.authorizeRequests().antMatchers("/login", "/home", "/about").permitAll();
+		http.authorizeRequests().antMatchers("/accueil").access("hasAnyRole('ROLE_Administrateur', 'ROLE_Jardinier')");
 		http.authorizeRequests().antMatchers("/admin/**").access("hasRole('ROLE_Administrateur')");
 
 		http.authorizeRequests().antMatchers("/user/**").access("hasRole('ROLE_Jardinier')");
 		http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
 
-		http.authorizeRequests().and().formLogin().loginPage("/login").defaultSuccessUrl("/admin/accueil")
+		http.authorizeRequests().and().formLogin().loginPage("/login").defaultSuccessUrl("/accueil")
 				.failureUrl("/login?error=true").usernameParameter("username").passwordParameter("password")
 				// Config for Logout Page
 				.and().logout().logoutUrl("/logout").logoutSuccessUrl("/login");

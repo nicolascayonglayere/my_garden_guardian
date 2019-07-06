@@ -1,4 +1,4 @@
-package fr.ncg.mygardenguardian.webapp.controller;
+package fr.ncg.mygardenguardian.webapp.controller.admin;
 
 import java.util.List;
 
