@@ -5,13 +5,26 @@ import javax.validation.ConstraintValidatorContext;
 import javax.validation.ConstraintViolation;
 
 import fr.ncg.mygardenguardian.webapp.formulaire.InscriptionFormulaire;
+import fr.ncg.mygardenguardian.webapp.formulaire.ModifMdpFormulaire;
 
 public class PasswordsEqualConstraintValidator implements ConstraintValidator<PasswordsEqualConstraint, Object> {
 
 	@Override
 	public boolean isValid(Object value, ConstraintValidatorContext context) {
-		InscriptionFormulaire user = (InscriptionFormulaire) value;
-		return user.getMdp().equals(user.getMdpConfirm());
+		// --TODO if else bloc avec instanceOf InscriptionFormulaire/ModifMdpFormulaire
+
+		if (value.getClass().isInstance(new InscriptionFormulaire())) {
+			InscriptionFormulaire user = (InscriptionFormulaire) value;
+			return user.getMdp().equals(user.getMdpConfirm());
+		} else if (value.getClass().isInstance(new ModifMdpFormulaire())) {
+			ModifMdpFormulaire user = (ModifMdpFormulaire) value;
+			System.out.println("CTRL PASS CONTRAINTE ---------- " + user.toString() + " - "
+					+ ((ModifMdpFormulaire) value).toString());
+			return user.getMdp().equals(user.getMdpConfirm());
+		} else {
+			return false;
+		}
+
 	}
 
 	public static <T> String getValidationMessage(ConstraintViolation<T> violation) {

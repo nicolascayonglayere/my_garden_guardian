@@ -12,6 +12,11 @@ public class ParcelleMapper {
 		}
 		parcelleDTO.setCode(p.getCode());
 		parcelleDTO.setSurface(p.getSurface());
+		if (p.getCalendrierCultural() != null) {
+			p.getCalendrierCultural().stream().forEach(pa -> {
+				parcelleDTO.addCultureDto(CultureMapper.fromCultureToCultureDto(pa));
+			});
+		}
 		// parcelleDTO.setOccupation(p.isOccupation());
 		return parcelleDTO;
 	}
@@ -23,6 +28,11 @@ public class ParcelleMapper {
 		}
 		maParcelle.setCode(p.getCode());
 		maParcelle.setSurface(p.getSurface());
+		if (p.getCalendrierCultural() != null) {
+			p.getCalendrierCultural().stream().forEach(pa -> {
+				maParcelle.addCulture(CultureMapper.fromCultureDtoToCulture(pa));
+			});
+		}
 		// maParcelle.setOccupation(p.isOccupation());
 		return maParcelle;
 	}

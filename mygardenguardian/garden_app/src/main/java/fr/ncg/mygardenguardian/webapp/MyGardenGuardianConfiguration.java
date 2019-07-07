@@ -6,13 +6,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import fr.ncg.mygardenguardian.business.impl.UtilisateurLoginManager;
+import fr.ncg.mygardenguardian.business.impl.security.UtilisateurLoginManager;
 
 @Configuration
 public class MyGardenGuardianConfiguration extends WebSecurityConfigurerAdapter {
 
 	private UtilisateurLoginManager user;
+
+	private AuthenticationSuccessHandler authenticationSuccessHandler;
 
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
@@ -29,17 +32,38 @@ public class MyGardenGuardianConfiguration extends WebSecurityConfigurerAdapter 
 		http.csrf().disable();
 		http.authorizeRequests().antMatchers("/login", "/home", "/about").permitAll();
 		http.authorizeRequests().antMatchers("/accueil").access("hasAnyRole('ROLE_Administrateur', 'ROLE_Jardinier')");
+		http.authorizeRequests().antMatchers("/modif_mdp")
+				.access("hasAnyRole('ROLE_Administrateur', 'ROLE_Jardinier')");
+		http.authorizeRequests().antMatchers("/static/**")
+				.access("hasAnyRole('ROLE_Administrateur', 'ROLE_Jardinier')");
+		http.authorizeRequests().antMatchers("/culture/**")
+				.access("hasAnyRole('ROLE_Administrateur', 'ROLE_Jardinier')");
 		http.authorizeRequests().antMatchers("/admin/**").access("hasRole('ROLE_Administrateur')");
 
 		http.authorizeRequests().antMatchers("/user/**").access("hasRole('ROLE_Jardinier')");
 		http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
 
-		http.authorizeRequests().and().formLogin().loginPage("/login").defaultSuccessUrl("/accueil")
+		http.authorizeRequests().and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/accueil")
+				// .successHandler(this.authenticationSuccessHandler)//
 				.failureUrl("/login?error=true").usernameParameter("username").passwordParameter("password")
 				// Config for Logout Page
-				.and().logout().logoutUrl("/logout").logoutSuccessUrl("/login");
+				.and().logout().logoutUrl("/logout").invalidateHttpSession(true).logoutSuccessUrl("/login");
 		// .permitAll().and().logout().permitAll().and().exceptionHandling().accessDeniedHandler(this.accessDeniedHandler);
 	}
+
+//	@Bean
+//	public FormattingConversionService conversionService() {
+//		DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService(false);
+//
+//		DateTimeFormatterRegistrar registrar = new DateTimeFormatterRegistrar();
+//		registrar.setDateFormatter(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+//		registrar.setDateTimeFormatter(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+//		registrar.registerFormatters(conversionService);
+//
+//		// other desired formatters
+//
+//		return conversionService;
+//	}
 
 	// create two users, admin and user
 	// @Autowired
@@ -67,5 +91,14 @@ public class MyGardenGuardianConfiguration extends WebSecurityConfigurerAdapter 
 	@Autowired
 	public void setUser(UtilisateurLoginManager user) {
 		this.user = user;
+	}
+
+	public AuthenticationSuccessHandler getAuthenticationSuccessHandler() {
+		return this.authenticationSuccessHandler;
+	}
+
+	@Autowired
+	public void setAuthenticationSuccessHandler(AuthenticationSuccessHandler authenticationSuccessHandler) {
+		this.authenticationSuccessHandler = authenticationSuccessHandler;
 	}
 }

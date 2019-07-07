@@ -1,4 +1,4 @@
-package fr.ncg.mygardenguardian.business.impl;
+package fr.ncg.mygardenguardian.business.impl.security;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,7 +21,9 @@ public class UtilisateurLoginManager implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Utilisateur appUser = this.daoFacto.getUtilisateurDao().findByNom(username);
+		System.out.println("CTRL loadUser security -------------- "
+				+ this.daoFacto.getUtilisateurDao().findByEmail(username).get().getIdUtilisateur() + " - " + username);
+		Utilisateur appUser = this.daoFacto.getUtilisateurDao().findByEmail(username).get();
 
 		if (appUser == null) {
 			System.out.println("User not found! " + username);
@@ -31,23 +32,14 @@ public class UtilisateurLoginManager implements UserDetailsService {
 
 		System.out.println("Found User: " + appUser);
 
-		// [ROLE_USER, ROLE_ADMIN,..]
-		// List<String> roleNames = appUser.getRole();
-
 		List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
-		// if (roleNames != null) {
-		// for (String role : roleNames) {
-		// ROLE_USER, ROLE_ADMIN,..
+
 		GrantedAuthority authority = new SimpleGrantedAuthority(appUser.getRole());
 		grantList.add(authority);
-		// }
-		// }
-		// User.UserBuilder = User.withDefaultPasswordEncoder();
-		// PasswordEncoder encoder =
-		// PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
-		UserDetails userDetails = new User(appUser.getNom(), (appUser.getMdp()), grantList);
-		System.out.println(("CTRL userDetails " + userDetails.toString()));
+		UserDetails userDetails = new GardenGuardianAppUser(appUser.getCoordonneeUtilisateur().getEmail(),
+				appUser.getMdp(), appUser.getIdUtilisateur(), true, true, true, true, grantList);
+
 		return userDetails;
 	}
 

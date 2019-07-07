@@ -51,6 +51,7 @@ public class Inscription {
 			BindingResult errors, Model model, RedirectAttributes monInscrit) {
 		Set<ConstraintViolation<@Valid InscriptionFormulaire>> failures = this.validator
 				.validate(inscriptionFormulaire);
+
 		if (errors.hasErrors() || !failures.isEmpty()) {
 			System.out.println(errors.toString());
 			model.addAttribute("errors", errors.getAllErrors());
@@ -60,7 +61,7 @@ public class Inscription {
 			return ("admin/inscription_jardinier");
 		}
 
-		System.out.println("CTRL controller --------- " + inscriptionFormulaire.toString());
+//		System.out.println("CTRL controller --------- " + inscriptionFormulaire.toString());
 
 		CoordonneesUtilisateurDTO cuDto = new CoordonneesUtilisateurDTO();
 		cuDto.setAdresse(inscriptionFormulaire.getAdresse());

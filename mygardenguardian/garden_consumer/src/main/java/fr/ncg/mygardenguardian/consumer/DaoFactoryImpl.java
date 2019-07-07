@@ -5,7 +5,12 @@ import org.springframework.stereotype.Component;
 
 import fr.ncg.mygardenguardian.consumer.contract.AdhesionDao;
 import fr.ncg.mygardenguardian.consumer.contract.CoordonneesUtilisateurDao;
+import fr.ncg.mygardenguardian.consumer.contract.CultureDao;
+import fr.ncg.mygardenguardian.consumer.contract.IntrantDao;
+import fr.ncg.mygardenguardian.consumer.contract.MaterielDao;
+import fr.ncg.mygardenguardian.consumer.contract.OperationCulturaleDao;
 import fr.ncg.mygardenguardian.consumer.contract.ParcelleDao;
+import fr.ncg.mygardenguardian.consumer.contract.PlanteDao;
 import fr.ncg.mygardenguardian.consumer.contract.UtilisateurDao;
 
 @Component
@@ -14,8 +19,12 @@ public class DaoFactoryImpl implements IDaoFactory {
 	private AdhesionDao adhesionDao;
 	private UtilisateurDao utilisateurDao;
 	private CoordonneesUtilisateurDao coordonneesUtilisateurDao;
-	// private RoleDao roleDao;
 	private ParcelleDao parcelleDao;
+	private CultureDao cultureDao;
+	private IntrantDao intrantDao;
+	private MaterielDao materielDao;
+	private OperationCulturaleDao operationCulturaleDao;
+	private PlanteDao planteDao;
 
 	@Override
 	public AdhesionDao getAdhesionDao() {
@@ -50,17 +59,6 @@ public class DaoFactoryImpl implements IDaoFactory {
 		this.coordonneesUtilisateurDao = coordonneesUtilisateurDao;
 	}
 
-	// @Override
-	// public RoleDao getRoleDao() {
-	// return this.roleDao;
-	// }
-	//
-	// @Autowired
-	// @Override
-	// public void setRoleDao(RoleDao roleDao) {
-	// this.roleDao = roleDao;
-	// }
-	//
 	@Override
 	public ParcelleDao getParcelleDao() {
 		return this.parcelleDao;
@@ -70,6 +68,61 @@ public class DaoFactoryImpl implements IDaoFactory {
 	@Override
 	public void setParcelleDao(ParcelleDao parcelleDao) {
 		this.parcelleDao = parcelleDao;
+	}
+
+	@Override
+	public CultureDao getCultureDao() {
+		return this.cultureDao;
+	}
+
+	@Autowired
+	@Override
+	public void setCultureDao(CultureDao cultureDao) {
+		this.cultureDao = cultureDao;
+	}
+
+	@Override
+	public IntrantDao getIntrantDao() {
+		return this.intrantDao;
+	}
+
+	@Autowired
+	@Override
+	public void setIntrantDao(IntrantDao intrantDao) {
+		this.intrantDao = intrantDao;
+	}
+
+	@Override
+	public MaterielDao getMaterielDao() {
+		return this.materielDao;
+	}
+
+	@Autowired
+	@Override
+	public void setMaterielDao(MaterielDao materielDao) {
+		this.materielDao = materielDao;
+	}
+
+	@Override
+	public OperationCulturaleDao getOperationCulturaleDao() {
+		return this.operationCulturaleDao;
+	}
+
+	@Autowired
+	@Override
+	public void setOperationCulturaleDao(OperationCulturaleDao operationCulturaleDao) {
+		this.operationCulturaleDao = operationCulturaleDao;
+	}
+
+	@Override
+	public PlanteDao getPlanteDao() {
+		return this.planteDao;
+	}
+
+	@Autowired
+	@Override
+	public void setPlanteDao(PlanteDao planteDao) {
+		this.planteDao = planteDao;
 	}
 
 }

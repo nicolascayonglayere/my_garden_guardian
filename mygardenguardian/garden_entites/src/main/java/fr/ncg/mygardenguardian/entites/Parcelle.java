@@ -1,12 +1,18 @@
 package fr.ncg.mygardenguardian.entites;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -27,6 +33,10 @@ public class Parcelle implements Serializable {
 	private String code;
 	// @Column(name = "occupation")
 	// private boolean occupation;
+	// @OneToMany(mappedBy = "parcelle")
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "calendrier_cultural", joinColumns = @JoinColumn(name = "id_parcelle"), inverseJoinColumns = @JoinColumn(name = "id_culture"), schema = "garden_guardian")
+	private List<Culture> calendrierCultural;
 
 	public Parcelle() {
 	}
@@ -61,18 +71,25 @@ public class Parcelle implements Serializable {
 		this.code = code;
 	}
 
-	// public boolean isOccupation() {
-	// return this.occupation;
-	// }
-	//
-	// public void setOccupation(boolean occupation) {
-	// this.occupation = occupation;
-	// }
+	public List<Culture> getCalendrierCultural() {
+		return this.calendrierCultural;
+	}
+
+	public void setCalendrierCultural(List<Culture> calendrierCultural) {
+		this.calendrierCultural = calendrierCultural;
+	}
+
+	public void addCulture(Culture culture) {
+		if (this.calendrierCultural == null) {
+			this.calendrierCultural = new ArrayList<Culture>();
+		}
+		this.calendrierCultural.add(culture);
+	}
 
 	@Override
 	public String toString() {
 		return "Parcelle [idParcelle=" + this.idParcelle + ", surface=" + this.surface + ", code=" + this.code
-				+ ", occupation=" + 00 + "]";
+				+ ", calendrierCultural=" + this.calendrierCultural + "]";
 	}
 
 }

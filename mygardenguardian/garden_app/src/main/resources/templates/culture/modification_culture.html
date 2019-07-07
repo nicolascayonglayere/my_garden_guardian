@@ -1,0 +1,136 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+	<head>
+		<div th:replace="includes/_head::head"/>
+		<title>Accueil</title>
+	</head>
+	
+	<body>
+		<div class="container">
+			<div th:each="role : ${#authentication.getPrincipal().getAuthorities()}">
+				<div th:if="${#strings.toString(role) == 'ROLE_Administrateur'}">
+					<div th:replace="includes/_navbar::navigation"></div>
+				</div>		
+				<div th:if="${#strings.toString(role) == 'ROLE_Jardinier'}">
+					<div th:replace="includes/_navbar::navigation_jardinier"></div>
+				</div>					
+			</div>
+
+			<div class="jumbotron jumbotron-fluid">
+				<div class="container text-center">
+					<h1 class="display-3" th:text="#{menu.modifCulture}"></h1>
+				</div>
+			</div>
+			
+				<h2><span th:text="#{message.modifCulture}"></span></h2>
+				<div th:with="idCulture=${cultureModif.idCulture}">
+				
+				
+					<table id="table_plante" class="display">
+					    <thead>
+					        <tr>
+					            <th><span th:text="#{inscription.nom}"></span></th>
+					            <th><span th:text="#{ajoutCulture.variete}"></span></th>
+					            <th><span th:text="#{ajoutCulture.nomLatin}"></span></th>
+					            <th><span th:text="#{ajoutCulture.duree}"></span></th>
+					            <th><span th:text="#{ajoutCulture.produit}"></span></th>
+					            <th><span th:text="#{ajoutCulture.enConstr}"></span></th>
+					            <th><span th:text="#{ajoutCulture.nomIntrant}"></span></th>
+					            <th><span th:text="#{ajout.reference}"></span></th>
+					            <th><span th:text="#{ajoutCulture.nomOpCult}"></span></th>
+					            <th><span th:text="#{ajout.date}"></span></th>
+					            <th><span th:text="#{ajout.description}"></span></th>
+					            
+	<!-- 				            <th><span th:text="#{ajoutCulture.nomMat}"></span></th> -->
+					        </tr>
+					    </thead>
+					    <tbody>	
+					    	<tr>	
+					    		
+								<input id="idCulture" name="idCulture" th:value="@{${idCulture}}" type="hidden" />
+								<input id="idPlante" th:field="${cultureModif.plante.idPlante}" type="hidden" />
+					    		<td><input id="nomPlante" class="form-control" type="text" th:field="${cultureModif.plante.nom}"/></td>
+					    		<td><input id="variete" class="form-control" type="text" th:field="${cultureModif.plante.variete}"/></td>
+					    		<td><input id="nomLatin" class="form-control" type="text" th:field="${cultureModif.plante.nomLatin}" /></td>
+					    		<td><input id="dureeDeCycle" class="form-control" type="number" th:field="${cultureModif.plante.dureeCycle}"></td>
+					    		<td><input id="produit" class="form-control" type="text" th:field="${cultureModif.plante.produit}" /></td>
+					    		<td><input id="enConstr" class="form-control" type="boolean" th:field="${cultureModif.enConstruction}" /></td>
+<!-- 					    			<th:block th:each="intrantDTO, itemStat : ${cultureModif.intrants}"> -->
+					    			<td>
+					    				
+					    				<ul th:each="intrantDTO, itemStat : ${cultureModif.intrants}">
+					    					<input id="idIntrant" th:field="${cultureModif.intrants[__${itemStat.index}__].idIntrant}" type="hidden" />
+					    					<input id="nom" class="form-control" type="text" th:field="${cultureModif.intrants[__${itemStat.index}__].nom}"/><br/>
+					    				</ul>		
+			    					</td>	
+					    			<td>
+					    				<ul th:each="intrantDTO, itemStat : ${cultureModif.intrants}">
+					    					<input id="reference" class="form-control" type="text" th:field="${cultureModif.intrants[__${itemStat.index}__].reference}"/><br/>
+				    					</ul>
+			    					</td>
+<!-- 				    			</th:block> -->
+<!-- 				    			<th:block th:each="operationCulturaleDTO, itemStat : ${cultureModif.operationsCulturales}"> -->
+						    		<td>
+						    			<ol th:each="operationCulturaleDTO, itemStat : ${cultureModif.operationsCulturales}">
+						    				<input id="idOperationCulturale" th:field="${cultureModif.operationsCulturales[__${itemStat.index}__].idOperationCulturale}" type="hidden" />
+						    				<input id="nom" class="form-control" type="text" th:field="${cultureModif.operationsCulturales[__${itemStat.index}__].nom}"/><br/>
+					    				</ol>
+					    			</td>
+					    			<td>	
+					    				<ol th:each="operationCulturaleDTO, itemStat : ${cultureModif.operationsCulturales}">
+						    				<input id="date" class="form-control" type="text" th:field="${cultureModif.operationsCulturales[__${itemStat.index}__].date}"/><br/>
+										</ol>
+									</td>
+									<td>
+										<ol th:each="operationCulturaleDTO, itemStat : ${cultureModif.operationsCulturales}">
+						    				<input id="descritpion" class="form-control" type="text" th:field="${cultureModif.operationsCulturales[__${itemStat.index}__].description}"/><br/>
+										</ol>
+					    			</td>
+<!-- 				    			</th:block>				    			 -->
+					    	</tr>				    	
+					    </tbody>
+					</table	>	
+
+					
+					<button id="btn_modif_culture" type="submit" class="btn btn-primary btn-lg" th:value="#{bouton.validation}"></button>		
+				</div>	
+				
+			<div th:replace="includes/_footer::footer"></div>
+		</div>
+	</body>
+	<script type="text/javascript">
+	$(document).ready(function() {
+	    var table = $('#table_plante').DataTable({
+	        //"processing": true,
+	        //"serverSide": true,	    	
+	        columnDefs: [{
+	            orderable: false,
+	            targets: [1,2,3]
+	        }]
+	    });
+	 
+	    $('#btn_modif_culture').click( function() {
+	        var data = table.$('input, select').serialize();
+			//console.log("AAAAAHHHH ---------- "+data1);
+			//var data = JSON.stringify(data1);
+			//var data = JSON.parse(dataInt)
+			console.log("AAAAAHHHH ---------- "+(data));
+	        $.ajax({
+	        	  type: "POST",
+	        	  contentType: "application/json",
+	        	  url: "/culture/modification_culture",
+	        	  data: (data),
+	        	  //success: success,
+	        	  dataType: "JSON"
+	        	});	        
+	        
+	        //--TODO requete AJAX vers le serveur pour MAJ de la culture
+// 	        alert(
+// 	            "The following data would have been submitted to the server: \n\n"+
+// 	            data.substr( 0, 120 )+'...'
+// 	        );
+	        return false;
+	    } );
+	} );	
+	</script>
+</html>

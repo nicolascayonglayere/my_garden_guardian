@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+	<head>
+		<div th:replace="includes/_head::head"></div>
+		<title>Calendrier prévisionnel</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/fr.js"></script>		
+<!-- 		<div th:replace="includes/_full_calendar::fullCalendar"></div> -->
+		<link href='https://fullcalendar.io/js/fullcalendar-3.4.0/fullcalendar.css' rel='stylesheet' />
+
+
+
+
+
+<!-- 		<link href='https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.2.0/main.min.css' rel='stylesheet' />  -->
+<!-- 		<link href='https://cdn.jsdelivr.net/npm/@fullcalendar/list@4.2.0/main.min.css' rel='stylesheet' /> -->
+<!-- 		<link href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.2.0/main.min.css" rel='stylesheet' /> -->
+<!-- 		<link href="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.2.0/main.min.css" rel='stylesheet' /> -->
+<!-- 		<link href='https://cdn.jsdelivr.net/npm/@fullcalendar/bootstrap@4.2.0/main.min.css' rel='stylesheet' />     -->
+    	
+    	
+    	<script src="https://fullcalendar.io/js/fullcalendar-3.4.0/fullcalendar.js"></script>
+
+
+
+
+
+
+<!--     	<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.2.0/main.min.js"></script> -->
+<!-- 		<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/list@4.2.0/main.min.js"></script> -->
+<!-- 		<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.2.0/main.min.js"></script> -->
+<!-- 		<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.2.0/main.min.js"></script> -->
+<!-- 		<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@4.2.0/main.min.js"></script> -->
+<!-- 		<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/moment@4.2.0/main.min.js"></script> -->
+<!-- 		<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/rrule@4.2.0/main.min.js"></script> -->
+<!-- 		<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.2.0/locales/fr.js"></script> -->
+<!-- 		<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/bootstrap@4.2.0/main.min.js"></script> -->
+		
+	    <script type="text/javascript">
+	
+	      document.addEventListener('DOMContentLoaded', function() {
+		       var calendarEl = $("#calendar");
+	
+		       //var calendar = new FullCalendar.Calendar(calendarEl, {
+	       	  calendarEl.fullCalendar({ 	
+
+	          plugins: ['dayGrid', 'timeGrid'],//, 'list' ], //'dayGrid', 'timeGrid',
+	          //defaultView:'dayGridMonth',
+			  locale:'fr',	
+	          //header: {
+ 		      //     left: 'prev,next today',
+ 		      //     center: 'Calendrier Previsionnel',
+ 		      //     right: 'listDay,listWeek,dayGridMonth'//'dayGridMonth,timeGridWeek,timeGridDay'
+ 		      //   },
+        	  schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
+        	  //defaultDate: $('#calendar').fullCalendar('today'),
+	          editable: true,
+	          eventSources:[
+      		    {
+    		    	url:'/user/eventsCalendar',//'th:href="@{/user/eventsCalendar}"'
+    		    	//method:'GET',
+    		    	//dataType: 'json',
+    		        error: function() {
+    		            console.log('there was an error while fetching events!');
+    		          },
+                    success: function()
+                      {
+                          console.log("successfully loaded");
+                      },     		          
+    		        color: 'darkGreen',   // a non-ajax option
+    		        textColor: 'springGreen'
+    		    },
+    		    {
+    		    	url:'/user/semisCalendar',
+    		        error: function() {
+    		            console.log('there was an error while fetching events!');
+    		          },
+                    success: function()
+                      {
+                          console.log("successfully loaded");
+                      },
+                      color:'yellow',
+                      textColor:'black'
+    		    }
+	          ],
+//         	  events: {
+//                   url: 'user/eventsCalendar',
+//                   error: function() 
+//                   {
+//                       alert("error");
+//                   },
+//                   success: function()
+//                   {
+//                       console.log("successfully loaded");
+//                   },  
+// 	   		      color: 'darkGreen',   // a non-ajax option
+// 	   		      textColor: 'springGreen'                  
+//         	  },
+              eventRender: function(event, element) {
+                    element.find('.fc-title').html(event.name);
+              },
+        	  //events: events,// [
+//         		    {
+//         		      title: 'Laitue romaine', //--
+//         		      start: '2019-07-10',
+//         		      url: 'http://google.com/'//--TODO lien vers la page culture
+//         		    }       		    
+//         		  ],
+        		  
+	   		  eventClick: function(info) {
+	   		    info.jsEvent.preventDefault(); // don't let the browser navigate
+	
+	   		    if (info.event.url) {
+	   		      window.open(info.event.url);
+	   		    }
+	   		  }        	  
+        	
+	        });
+	       //calendarEl.refetchEvents();
+	       //calendar.render();
+	       //var vw = calendar.view;
+	      });
+
+// document.addEventListener('DOMContentLoaded', function() {
+//   var Calendar = FullCalendar.Calendar;
+//   var Draggable = FullCalendarInteraction.Draggable;
+
+//   var containerEl = document.getElementById('external-events');
+//   var calendarEl =  $("#calendar");//document.getElementById('calendar');
+//   var checkbox = document.getElementById('drop-remove');
+
+//   // initialize the external events
+//   // -----------------------------------------------------------------
+
+//   new Draggable(containerEl, {
+//     itemSelector: '.fc-event',
+//     eventData: function(eventEl) {
+//       return {
+//         title: eventEl.innerText
+//       };
+//     }
+//   });
+
+//   // initialize the calendar
+//   // -----------------------------------------------------------------
+
+//   var calendar = new Calendar(calendarEl, {
+//     plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
+//     header: {
+//       left: 'prev,next today',
+//       center: 'title',
+//       right: 'dayGridMonth,timeGridWeek,timeGridDay'
+//     },
+//     editable: true,
+//     droppable: true, // this allows things to be dropped onto the calendar
+//     drop: function(info) {
+//       // is the "remove after drop" checkbox checked?
+//       if (checkbox.checked) {
+//         // if so, remove the element from the "Draggable Events" list
+//         info.draggedEl.parentNode.removeChild(info.draggedEl);
+//       }
+//     }
+//   });
+
+//   calendar.render();
+// });
+	
+	    </script>		
+	</head>
+
+	<body>
+		<div class="container">
+			<div th:replace="includes/_navbar::navigation_jardinier"></div>
+			
+			<div class="jumbotron jumbotron-fluid">
+				<div class="container text-center">
+					<h1 class="display-3" th:text="#{calendrier.previsionnel}" ></h1>
+				</div>
+			</div>
+
+			
+
+			<div id='calendar'></div>
+			
+			
+			
+			<div th:replace="includes/_footer::footer"></div>		
+		</div>			
+	</body>
+</html>

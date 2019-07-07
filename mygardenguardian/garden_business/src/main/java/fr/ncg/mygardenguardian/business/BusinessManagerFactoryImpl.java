@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import fr.ncg.mygardenguardian.business.contract.IAdhesionManager;
+import fr.ncg.mygardenguardian.business.contract.ICultureManager;
+import fr.ncg.mygardenguardian.business.contract.IIntrantManager;
+import fr.ncg.mygardenguardian.business.contract.IOperationCulturaleManager;
 import fr.ncg.mygardenguardian.business.contract.IParcelleManager;
 import fr.ncg.mygardenguardian.business.contract.IRoleManager;
 import fr.ncg.mygardenguardian.business.contract.IUtilisateurManager;
@@ -15,6 +18,9 @@ public class BusinessManagerFactoryImpl implements IBusinessManagerFactory {
 	private IUtilisateurManager utilisateurManager;
 	private IRoleManager roleManager;
 	private IParcelleManager parcelleManager;
+	private ICultureManager cultureManager;
+	private IIntrantManager intrantManager;
+	private IOperationCulturaleManager opeCultManager;
 
 	@Override
 	public IAdhesionManager getAdhesionManager() {
@@ -58,6 +64,39 @@ public class BusinessManagerFactoryImpl implements IBusinessManagerFactory {
 	@Override
 	public void setParcelleManager(IParcelleManager parcelleManager) {
 		this.parcelleManager = parcelleManager;
+	}
+
+	@Override
+	public ICultureManager getCultureManager() {
+		return this.cultureManager;
+	}
+
+	@Autowired
+	@Override
+	public void setCultureManager(ICultureManager cultureManager) {
+		this.cultureManager = cultureManager;
+	}
+
+	@Override
+	public IIntrantManager getIntrantManager() {
+		return this.intrantManager;
+	}
+
+	@Autowired
+	@Override
+	public void setIntrantManager(IIntrantManager intrantManager) {
+		this.intrantManager = intrantManager;
+	}
+
+	@Override
+	public IOperationCulturaleManager getOperationCulturaleManager() {
+		return this.opeCultManager;
+	}
+
+	@Autowired
+	@Override
+	public void setOperationCulturaleManager(IOperationCulturaleManager opeCultManager) {
+		this.opeCultManager = opeCultManager;
 	}
 
 }

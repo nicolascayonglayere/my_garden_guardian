@@ -16,4 +16,8 @@ public interface IUtilisateurManager {
 
 	public boolean verifExistenceUtilisateur(UtilisateurDTO utilisateur);
 
+	public UtilisateurDTO trouverUtilisateurParNom(String nom);
+
+	public UtilisateurDTO modifierProfil(UtilisateurDTO utilisateur);
+
 }

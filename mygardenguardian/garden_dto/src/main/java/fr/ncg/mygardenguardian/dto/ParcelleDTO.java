@@ -1,11 +1,15 @@
 package fr.ncg.mygardenguardian.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ParcelleDTO {
 
 	private Integer idParcelle;
 	private double surface;
 	private String code;
 	// private boolean occupation;
+	private List<CultureDTO> calendrierCultural;
 
 	public ParcelleDTO() {
 	}
@@ -40,6 +44,20 @@ public class ParcelleDTO {
 		this.code = code;
 	}
 
+	public List<CultureDTO> getCalendrierCultural() {
+		return this.calendrierCultural;
+	}
+
+	public void setCalendrierCultural(List<CultureDTO> calendrierCultural) {
+		this.calendrierCultural = calendrierCultural;
+	}
+
+	public void addCultureDto(CultureDTO culture) {
+		if (this.calendrierCultural == null) {
+			this.calendrierCultural = new ArrayList<CultureDTO>();
+		}
+		this.calendrierCultural.add(culture);
+	}
 	// public boolean isOccupation() {
 	// return this.occupation;
 	// }

@@ -1,0 +1,79 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+	<head>
+		<div th:replace="includes/_head::head"/>
+		<title>Enregistrer une culture en BDD</title>
+	</head>
+	
+	<body>
+		<div class="container">
+			<div th:each="role : ${#authentication.getPrincipal().getAuthorities()}">
+				<div th:if="${#strings.toString(role) == 'ROLE_Administrateur'}">
+					<div th:replace="includes/_navbar::navigation"></div>
+				</div>		
+				<div th:if="${#strings.toString(role) == 'ROLE_Jardinier'}">
+					<div th:replace="includes/_navbar::navigation_jardinier"></div>
+				</div>					
+			</div>
+
+			<div class="jumbotron jumbotron-fluid">
+				<div class="container text-center">
+					<h1 class="display-3" th:text="#{menu.enregCulture}"></h1>
+				</div>
+			</div>
+			
+				<form class="form-horizontal was-validated" th:action="@{/culture/enregistrement_culture}" th:object="${planteFormulaire}" method="POST">
+					<div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+					    <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>    
+					</div>				
+				
+			        <div class="form-group row">
+			        	<label for="nomPlante" class="col-2 col-form-label"  th:text="#{ajoutCulture.nomPlante}"></label>
+			        	<div class="col-10">
+			        		<input id="nomPlante" class="form-control" type="text" placeholder="Nom" th:field="*{nomPlante}" th:classappend="${#fields.errors('nomPlante')} ? is-invalid" required/>
+							<div class="invalid-feedback" th:errors="*{nomPlante}"></div>
+			        	</div>
+			        </div>
+			        
+			        <div class="form-group row">
+			        	<label for="variete" class="col-2 col-form-label"  th:text="#{ajoutCulture.variete}"></label>
+			        	<div class="col-10">
+			        		<input id="variete" class="form-control" type="text" placeholder="Variete" th:field="*{variete}" th:classappend="${#fields.errors('variete')} ? is-invalid" required/>
+							<div class="invalid-feedback" th:errors="*{variete}"></div>
+			        	</div>
+			        </div>				        
+
+			        <div class="form-group row">
+			        	<label for="nomLatin" class="col-2 col-form-label"  th:text="#{ajoutCulture.nomLatin}"></label>
+			        	<div class="col-10">
+			        		<input id="nomLatin" class="form-control" type="text" placeholder="Nom latin" th:field="*{nomLatin}" th:classappend="${#fields.errors('nomLatin')} ? is-invalid" required/>
+							<div class="invalid-feedback" th:errors="*{nomLatin}"></div>
+			        	</div>
+			        </div>			        
+			        
+			        <div class="form-group row">
+			        	<label for="dureeDeCycle" class="col-2 col-form-label"  th:text="#{ajoutCulture.duree}"></label>
+			        	<div class="col-10">
+			        		<input id="dureeDeCycle" class="form-control" type="number" placeholder="Duree du cycle" th:field="*{dureeCycle}" th:classappend="${#fields.errors('dureeCycle')} ? is-invalid" required/>
+							<div class="invalid-feedback" th:errors="*{dureeCycle}"></div>
+			        	</div>
+			        </div>	
+			        
+			        <div class="form-group row">
+			        	<label for="produit" class="col-2 col-form-label"  th:text="#{ajoutCulture.produit}"></label>
+			        	<div class="col-10">
+			        		<input id="produit" class="form-control" type="text" placeholder="Produit" th:field="*{produit}" th:classappend="${#fields.errors('produit')} ? is-invalid" required/>
+							<div class="invalid-feedback" th:errors="*{produit}"></div>
+			        	</div>
+			        </div>	
+
+			        <div class="form-group row">		        
+						<input type="submit" class="btn btn-primary btn-lg" th:value="#{bouton.validation}"/>
+					</div>
+				</form>			        			
+			
+			
+			<div th:replace="includes/_footer::footer"></div>
+		</div>
+	</body>
+</html>

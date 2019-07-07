@@ -1,4 +1,4 @@
-package fr.ncg.mygardenguardian.webapp.errors;
+package fr.ncg.mygardenguardian.webapp.utils;
 
 import java.io.IOException;
 

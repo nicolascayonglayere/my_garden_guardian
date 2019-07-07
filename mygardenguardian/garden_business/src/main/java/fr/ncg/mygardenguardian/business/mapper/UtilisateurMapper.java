@@ -16,6 +16,10 @@ public class UtilisateurMapper {
 		userDto.setRole(utilisateur.getRole());
 		userDto.setCoordonneeUtilisateurDTO(
 				CoordonneesUtilisateurMapper.fromCoordonneeToCoordonneeDTO(utilisateur.getCoordonneeUtilisateur()));
+		if (utilisateur.getCulturesAjoutees() != null) {
+			utilisateur.getCulturesAjoutees().stream().map(c -> CultureMapper.fromCultureToCultureDto(c))
+					.forEach(c -> userDto.addCulture(c));
+		}
 		return userDto;
 	}
 
@@ -30,6 +34,10 @@ public class UtilisateurMapper {
 		user.setRole(utilisateurDto.getRole());
 		user.setCoordonneeUtilisateur(CoordonneesUtilisateurMapper
 				.fromCoordonneeDTOToCoordonnee(utilisateurDto.getCoordonneeUtilisateurDTO()));
+		if (utilisateurDto.getCultureAjoutees() != null) {
+			utilisateurDto.getCultureAjoutees().stream().map(c -> CultureMapper.fromCultureDtoToCulture(c))
+					.forEach(c -> user.addCulture(c));
+		}
 		return user;
 	}
 }

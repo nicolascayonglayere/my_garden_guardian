@@ -1,6 +1,8 @@
 package fr.ncg.mygardenguardian.entites;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -35,6 +38,8 @@ public class Utilisateur implements Serializable {
 	private CoordonneesUtilisateur coordonneeUtilisateur;
 	@Column(name = "role", nullable = false)
 	private String role;
+	@OneToMany(mappedBy = "utilisateur")
+	private List<Culture> culturesAjoutees;
 
 	public Utilisateur() {
 	}
@@ -92,6 +97,21 @@ public class Utilisateur implements Serializable {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public List<Culture> getCulturesAjoutees() {
+		return this.culturesAjoutees;
+	}
+
+	public void setCulturesAjoutees(List<Culture> culturesAjoutees) {
+		this.culturesAjoutees = culturesAjoutees;
+	}
+
+	public void addCulture(Culture culture) {
+		if (this.culturesAjoutees == null) {
+			this.culturesAjoutees = new ArrayList<Culture>();
+		}
+		this.culturesAjoutees.add(culture);
 	}
 
 	@Override

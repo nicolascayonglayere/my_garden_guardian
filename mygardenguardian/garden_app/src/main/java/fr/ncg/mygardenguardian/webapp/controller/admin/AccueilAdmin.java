@@ -19,7 +19,8 @@ public class AccueilAdmin {
 
 	@GetMapping("/admin/accueil")
 	public String getAccueil(@ModelAttribute ParcelleDTO parcelleDTO, BindingResult errors, Model model) {
-		System.out.println("CTRL ACCUEIL ----------" + model.asMap().size() + " - " + model.toString());
+		// System.out.println("CTRL ACCUEIL ----------" + model.asMap().size() + " - " +
+		// model.toString());
 		if (model.containsAttribute("mesJardiniersSuppr")) {
 			model.addAttribute("mesJardiniersSuppr", model.asMap().get("mesJardiniersSuppr"));
 		} else if (model.containsAttribute("monInscription")) {

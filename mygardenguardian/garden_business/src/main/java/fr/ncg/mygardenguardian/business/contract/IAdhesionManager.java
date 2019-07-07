@@ -15,6 +15,10 @@ public interface IAdhesionManager {
 
 	public AdhesionDTO trouverAdhesionUtilisateur(UtilisateurDTO utilisateurDTO);
 
+	public AdhesionDTO trouverAdhesionNomUtilisateur(String nomUtilisateur);
+
+	public AdhesionDTO trouverAdhesionIdUtilisateur(Integer idUtilisateur);
+
 	public List<AdhesionDTO> trouverJardiniers();
 
 	public AdhesionDTO trouverParId(Integer idAdhesion);

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+	<head>
+		<div th:replace="includes/_head::head"></div>
+		<title>Modification profil</title>
+	</head>
+	
+	<body>
+		<div class="container ">
+			<div th:replace="includes/_navbar::navigation_jardinier"></div>
+			<div class="jumbotron jumbotron-fluid">
+				<div class="container text-center">
+					<h1 class="display-3" th:text="#{inscription.modifProfil} + ' ' + ${#authentication.getPrincipal().getUsername()} "></h1>
+				</div>
+			</div>
+
+	
+
+			<div class="container">
+				<form class="form-horizontal was-validated" th:action="@{/user/modifier_profil}" th:object="${modifUserFormulaire}" method="POST">
+					<div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+					    <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>    
+					</div>				
+				
+			        <div class="form-group row">
+			        	<label for="nom" class="col-2 col-form-label"  th:text="#{inscription.nom}"></label>
+			        	<div class="col-10">
+			        		<input id="nom" class="form-control" type="text" th:field="${modifUserFormulaire.nom} " required/>
+			        	</div>
+			        </div>
+			        
+			        <div class="form-group row">
+			        	<label for="prenom" class="col-2 col-form-label" th:text="#{inscription.prenom}"></label>
+			        	<div class="col-10">
+			        		<input id="prenom" class="form-control" type="text" th:field="${modifUserFormulaire.prenom}" required/>
+		        		</div>
+			        </div>			        
+			        
+			        <div class="form-group row">
+			        	<label for="portable" class="col-2 col-form-label" th:text="#{inscription.portable}"></label>
+			        	<div class="col-10">
+			        		<input class="form-control" type="tel" id="portable" th:field="${modifUserFormulaire.numPortable}" required/>
+		        		</div>
+			        </div>
+			        
+			        <div class="form-group row">
+			        	<label for="email" class="col-2 col-form-label" th:text="#{inscription.email}"></label>
+		        		<div class="col-10">
+			        		<input class="form-control" type="email" id="email" th:field="${modifUserFormulaire.email}" required/>
+		        		</div>
+			        </div>
+			        
+			        <div class="form-group row">
+			        	<label for="adresse" class="col-2 col-form-label" th:text="#{inscription.adresse}"></label>
+			        	<div class="col-10">
+			        		<input class="form-control" type="text" id="adresse" th:field="${modifUserFormulaire.adresse}" required/>
+		        		</div>
+			        </div>
+			        
+			        <div class="form-group row">
+			        	<label for="ville" class="col-2 col-form-label" th:text="#{inscription.ville}"></label>
+			        	<div class="col-10">
+			        		<input class="form-control" type="text" id="ville" th:field="${modifUserFormulaire.ville}" required/>
+		        		</div>
+			        </div>
+			        <div class="form-group row">
+			        	<label for="postal" class="col-2 col-form-label" th:text="#{inscription.postal}"></label>
+			        	<div class="col-10">
+			        		<input class="form-control" type="number" id="postal"  th:field="${modifUserFormulaire.codePostal}" required/>
+		        		</div>
+			        </div>
+
+			        <div class="form-group row">		        
+						<input type="submit" class="btn btn-primary btn-lg" th:value="#{bouton.validation}"/>
+					</div>
+				</form>
+			</div>
+			<div th:replace="includes/_footer::footer"></div>		
+		</div>
+	</body>
+</html>

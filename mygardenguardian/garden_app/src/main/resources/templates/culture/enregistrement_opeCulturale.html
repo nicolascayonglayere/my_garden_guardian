@@ -1,0 +1,116 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+	<head>
+		<div th:replace="includes/_head::head"/>
+		<title>Enregistrer une culture en BDD</title>
+	</head>
+	
+	<body>
+		<div class="container">
+			<div th:each="role : ${#authentication.getPrincipal().getAuthorities()}">
+				<div th:if="${#strings.toString(role) == 'ROLE_Administrateur'}">
+					<div th:replace="includes/_navbar::navigation"></div>
+				</div>		
+				<div th:if="${#strings.toString(role) == 'ROLE_Jardinier'}">
+					<div th:replace="includes/_navbar::navigation_jardinier"></div>
+				</div>					
+			</div>
+
+			<div class="jumbotron jumbotron-fluid">
+				<div class="container text-center">
+					<h1 class="display-3" th:text="#{menu.enregOpCult}"></h1>
+				</div>
+			</div>
+			
+			
+			
+			<div th:with="idCulture=${(cultureCreee.idCulture != null) ? (cultureCreee.idCulture) : (param.idCulture)}">
+				<div th:replace="includes/_navCultureCreation::navCultureCreation"></div>
+			 
+				<h2><span th:text="#{message.cultureConstr}"></span></h2>
+				<table id="table_culture" class="display">
+				    <thead>
+				        <tr>
+				        	<th><span th:text="#{ajoutCulture.id}"></span></th>
+				            <th><span th:text="#{inscription.nom}"></span></th>
+				            <th><span th:text="#{ajoutCulture.variete}"></span></th>
+				            <th><span th:text="#{ajoutCulture.produit}"></span></th>
+				            <th><span th:text="#{ajoutCulture.nomOpCult}"></span></th>
+				            <th><span th:text="#{ajoutCulture.nomIntrant}"></span></th>
+<!-- 				            <th><span th:text="#{ajoutCulture.nomMat}"></span></th> -->
+				        </tr>
+				    </thead>
+				    <tbody>	
+				    	<tr>	
+<!-- 				    	<tr th:each="cultureDTO : ${mesCulturesConstr}"> -->
+<!-- 				    		<td><input type="checkbox" name="cultureAdd" th:field=*{culturesAjoutees} th:value="${__${cultureDTO.idCulture}__}"></td> -->
+				    		<td><span th:utext="${cultureCreee.idCulture}" ></span></td>	
+				    		<td><span th:utext="${cultureCreee.plante.nom}"></span></td>
+				    		<td><span th:utext="${cultureCreee.plante.variete}"></span></td>
+				    		<td><span th:utext="${cultureCreee.plante.produit}"></span></td>
+				    		<td>
+				    			<ol>
+				    				<th:block th:each="operationCulturaleDTO : ${cultureCreee.operationsCulturales}">
+										<li th:utext="${operationCulturaleDTO.nom != null} ? ${operationCulturaleDTO.nom} : 'aucune valeur !' "></li>
+					    			</th:block>
+			    				</ol>
+			    			</td>
+				    		<td>
+				    			<ul>
+				    				<th:block th:each="intrantDTO : ${cultureCreee.intrants}">
+				    					<li th:utext="${intrantDTO.nom != null} ? ${intrantDTO.nom} : 'aucune valeur !'"></li>	
+				    				</th:block>
+				    			</ul> 
+			    			</td>
+				    	</tr>				    	
+				    </tbody>
+				</table>
+				<h2><span th:text="#{message.opeCult}"></span></h2>
+				<form class="form-horizontal was-validated" th:action="@{/culture/enregistrement_opeCulturale}" th:object="${operationCulturaleForm}" method="POST">
+					<div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+					    <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>    
+					</div>				
+				
+					<input id="planteId" name="planteId" th:value="@{${idCulture}}" type="hidden" />
+				
+			        <div class="form-group row">
+			        	<label for="nom" class="col-2 col-form-label"  th:text="#{inscription.nom}"></label>
+			        	<div class="col-10">
+			        		<input id="nom" class="form-control" type="text" placeholder="Nom" th:field="*{nom}" th:classappend="${#fields.errors('nom')} ? is-invalid" required/>
+							<div class="invalid-feedback" th:errors="*{nom}"></div>
+			        	</div>
+			        </div>
+
+			        <div class="form-group row">
+			        	<label for="date" class="col-2 col-form-label"  th:text="#{ajout.date}"></label>
+			        	<div class="col-10">
+			        		<input id="date" class="form-control" type="date" placeholder="date" th:field="*{date}" th:classappend="${#fields.errors('date')} ? is-invalid" required/>
+							<div class="invalid-feedback" th:errors="*{date}"></div>
+			        	</div>
+			        </div>
+			        
+			        <div class="form-group row">
+			        	<label for="description" class="col-2 col-form-label"  th:text="#{ajout.description}"></label>
+			        	<div class="col-10">
+			        		<input id="description" class="form-control" type="text" placeholder="description" th:field="*{description}" th:classappend="${#fields.errors('description')} ? is-invalid" required/>
+							<div class="invalid-feedback" th:errors="*{description}"></div>
+			        	</div>
+			        </div>			        
+			        			        
+			        <div class="form-group row">		        
+						<input type="submit" class="btn btn-primary btn-lg" th:value="#{bouton.validation}"/>
+					</div>
+				</form>			        
+			</div>								
+		</div>
+		<div th:replace="includes/_footer::footer"></div>
+		
+		
+
+	<script type="text/javascript">
+		$(document).ready( function () {
+		    $('#table_culture').DataTable()
+		} );	
+	</script>			
+	</body>
+</html>

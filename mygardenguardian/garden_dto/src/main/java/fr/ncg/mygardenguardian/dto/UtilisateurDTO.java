@@ -1,5 +1,8 @@
 package fr.ncg.mygardenguardian.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UtilisateurDTO {
 
 	private Integer idUtilisateur;
@@ -8,6 +11,7 @@ public class UtilisateurDTO {
 	private String mdp;
 	private CoordonneesUtilisateurDTO coordonneeUtilisateurDTO;
 	private String role;
+	private List<CultureDTO> cultureAjoutees;
 
 	public UtilisateurDTO() {
 	}
@@ -71,6 +75,21 @@ public class UtilisateurDTO {
 
 	public void setCoordonneeUtilisateurDTO(CoordonneesUtilisateurDTO coordonneeUtilisateurDTO) {
 		this.coordonneeUtilisateurDTO = coordonneeUtilisateurDTO;
+	}
+
+	public List<CultureDTO> getCultureAjoutees() {
+		return this.cultureAjoutees;
+	}
+
+	public void setCultureAjoutees(List<CultureDTO> cultureAjoutees) {
+		this.cultureAjoutees = cultureAjoutees;
+	}
+
+	public void addCulture(CultureDTO culture) {
+		if (this.cultureAjoutees == null) {
+			this.cultureAjoutees = new ArrayList<CultureDTO>();
+		}
+		this.cultureAjoutees.add(culture);
 	}
 
 }
