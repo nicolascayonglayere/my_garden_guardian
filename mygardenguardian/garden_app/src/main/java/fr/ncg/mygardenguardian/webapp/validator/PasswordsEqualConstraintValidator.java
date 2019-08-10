@@ -11,7 +11,6 @@ public class PasswordsEqualConstraintValidator implements ConstraintValidator<Pa
 
 	@Override
 	public boolean isValid(Object value, ConstraintValidatorContext context) {
-		// --TODO if else bloc avec instanceOf InscriptionFormulaire/ModifMdpFormulaire
 
 		if (value.getClass().isInstance(new InscriptionFormulaire())) {
 			InscriptionFormulaire user = (InscriptionFormulaire) value;

@@ -10,6 +10,7 @@ public class CultureDTO {
 	private List<OperationCulturaleDTO> operationsCulturales;
 	private List<IntrantDTO> intrants;
 	private boolean enConstruction;
+	private List<CalendrierCulturalDTO> listeParcelles;
 	// private UtilisateurDTO utilisateur;
 
 	public CultureDTO() {
@@ -73,11 +74,26 @@ public class CultureDTO {
 		this.enConstruction = enConstruction;
 	}
 
+	public void addParcelleDTO(CalendrierCulturalDTO cal) {
+		if (this.listeParcelles == null) {
+			this.listeParcelles = new ArrayList<CalendrierCulturalDTO>();
+		}
+		this.listeParcelles.add(cal);
+	}
+
+	public List<CalendrierCulturalDTO> getListeParcelles() {
+		return this.listeParcelles;
+	}
+
+	public void setListeParcelles(List<CalendrierCulturalDTO> listeParcelles) {
+		this.listeParcelles = listeParcelles;
+	}
+
 	@Override
 	public String toString() {
 		return "CultureDTO [idCulture=" + this.idCulture + ", plante=" + this.plante + ", operationsCulturales="
 				+ this.operationsCulturales + ", intrants=" + this.intrants + ", enConstruction=" + this.enConstruction
-				+ "]";
+				+ ", listeParcelles=" + this.listeParcelles + "]";
 	}
 
 }

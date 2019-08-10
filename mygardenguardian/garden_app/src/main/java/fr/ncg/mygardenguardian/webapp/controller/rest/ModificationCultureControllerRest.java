@@ -1,14 +1,14 @@
 package fr.ncg.mygardenguardian.webapp.controller.rest;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.stream.IntStream;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,78 +24,51 @@ public class ModificationCultureControllerRest {
 
 	private IBusinessManagerFactory managerFactory;
 
-	@PostMapping(value = "/culture/modification_culture", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public String modifierCulture(@RequestBody String culture) throws UnsupportedEncodingException, ParseException {
-		System.out.println("CTRL CONTROLLER REST POST Modification culture ------------" + culture);
-		// culture.replaceAll("%20", " ");
-		culture = URLDecoder.decode(culture, "UTF-8");
-		String[] cultureProcess = culture.split("&");
-		Map<String, String> cultureField = new HashMap<String, String>();
+	@PostMapping(value = "/culture/modification_culture")
+	public ResponseEntity<String> modifierCulture(@RequestBody String culture, HttpServletRequest request)
+			throws UnsupportedEncodingException, ParseException {
 
-		for (int i = 0; i < cultureProcess.length; i++) {
-			System.out.println("CTR CONTROLLER REST POST Modif culture -----------" + cultureProcess[i].split("=")[0]
-					+ " - " + cultureProcess[i].split("=")[1] + "\n");
-			cultureField.put(cultureProcess[i].split("=")[0], cultureProcess[i].split("=")[1]);
-		}
+		System.out.println("CTRL CONTROLLER REST POST Modif culture -------" + request.getParameter("idCulture"));
 		CultureDTO maCultureModif = new CultureDTO();
-		maCultureModif.setIdCulture(Integer.valueOf(cultureField.entrySet().stream()
-				.filter(s -> s.getKey().equalsIgnoreCase("idCulture")).findFirst().get().getValue()));
+		maCultureModif.setIdCulture(Integer.valueOf(request.getParameter("idCulture")));
 
 		PlanteDTO maPlanteModif = new PlanteDTO();
-		maPlanteModif.setIdPlante(Integer.valueOf(cultureField.entrySet().stream()
-				.filter(s -> s.getKey().equalsIgnoreCase("plante.idPlante")).findFirst().get().getValue()));
-		maPlanteModif.setNom(cultureField.entrySet().stream().filter(s -> s.getKey().equalsIgnoreCase("plante.nom"))
-				.findFirst().get().getValue());
-		maPlanteModif.setNomLatin(cultureField.entrySet().stream()
-				.filter(s -> s.getKey().equalsIgnoreCase("plante.nomLatin")).findFirst().get().getValue());
-		maPlanteModif.setVariete(cultureField.entrySet().stream()
-				.filter(s -> s.getKey().equalsIgnoreCase("plante.variete")).findFirst().get().getValue());
-		maPlanteModif.setDureeCycle(Integer.valueOf(cultureField.entrySet().stream()
-				.filter(s -> s.getKey().equalsIgnoreCase("plante.dureeCycle")).findFirst().get().getValue()));
-		maPlanteModif.setProduit(cultureField.entrySet().stream()
-				.filter(s -> s.getKey().equalsIgnoreCase("plante.produit")).findFirst().get().getValue());
-
+		maPlanteModif.setIdPlante(Integer.valueOf(request.getParameter("plante.idPlante")));
+		maPlanteModif.setNom(request.getParameter("plante.nom"));
+		maPlanteModif.setNomLatin(request.getParameter("plante.nomLatin"));
+		maPlanteModif.setVariete(request.getParameter("plante.variete"));
+		maPlanteModif.setProduit(request.getParameter("plante.produit"));
+		maPlanteModif.setDureeCycle(Integer.valueOf(request.getParameter("plante.dureeCycle")));
 		maCultureModif.setPlante(maPlanteModif);
 
-		Map<String, String> intrantField = new HashMap<String, String>();
-		cultureField.entrySet().stream().filter(s -> s.getKey().startsWith("intrants")).forEachOrdered(s -> {
-			intrantField.put(s.getKey(), s.getValue());
-		});
-		System.out.println("CTRL CONTROLLER REST POST Modif culture intrant---------------- " + intrantField.size()
-				+ " - " + intrantField.toString());
-		for (int i = 0; i < (intrantField.size()) / 3; i++) {
+		int nbIntrant = (int) ((request.getParameterMap().entrySet().stream()
+				.filter(s -> s.getKey().startsWith("intrants")).count()) / 3);
+		IntStream.range(0, nbIntrant).forEachOrdered(i -> {
 			IntrantDTO monIntrantModif = new IntrantDTO();
-			monIntrantModif.setIdIntrant(Integer.valueOf(intrantField.get("intrants[" + i + "].idIntrant").toString()));
-			monIntrantModif.setNom(intrantField.get("intrants[" + i + "].nom").toString());
-			monIntrantModif.setReference(intrantField.get("intrants[" + i + "].reference").toString());
+			monIntrantModif.setIdIntrant(Integer.valueOf(request.getParameter("intrants[" + i + "].idIntrant")));
+			monIntrantModif.setNom(request.getParameter("intrants[" + i + "].nom"));
+			monIntrantModif.setReference(request.getParameter("intrants[" + i + "].reference"));
 			maCultureModif.addIntrant(monIntrantModif);
-		}
+		});
 
-		Map<String, String> opeCultField = new HashMap<String, String>();
-		cultureField.entrySet().stream().filter(s -> s.getKey().startsWith("operationsCulturales"))
-				.forEachOrdered(s -> {
-					opeCultField.put(s.getKey(), s.getValue());
-				});
-
-		System.out.println("CTRL CONTROLLER REST POST Modif culture ope cult---------------- " + opeCultField.size()
-				+ " - " + opeCultField.toString());
-
-		for (int i = 0; i < (opeCultField.size()) / 4; i++) {
+		int nbOpeCult = (int) ((request.getParameterMap().entrySet().stream()
+				.filter(s -> s.getKey().startsWith("operationsCulturales")).count()) / 4);
+		IntStream.range(0, nbOpeCult).forEachOrdered(i -> {
 			OperationCulturaleDTO monOpeModif = new OperationCulturaleDTO();
-			monOpeModif.setIdOperationCulturale(Integer
-					.valueOf(opeCultField.get("operationsCulturales[" + i + "].idOperationCulturale").toString()));
-			monOpeModif.setNom(opeCultField.get("operationsCulturales[" + i + "].nom").toString());
-			monOpeModif.setDescription(opeCultField.get("operationsCulturales[" + i + "].description").toString());
-			monOpeModif.setDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S")
-					.parse(opeCultField.get("operationsCulturales[" + i + "].date").toString()));
+			monOpeModif.setIdOperationCulturale(
+					Integer.valueOf(request.getParameter("operationsCulturales[" + i + "].idOperationCulturale")));
+			monOpeModif.setNom(request.getParameter("operationsCulturales[" + i + "].nom"));
+			monOpeModif.setDescription(request.getParameter("operationsCulturales[" + i + "].description"));
+			monOpeModif.setDate(Integer.valueOf(request.getParameter("operationsCulturales[" + i + "].date")));
 			monOpeModif.setStatut(String.valueOf(false));
 			maCultureModif.addOperationCulturale(monOpeModif);
-		}
+		});
 
 		System.out.println(
 				"CTRL CONTROLLER REST POST Modif culture intrant---------------- " + maCultureModif.toString());
 		this.managerFactory.getCultureManager().modifierCultureBdd(maCultureModif);
-		return "redirect:/accueil";
+
+		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
 
 	public IBusinessManagerFactory getManagerFactory() {

@@ -2,17 +2,15 @@ package fr.ncg.mygardenguardian.entites;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -31,12 +29,9 @@ public class Parcelle implements Serializable {
 	private double surface;
 	@Column(name = "code")
 	private String code;
-	// @Column(name = "occupation")
-	// private boolean occupation;
-	// @OneToMany(mappedBy = "parcelle")
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "calendrier_cultural", joinColumns = @JoinColumn(name = "id_parcelle"), inverseJoinColumns = @JoinColumn(name = "id_culture"), schema = "garden_guardian")
-	private List<Culture> calendrierCultural;
+
+	@OneToMany(mappedBy = "parcelle")
+	private List<CalendrierCultural> listeCultures;
 
 	public Parcelle() {
 	}
@@ -71,25 +66,32 @@ public class Parcelle implements Serializable {
 		this.code = code;
 	}
 
-	public List<Culture> getCalendrierCultural() {
-		return this.calendrierCultural;
-	}
-
-	public void setCalendrierCultural(List<Culture> calendrierCultural) {
-		this.calendrierCultural = calendrierCultural;
-	}
-
-	public void addCulture(Culture culture) {
-		if (this.calendrierCultural == null) {
-			this.calendrierCultural = new ArrayList<Culture>();
+	public void addCulture(Culture culture, Date date) {
+		if (this.listeCultures == null) {
+			this.listeCultures = new ArrayList<CalendrierCultural>();
 		}
-		this.calendrierCultural.add(culture);
+		CalendrierCultural cal = new CalendrierCultural();
+		cal.setCulture(culture);
+		cal.setDate(date);
+		cal.setIdCulture(culture.getIdCulture());
+		cal.setParcelle(this);
+		cal.setIdParcelle(this.getIdParcelle());
+		this.listeCultures.add(cal);
+		culture.getListeParcelles().add(cal);
+	}
+
+	public List<CalendrierCultural> getListeCultures() {
+		return this.listeCultures;
+	}
+
+	public void setListeCultures(List<CalendrierCultural> listeCultures) {
+		this.listeCultures = listeCultures;
 	}
 
 	@Override
 	public String toString() {
 		return "Parcelle [idParcelle=" + this.idParcelle + ", surface=" + this.surface + ", code=" + this.code
-				+ ", calendrierCultural=" + this.calendrierCultural + "]";
+				+ ", calendrierCultural=" + this.listeCultures + "]";
 	}
 
 }

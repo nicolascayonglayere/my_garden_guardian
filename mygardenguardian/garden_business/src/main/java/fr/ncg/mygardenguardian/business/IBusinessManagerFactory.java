@@ -2,6 +2,7 @@ package fr.ncg.mygardenguardian.business;
 
 import fr.ncg.mygardenguardian.business.contract.IAdhesionManager;
 import fr.ncg.mygardenguardian.business.contract.ICultureManager;
+import fr.ncg.mygardenguardian.business.contract.IEventCalendarManager;
 import fr.ncg.mygardenguardian.business.contract.IIntrantManager;
 import fr.ncg.mygardenguardian.business.contract.IOperationCulturaleManager;
 import fr.ncg.mygardenguardian.business.contract.IParcelleManager;
@@ -37,4 +38,8 @@ public interface IBusinessManagerFactory {
 	public IOperationCulturaleManager getOperationCulturaleManager();
 
 	public void setOperationCulturaleManager(IOperationCulturaleManager opeCultManager);
+
+	public IEventCalendarManager getEventCalendarManager();
+
+	public void setEventCalendarManager(IEventCalendarManager eventManager);
 }

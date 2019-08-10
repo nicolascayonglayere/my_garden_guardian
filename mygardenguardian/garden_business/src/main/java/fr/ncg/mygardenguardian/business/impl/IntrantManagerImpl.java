@@ -1,5 +1,9 @@
 package fr.ncg.mygardenguardian.business.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +28,18 @@ public class IntrantManagerImpl implements IIntrantManager {
 		Intrant monIntrant = IntrantMapper.fromIntrantDtoToIntrant(culture.getIntrants().get(0));
 		monIntrant.setCulture(CultureMapper.fromCultureDtoToCulture(culture));
 		return IntrantMapper.fromIntrantToIntrantDTO(this.daoFacto.getIntrantDao().saveAndFlush(monIntrant));
+	}
+
+	@Override
+	public List<String> obtenirNomsIntrants() {
+		List<String> nomsIntrants = new ArrayList<String>();
+		this.daoFacto.getIntrantDao().findAll().stream().forEachOrdered(op -> {
+			if (!nomsIntrants.contains(op.getNom().trim())) {
+				nomsIntrants.add(op.getNom());
+			}
+		});
+		Collections.sort(nomsIntrants);
+		return nomsIntrants;
 	}
 
 	public DaoFactoryImpl getDaoFacto() {

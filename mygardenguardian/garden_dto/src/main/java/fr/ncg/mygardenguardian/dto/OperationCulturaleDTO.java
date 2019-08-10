@@ -1,14 +1,13 @@
 package fr.ncg.mygardenguardian.dto;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class OperationCulturaleDTO {
 
 	private Integer idOperationCulturale;
 	private String nom;
-	private Date date;
+	private Integer date;
 	private String description;
 	// private CultureDTO culture;
 	private List<MaterielDTO> materiels;
@@ -17,7 +16,7 @@ public class OperationCulturaleDTO {
 	public OperationCulturaleDTO() {
 	}
 
-	public OperationCulturaleDTO(String nom, Date date, String description, String statut) {
+	public OperationCulturaleDTO(String nom, Integer date, String description, String statut) {
 		this.nom = nom;
 		this.date = date;
 		this.description = description;
@@ -40,11 +39,11 @@ public class OperationCulturaleDTO {
 		this.nom = nom;
 	}
 
-	public Date getDate() {
+	public Integer getDate() {
 		return this.date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(Integer date) {
 		this.date = date;
 	}
 

@@ -1,6 +1,7 @@
 package fr.ncg.mygardenguardian.business.impl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,7 +44,8 @@ public class CultureManager implements ICultureManager {
 			if (this.verifExistenceCulture(c)) {
 				Example<Culture> monExCulture = Example.of(c);
 				c = this.daoFacto.getCultureDao().findOne(monExCulture).get();
-				c.addParcelle(ParcelleMapper.fromParcelleDTOToParcelle(adhesion.getParcelleDTO()));
+				c.addParcelle(ParcelleMapper.fromParcelleDTOToParcelle(adhesion.getParcelleDTO()),
+						Calendar.getInstance().getTime());
 				monCalendrierRetour
 						.add(CultureMapper.fromCultureToCultureDto(this.daoFacto.getCultureDao().saveAndFlush(c)));
 			} else {
@@ -88,7 +90,6 @@ public class CultureManager implements ICultureManager {
 					.forEach(op -> {
 						op.setCulture(CultureMapper.fromCultureDtoToCulture(culture));
 						op.setStatut("previsionnel");
-						System.out.println("CTRL BUSINESS OPE CULT --------------" + op.toString());
 						mesOperationsCreees.add(OperationCulturaleMapper.fromOperationCulturaleToOperationCulturaleDTO(
 								this.daoFacto.getOperationCulturaleDao().saveAndFlush(op)));
 					});
@@ -116,9 +117,6 @@ public class CultureManager implements ICultureManager {
 						op.setCulture(cultureInt);
 						cultureInt.addOperationCulturale(this.daoFacto.getOperationCulturaleDao().save(op));
 					});
-			System.out.println("CTRL BUSINESS MODIF CULTURE ---------" + cultureInt.getPlante().getNom() + " - ID "
-					+ cultureInt.getIdCulture());
-
 			return CultureMapper.fromCultureToCultureDto(this.daoFacto.getCultureDao().saveAndFlush(cultureInt));
 		} else {
 			throw new RuntimeException("La culture n'existe pas " + culture.getPlante().getNom());

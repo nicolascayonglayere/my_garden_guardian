@@ -9,6 +9,7 @@ import javax.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -56,8 +57,9 @@ public class ModificationMotDePasse {
 			// System.out.println("CTRL ERRORS");
 			return ("modif_mdp");
 		}
-
-		userDto.setMdp(modifMdpFormulaire.getMdpConfirm());
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String hashedPassword = passwordEncoder.encode(modifMdpFormulaire.getMdpConfirm());
+		userDto.setMdp(hashedPassword);
 		userDto = this.businessManager.getUtilisateurManager().modifierProfil(userDto);
 		monMdpModif.addFlashAttribute("modifMdp", userDto);
 		return ("redirect:/accueil");

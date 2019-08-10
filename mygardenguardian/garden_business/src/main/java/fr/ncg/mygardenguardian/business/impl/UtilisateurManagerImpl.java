@@ -71,13 +71,11 @@ public class UtilisateurManagerImpl implements IUtilisateurManager {
 				.fromUtilisateurToUtilisateurDTO(this.daoFacto.getUtilisateurDao().findByNom(nom).get());
 	}
 
-	// --TODO passer le mdp dans BCrypt !!
 	@Override
 	public UtilisateurDTO modifierProfil(UtilisateurDTO utilisateur) {
 		if (this.verifierExistenceUtilisateurParId(utilisateur.getIdUtilisateur())) {
 			System.out.println("CTRL Business update");
 			String role = utilisateur.getRole().split("_")[1];
-			role = role.substring(0, role.length() - 1);
 			utilisateur.setRole(this.constructionRoleSpringSecurity(role));
 			return UtilisateurMapper.fromUtilisateurToUtilisateurDTO(this.daoFacto.getUtilisateurDao()
 					.saveAndFlush(UtilisateurMapper.fromUtilisateurDTOToUtilisateur(utilisateur)));

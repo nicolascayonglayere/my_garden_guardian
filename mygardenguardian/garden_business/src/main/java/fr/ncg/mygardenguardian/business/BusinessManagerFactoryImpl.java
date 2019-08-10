@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import fr.ncg.mygardenguardian.business.contract.IAdhesionManager;
 import fr.ncg.mygardenguardian.business.contract.ICultureManager;
+import fr.ncg.mygardenguardian.business.contract.IEventCalendarManager;
 import fr.ncg.mygardenguardian.business.contract.IIntrantManager;
 import fr.ncg.mygardenguardian.business.contract.IOperationCulturaleManager;
 import fr.ncg.mygardenguardian.business.contract.IParcelleManager;
@@ -21,6 +22,7 @@ public class BusinessManagerFactoryImpl implements IBusinessManagerFactory {
 	private ICultureManager cultureManager;
 	private IIntrantManager intrantManager;
 	private IOperationCulturaleManager opeCultManager;
+	private IEventCalendarManager eventManager;
 
 	@Override
 	public IAdhesionManager getAdhesionManager() {
@@ -97,6 +99,17 @@ public class BusinessManagerFactoryImpl implements IBusinessManagerFactory {
 	@Override
 	public void setOperationCulturaleManager(IOperationCulturaleManager opeCultManager) {
 		this.opeCultManager = opeCultManager;
+	}
+
+	@Override
+	public IEventCalendarManager getEventCalendarManager() {
+		return this.eventManager;
+	}
+
+	@Autowired
+	@Override
+	public void setEventCalendarManager(IEventCalendarManager eventManager) {
+		this.eventManager = eventManager;
 	}
 
 }

@@ -3,24 +3,22 @@ package fr.ncg.mygardenguardian.dto;
 public class EventCalendarDTO {
 
 	public Integer id;
-
 	public String title;
-
 	public boolean allDay;
-
 	public String start;
-
 	public String end;
+	public String url;
 
 	public EventCalendarDTO() {
 	}
 
-	public EventCalendarDTO(Integer id, String title, boolean allDay, String start, String end) {
+	public EventCalendarDTO(Integer id, String title, boolean allDay, String start, String end, String url) {
 		this.id = id;
 		this.title = title;
 		this.allDay = allDay;
 		this.start = start;
 		this.end = end;
+		this.url = url;
 	}
 
 	public Integer getId() {
@@ -61,6 +59,14 @@ public class EventCalendarDTO {
 
 	public void setEnd(String end) {
 		this.end = end;
+	}
+
+	public String getUrl() {
+		return this.url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	@Override

@@ -1,5 +1,10 @@
 package fr.ncg.mygardenguardian.webapp.controller.culture;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +22,7 @@ import fr.ncg.mygardenguardian.business.IBusinessManagerFactory;
 import fr.ncg.mygardenguardian.dto.CultureDTO;
 import fr.ncg.mygardenguardian.dto.OperationCulturaleDTO;
 import fr.ncg.mygardenguardian.webapp.formulaire.culture.EnregistrementOperationCulturaleBddFormulaire;
+import fr.ncg.mygardenguardian.webapp.utils.OperationsCulturalesTypes;
 
 @Controller
 public class EnregistrementOperationCulturale {
@@ -32,6 +38,14 @@ public class EnregistrementOperationCulturale {
 		if (idCulture != null) {
 			model.addAttribute("cultureCreee", this.managerFactory.getCultureManager().trouverLaCulture(idCulture));
 		}
+
+		List<String> opeCultTypes = new ArrayList<String>();
+		EnumSet.allOf(OperationsCulturalesTypes.class).stream()
+				.forEach(op -> opeCultTypes.add(op.getOperationCulturaleType()));
+		Collections.sort(opeCultTypes);
+
+		model.addAttribute("nomOpeCult", opeCultTypes);
+		// this.managerFactory.getOperationCulturaleManager().obtenirNomsOperationCulturale());
 		model.addAttribute("operationCulturaleForm", new EnregistrementOperationCulturaleBddFormulaire());
 
 		return "/culture/enregistrement_opeCulturale";

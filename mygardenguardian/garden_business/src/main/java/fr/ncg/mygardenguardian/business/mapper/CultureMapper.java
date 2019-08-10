@@ -27,6 +27,9 @@ public class CultureMapper {
 //		if (cultureDTO.getUtilisateur() != null) {
 //			maCulture.setUtilisateur(UtilisateurMapper.fromUtilisateurDTOToUtilisateur(cultureDTO.getUtilisateur()));
 //		}
+		cultureDTO.getListeParcelles().stream()
+				.map(cal -> CalendrierCulturalMapper.fromCalendrierCulturalDtoToCalendrierCultural(cal))
+				.forEachOrdered(cal -> maCulture.getListeParcelles().add(cal));
 
 		return maCulture;
 	}
@@ -51,6 +54,15 @@ public class CultureMapper {
 //		if (culture.getUtilisateur() != null) {
 //			maCultureDTO.setUtilisateur(UtilisateurMapper.fromUtilisateurToUtilisateurDTO(culture.getUtilisateur()));
 //		}
+
+//		culture.getListeParcelles().stream()
+//				.map(cal -> CalendrierCulturalMapper.fromCalendrierCulturalToCalendrierCulturalDTO(cal))
+//				.forEachOrdered(cal -> {
+//					System.out.println(culture.toString());
+//
+////					maCultureDTO.addParcelleDTO(cal);
+////					System.out.println(maCultureDTO.toString());
+//				});
 		return maCultureDTO;
 	}
 

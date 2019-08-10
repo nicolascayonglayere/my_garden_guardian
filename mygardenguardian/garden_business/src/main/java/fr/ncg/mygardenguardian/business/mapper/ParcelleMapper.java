@@ -12,9 +12,11 @@ public class ParcelleMapper {
 		}
 		parcelleDTO.setCode(p.getCode());
 		parcelleDTO.setSurface(p.getSurface());
-		if (p.getCalendrierCultural() != null) {
-			p.getCalendrierCultural().stream().forEach(pa -> {
-				parcelleDTO.addCultureDto(CultureMapper.fromCultureToCultureDto(pa));
+		if (p.getListeCultures() != null) {
+			p.getListeCultures().stream().forEach(pa -> {
+				parcelleDTO.addCultureDTO(CalendrierCulturalMapper.fromCalendrierCulturalToCalendrierCulturalDTO(pa));
+//				parcelleDTO.getCalendrierCultural()
+//						.add(CalendrierCulturalMapper.fromCalendrierCulturalToCalendrierCulturalDTO(pa));
 			});
 		}
 		// parcelleDTO.setOccupation(p.isOccupation());
@@ -30,7 +32,8 @@ public class ParcelleMapper {
 		maParcelle.setSurface(p.getSurface());
 		if (p.getCalendrierCultural() != null) {
 			p.getCalendrierCultural().stream().forEach(pa -> {
-				maParcelle.addCulture(CultureMapper.fromCultureDtoToCulture(pa));
+				maParcelle.getListeCultures()
+						.add(CalendrierCulturalMapper.fromCalendrierCulturalDtoToCalendrierCultural(pa));
 			});
 		}
 		// maParcelle.setOccupation(p.isOccupation());

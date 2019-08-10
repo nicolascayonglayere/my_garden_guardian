@@ -9,7 +9,7 @@ public class ParcelleDTO {
 	private double surface;
 	private String code;
 	// private boolean occupation;
-	private List<CultureDTO> calendrierCultural;
+	private List<CalendrierCulturalDTO> calendrierCultural;
 
 	public ParcelleDTO() {
 	}
@@ -44,32 +44,25 @@ public class ParcelleDTO {
 		this.code = code;
 	}
 
-	public List<CultureDTO> getCalendrierCultural() {
+	public void addCultureDTO(CalendrierCulturalDTO cal) {
+		if (this.calendrierCultural == null) {
+			this.calendrierCultural = new ArrayList<CalendrierCulturalDTO>();
+		}
+		this.calendrierCultural.add(cal);
+	}
+
+	public List<CalendrierCulturalDTO> getCalendrierCultural() {
 		return this.calendrierCultural;
 	}
 
-	public void setCalendrierCultural(List<CultureDTO> calendrierCultural) {
+	public void setCalendrierCultural(List<CalendrierCulturalDTO> calendrierCultural) {
 		this.calendrierCultural = calendrierCultural;
 	}
-
-	public void addCultureDto(CultureDTO culture) {
-		if (this.calendrierCultural == null) {
-			this.calendrierCultural = new ArrayList<CultureDTO>();
-		}
-		this.calendrierCultural.add(culture);
-	}
-	// public boolean isOccupation() {
-	// return this.occupation;
-	// }
-	//
-	// public void setOccupation(boolean occupation) {
-	// this.occupation = occupation;
-	// }
 
 	@Override
 	public String toString() {
 		return "ParcelleDTO [idParcelle=" + this.idParcelle + ", surface=" + this.surface + ", code=" + this.code
-				+ ", occupation=" + 00 + "]";
+				+ ", calendrierCultural=" + this.calendrierCultural + "]";
 	}
 
 }

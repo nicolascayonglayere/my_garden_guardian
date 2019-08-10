@@ -105,6 +105,7 @@ public class Inscription {
 		return ("admin/supprimer_jardinier");
 	}
 
+	// --TODO ARchiver les calendriers culturaux
 	@PostMapping("/admin/supprimer_jardinier")
 	public String supprimerJardinier(
 			@ModelAttribute("suppressionFormulaire") @RequestBody ModificationFormulaire utilisateur,
@@ -137,6 +138,7 @@ public class Inscription {
 		return ("admin/renouvellement_adhesion");
 	}
 
+	// --TODO ARchiver les calendriers culturaux
 	@PostMapping("/admin/renouvellement_adhesion")
 	public String renouvellementAdhesion(
 			@ModelAttribute("suppressionFormulaire") @RequestBody ModificationFormulaire modificationFormulaire,

@@ -31,6 +31,7 @@ public class EnregistrementIntrant {
 		if (idCulture != null) {
 			model.addAttribute("cultureCreee", this.managerFactory.getCultureManager().trouverLaCulture(idCulture));
 		}
+		model.addAttribute("nomsIntrants", this.managerFactory.getIntrantManager().obtenirNomsIntrants());
 		model.addAttribute("intrantForm", new EnregistrementIntrantBddFormulaire());
 
 		return ("culture/enregistrement_intrant");

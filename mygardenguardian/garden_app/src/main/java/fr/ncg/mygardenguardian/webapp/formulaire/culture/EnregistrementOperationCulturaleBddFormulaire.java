@@ -1,20 +1,15 @@
 package fr.ncg.mygardenguardian.webapp.formulaire.culture;
 
-import java.util.Date;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 public class EnregistrementOperationCulturaleBddFormulaire {
 
 	@NotBlank(message = "Un nom est requis")
 	private String nom;
-	@NotNull(message = "Une date de début est requise")
-	@DateTimeFormat(iso = ISO.DATE)
-	private Date date;
+	@NotNull(message = "Une date d'operation est requise : saisissez le numéro de la semaine.")
+	// @DateTimeFormat(iso = ISO.DATE)
+	private Integer date;
 	@NotBlank(message = "Une description est requise")
 	private String description;
 
@@ -28,11 +23,11 @@ public class EnregistrementOperationCulturaleBddFormulaire {
 		this.nom = nom;
 	}
 
-	public Date getDate() {
+	public Integer getDate() {
 		return this.date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(Integer date) {
 		this.date = date;
 	}
 

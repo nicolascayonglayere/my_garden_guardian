@@ -1,5 +1,9 @@
 package fr.ncg.mygardenguardian.business.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +45,18 @@ public class OperationCulturaleManager implements IOperationCulturaleManager {
 	@Autowired
 	public void setDaoFacto(DaoFactoryImpl daoFacto) {
 		this.daoFacto = daoFacto;
+	}
+
+	@Override
+	public List<String> obtenirNomsOperationCulturale() {
+		List<String> nomOpeCult = new ArrayList<String>();
+		this.daoFacto.getOperationCulturaleDao().findAll().stream().forEachOrdered(op -> {
+			if (!nomOpeCult.contains(op.getNom().trim())) {
+				nomOpeCult.add(op.getNom());
+			}
+		});
+		Collections.sort(nomOpeCult);
+		return nomOpeCult;
 	}
 
 }

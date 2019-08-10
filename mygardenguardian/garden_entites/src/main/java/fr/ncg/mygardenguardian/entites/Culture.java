@@ -2,17 +2,15 @@ package fr.ncg.mygardenguardian.entites;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -33,12 +31,8 @@ public class Culture implements Serializable {
 	private List<OperationCulturale> operationsCulturales;
 	@OneToMany(mappedBy = "culture")
 	private List<Intrant> intrants;
-//	@ManyToOne
-//	@JoinColumn(name = "id_parcelle")
-//	private Parcelle parcelle;
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "calendrier_cultural", schema = "garden_guardian", joinColumns = @JoinColumn(name = "id_culture"), inverseJoinColumns = @JoinColumn(name = "id_parcelle"))
-	private List<Parcelle> listeParcelles;
+	@OneToMany(mappedBy = "culture")
+	private List<CalendrierCultural> listeParcelles;
 	@Column(name = "en_construction", nullable = false, columnDefinition = "boolean default true")
 	private boolean enConstruction;
 	@ManyToOne
@@ -106,19 +100,27 @@ public class Culture implements Serializable {
 		this.operationsCulturales.add(op);
 	}
 
-	public List<Parcelle> getListeParcelles() {
+	public void addParcelle(Parcelle parcelle, Date date) {
+		if (this.listeParcelles == null) {
+			this.listeParcelles = new ArrayList<CalendrierCultural>();
+		}
+		CalendrierCultural cal = new CalendrierCultural();
+		cal.setCulture(this);
+		cal.setDate(date);
+		cal.setIdCulture(this.getIdCulture());
+		cal.setParcelle(parcelle);
+		cal.setIdParcelle(parcelle.getIdParcelle());
+		this.listeParcelles.add(cal);
+		parcelle.getListeCultures().add(cal);
+
+	}
+
+	public List<CalendrierCultural> getListeParcelles() {
 		return this.listeParcelles;
 	}
 
-	public void setListeParcelles(List<Parcelle> listeParcelles) {
+	public void setListeParcelles(List<CalendrierCultural> listeParcelles) {
 		this.listeParcelles = listeParcelles;
-	}
-
-	public void addParcelle(Parcelle p) {
-		if (this.listeParcelles == null) {
-			this.listeParcelles = new ArrayList<Parcelle>();
-		}
-		this.listeParcelles.add(p);
 	}
 
 	public Utilisateur getUtilisateur() {
@@ -129,10 +131,10 @@ public class Culture implements Serializable {
 		this.utilisateur = utilisateur;
 	}
 
-//	@Override
-//	public String toString() {
-//		return "Culture [idCulture=" + this.idCulture + ", plante=" + this.plante + ", intrants=" + this.intrants
-//				+ ", listeParcelles=" + this.listeParcelles + ", enConstruction=" + this.enConstruction + "]";
-//	}
+	@Override
+	public String toString() {
+		return "Culture [idCulture=" + this.idCulture + ", plante=" + this.plante + ", intrants=" + this.intrants
+				+ ", listeParcelles=" + this.listeParcelles + ", enConstruction=" + this.enConstruction + "]";
+	}
 
 }

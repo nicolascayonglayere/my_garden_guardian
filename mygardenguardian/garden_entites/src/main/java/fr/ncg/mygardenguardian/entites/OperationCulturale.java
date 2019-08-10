@@ -2,7 +2,6 @@ package fr.ncg.mygardenguardian.entites;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -27,7 +26,7 @@ public class OperationCulturale implements Serializable {
 	@Column(name = "nom", nullable = false)
 	private String nom;
 	@Column(name = "date", nullable = false)
-	private Date date;
+	private Integer date;
 	@Column(name = "description", nullable = false)
 	private String descritpion;
 	@ManyToOne
@@ -41,7 +40,7 @@ public class OperationCulturale implements Serializable {
 	public OperationCulturale() {
 	}
 
-	public OperationCulturale(String nom, Date date, String descritpion, String statut) {
+	public OperationCulturale(String nom, Integer date, String descritpion, String statut) {
 		this.nom = nom;
 		this.date = date;
 		this.descritpion = descritpion;
@@ -64,11 +63,11 @@ public class OperationCulturale implements Serializable {
 		this.nom = nom;
 	}
 
-	public Date getDate() {
+	public Integer getDate() {
 		return this.date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(Integer date) {
 		this.date = date;
 	}
 

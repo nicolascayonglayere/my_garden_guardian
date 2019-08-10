@@ -3,6 +3,7 @@
 	<head>
 		<div th:replace="includes/_head::head"/>
 		<title>Accueil</title>
+		<script type='text/javascript' th:src="@{/js/autocomplete.js}"></script>
 	</head>
 	
 	<body>
@@ -92,7 +93,7 @@
 					</table	>	
 
 					
-					<button id="btn_modif_culture" type="submit" class="btn btn-primary btn-lg" th:value="#{bouton.validation}"></button>		
+					<button id="bouton" type="submit" class="btn btn-primary btn-lg" th:value="#{bouton.validation}"></button>		
 				</div>	
 				
 			<div th:replace="includes/_footer::footer"></div>
@@ -109,7 +110,7 @@
 	        }]
 	    });
 	 
-	    $('#btn_modif_culture').click( function() {
+	    $('#bouton').click( function() {
 	        var data = table.$('input, select').serialize();
 			//console.log("AAAAAHHHH ---------- "+data1);
 			//var data = JSON.stringify(data1);
@@ -117,11 +118,20 @@
 			console.log("AAAAAHHHH ---------- "+(data));
 	        $.ajax({
 	        	  type: "POST",
-	        	  contentType: "application/json",
+	        	  //contentType: "application/json",
 	        	  url: "/culture/modification_culture",
 	        	  data: (data),
-	        	  //success: success,
-	        	  dataType: "JSON"
+	        	  success: function(response){
+	        		  console.log("reponse --------- "+response);
+	        		  if(response == "success"){
+	        			  console.log("SUCCES --------------");
+	        			  document.location.href = "../accueil";
+	        		  }
+	        		  else{
+	        			  console.log("ERROR ---------------");
+	        		  }
+	        	  }
+	        	  //dataType: "JSON"
 	        	});	        
 	        
 	        //--TODO requete AJAX vers le serveur pour MAJ de la culture
@@ -130,7 +140,9 @@
 // 	            data.substr( 0, 120 )+'...'
 // 	        );
 	        return false;
+	        
 	    } );
+	    
 	} );	
 	</script>
 </html>
