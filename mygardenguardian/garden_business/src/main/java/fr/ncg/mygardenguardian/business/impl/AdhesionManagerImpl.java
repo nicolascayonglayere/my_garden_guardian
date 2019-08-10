@@ -108,6 +108,18 @@ public class AdhesionManagerImpl implements IAdhesionManager {
 	}
 
 	@Override
+	public AdhesionDTO trouverAdhesionIdUtilisateur(Integer idUtilisateur) {
+		System.out.println("CTRL *---------" + idUtilisateur);
+		return AdhesionMapper.fromAdhesionToAdhesionDTO(
+				this.daoFacto.getAdhesionDao().findByIdUtilisateurAndArchive(idUtilisateur, false));
+	}
+
+	@Override
+	public AdhesionDTO trouverAdhesionNomUtilisateur(String nomUtilisateur) {
+		return AdhesionMapper.fromAdhesionToAdhesionDTO(this.daoFacto.getAdhesionDao().findByNomUser(nomUtilisateur));
+	}
+
+	@Override
 	public List<AdhesionDTO> trouverJardiniers() {
 		List<AdhesionDTO> mesJardiniers = new ArrayList<AdhesionDTO>();
 		for (Adhesion a : this.daoFacto.getAdhesionDao().findByArchive(false)) {

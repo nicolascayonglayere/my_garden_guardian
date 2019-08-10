@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+	<head>
+		<div th:replace="includes/_head::head"></div>
+		<title>Profil utilisateur</title>
+	</head>
+	<body>
+		<div class="container">
+			<div th:replace="includes/_navbar::navigation_jardinier"></div>
+			
+			<div class="jumbotron jumbotron-fluid">
+				<div class="container text-center">
+					<h1 class="display-3" th:text="#{accueil.jardinier}+' '+${#authentication.getPrincipal().getUsername()}" ></h1>
+				</div>
+			</div>	
+			
+			<table id="table_id" class="display">
+				<thead>
+					<tr>
+			            <th><span th:text="#{inscription.nom}"></span></th>
+			            <th><span th:text="#{inscription.prenom}"></span></th>
+			            <th><span th:text="#{inscription.email}"></span></th>
+			            <th><span th:text="#{inscription.portable}"></span></th>
+			            <th><span th:text="#{inscription.adresse}"></span></th>
+			            <th><span th:text="#{inscription.postal}"></span></th>
+			            <th><span th:text="#{inscription.ville}"></span></th>
+			            <th><span th:text="#{inscription.parcelle}"></span></th>
+			            <th><span th:text="#{inscription.date}"></span></th>					
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+			    		<td><span th:utext="${adhesionDTO.utilisateurDTO.nom}"></span></td>
+			    		<td><span th:utext="${adhesionDTO.utilisateurDTO.prenom}"></span></td>
+			    		<td><span th:utext="${adhesionDTO.utilisateurDTO.coordonneeUtilisateurDTO.email}"></span></td>
+			    		<td><span th:utext="${adhesionDTO.utilisateurDTO.coordonneeUtilisateurDTO.numPortable}"></span></td>
+			    		<td><span th:utext="${adhesionDTO.utilisateurDTO.coordonneeUtilisateurDTO.adresse}"></span></td>
+			    		<td><span th:utext="${adhesionDTO.utilisateurDTO.coordonneeUtilisateurDTO.codePostal}"></span></td>
+			    		<td><span th:utext="${adhesionDTO.utilisateurDTO.coordonneeUtilisateurDTO.ville}"></span></td>
+			    		<td><span th:utext="${adhesionDTO.parcelleDTO.code}"></span></td>
+			    		<td><span th:utext="${adhesionDTO.dateAdhesion}"></span></td>						
+					</tr>
+				</tbody>
+			</table>
+			
+			<div th:replace="includes/_footer::footer"></div>		
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(document).ready( function () {
+		    $('#table_id').DataTable();
+		} );	
+	</script>	
+</html>

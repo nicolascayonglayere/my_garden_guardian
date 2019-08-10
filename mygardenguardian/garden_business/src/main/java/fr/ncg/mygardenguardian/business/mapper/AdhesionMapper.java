@@ -11,7 +11,9 @@ public class AdhesionMapper {
 			adh.setIdAdhesion(adhesion.getIdAdhesion());
 		}
 		adh.setDateAdhesion(adhesion.getDateAdhesion());
-		adh.setParcelle(ParcelleMapper.fromParcelleDTOToParcelle(adhesion.getParcelleDTO()));
+		if (adhesion.getParcelleDTO() != null) {
+			adh.setParcelle(ParcelleMapper.fromParcelleDTOToParcelle(adhesion.getParcelleDTO()));
+		}
 		adh.setUtilisateur(UtilisateurMapper.fromUtilisateurDTOToUtilisateur(adhesion.getUtilisateurDTO()));
 		adh.setArchive(adhesion.isArchive());
 		if (adhesion.getDateAnnulation() != null) {

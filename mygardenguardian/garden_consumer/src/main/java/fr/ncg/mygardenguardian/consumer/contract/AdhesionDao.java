@@ -16,6 +16,9 @@ public interface AdhesionDao extends JpaRepository<Adhesion, Integer> {
 	public Adhesion findByIdUtilisateurAndArchive(@Param("idUtilisateur") Integer idUtilisateur,
 			@Param("archive") boolean archive);
 
+	@Query("Select a from Adhesion a where a.utilisateur.nom = :nomUtilisateur ")
+	public Adhesion findByNomUser(@Param("nomUtilisateur") String nomUtilisateur);
+
 	public List<Adhesion> findByArchive(boolean archive);
 
 }
