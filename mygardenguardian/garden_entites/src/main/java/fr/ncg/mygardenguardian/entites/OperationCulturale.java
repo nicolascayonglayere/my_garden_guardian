@@ -25,8 +25,10 @@ public class OperationCulturale implements Serializable {
 	private Integer idOperationCulturale;
 	@Column(name = "nom", nullable = false)
 	private String nom;
-	@Column(name = "date", nullable = false)
-	private Integer date;
+	@Column(name = "origine_intervalle_possible", nullable = false)
+	private Integer origIntervPossible;
+	@Column(name = "duree_intervalle_possible", nullable = false)
+	private Integer intervallePossible;
 	@Column(name = "description", nullable = false)
 	private String descritpion;
 	@ManyToOne
@@ -40,9 +42,12 @@ public class OperationCulturale implements Serializable {
 	public OperationCulturale() {
 	}
 
-	public OperationCulturale(String nom, Integer date, String descritpion, String statut) {
+	public OperationCulturale(Integer idOperationCulturale, String nom, Integer origIntervPossible,
+			Integer intervallePossible, String descritpion, String statut) {
+		this.idOperationCulturale = idOperationCulturale;
 		this.nom = nom;
-		this.date = date;
+		this.origIntervPossible = origIntervPossible;
+		this.intervallePossible = intervallePossible;
 		this.descritpion = descritpion;
 		this.statut = statut;
 	}
@@ -61,14 +66,6 @@ public class OperationCulturale implements Serializable {
 
 	public void setNom(String nom) {
 		this.nom = nom;
-	}
-
-	public Integer getDate() {
-		return this.date;
-	}
-
-	public void setDate(Integer date) {
-		this.date = date;
 	}
 
 	public String getDescritpion() {
@@ -103,6 +100,22 @@ public class OperationCulturale implements Serializable {
 		this.statut = statut;
 	}
 
+	public Integer getOrigIntervPossible() {
+		return this.origIntervPossible;
+	}
+
+	public void setOrigIntervPossible(Integer origIntervPossible) {
+		this.origIntervPossible = origIntervPossible;
+	}
+
+	public Integer getIntervallePossible() {
+		return this.intervallePossible;
+	}
+
+	public void setIntervallePossible(Integer intervallePossible) {
+		this.intervallePossible = intervallePossible;
+	}
+
 	public void addMateriel(Materiel mat) {
 		if (this.materiels == null) {
 			this.materiels = new ArrayList<Materiel>();
@@ -112,9 +125,11 @@ public class OperationCulturale implements Serializable {
 
 	@Override
 	public String toString() {
-		return "OperationCulturale [idOperationCulturale=" + this.idOperationCulturale + ", nom=" + this.nom + ", date="
-				+ this.date + ", descritpion=" + this.descritpion + ", culture=" + this.culture + ", materiels="
-				+ this.materiels + ", statut=" + this.statut + "]";
+		return "OperationCulturale [idOperationCulturale=" + this.idOperationCulturale + ", nom=" + this.nom
+				+ ", origIntervPossible=" + this.origIntervPossible + ", intervallePossible=" + this.intervallePossible
+				// + ", descritpion=" + this.descritpion + " materiels=" + this.materiels + ",
+				// statut=" + this.statut
+				+ "]";
 	}
 
 }

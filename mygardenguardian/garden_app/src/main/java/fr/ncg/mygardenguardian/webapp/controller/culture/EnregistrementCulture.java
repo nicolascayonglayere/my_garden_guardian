@@ -55,6 +55,9 @@ public class EnregistrementCulture {
 		maPlante.setProduit(planteFormulaire.getProduit());
 
 		CultureDTO maCulture = new CultureDTO();
+		maCulture.setNom(planteFormulaire.getNomCulture());
+		maCulture.setRecommandationBasse(planteFormulaire.getRecommandationBasse());
+		maCulture.setRecommandationHaute(planteFormulaire.getRecommandationHaute());
 		maCulture.setPlante(maPlante);
 		maCulture.setEnConstruction(true);
 		maCulture = this.managerFactory.getCultureManager().creerCultureBdd(maCulture,

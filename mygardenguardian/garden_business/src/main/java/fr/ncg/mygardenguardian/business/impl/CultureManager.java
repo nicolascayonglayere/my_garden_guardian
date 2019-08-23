@@ -1,7 +1,6 @@
 package fr.ncg.mygardenguardian.business.impl;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,11 +13,9 @@ import fr.ncg.mygardenguardian.business.contract.ICultureManager;
 import fr.ncg.mygardenguardian.business.mapper.CultureMapper;
 import fr.ncg.mygardenguardian.business.mapper.IntrantMapper;
 import fr.ncg.mygardenguardian.business.mapper.OperationCulturaleMapper;
-import fr.ncg.mygardenguardian.business.mapper.ParcelleMapper;
 import fr.ncg.mygardenguardian.business.mapper.PlanteMapper;
 import fr.ncg.mygardenguardian.business.mapper.UtilisateurMapper;
 import fr.ncg.mygardenguardian.consumer.DaoFactoryImpl;
-import fr.ncg.mygardenguardian.dto.AdhesionDTO;
 import fr.ncg.mygardenguardian.dto.CultureDTO;
 import fr.ncg.mygardenguardian.dto.OperationCulturaleDTO;
 import fr.ncg.mygardenguardian.dto.UtilisateurDTO;
@@ -34,25 +31,6 @@ public class CultureManager implements ICultureManager {
 	public List<CultureDTO> obtenirToutesLesCultures() {
 		return this.daoFacto.getCultureDao().findAll().stream().map(c -> CultureMapper.fromCultureToCultureDto(c))
 				.collect(Collectors.toList());
-	}
-
-	@Override
-	public List<CultureDTO> ajouterCulturesPrevisionnelles(List<CultureDTO> calendrierPrevisionnel,
-			AdhesionDTO adhesion) {
-		List<CultureDTO> monCalendrierRetour = new ArrayList<CultureDTO>();
-		calendrierPrevisionnel.stream().map(c -> CultureMapper.fromCultureDtoToCulture(c)).forEachOrdered(c -> {
-			if (this.verifExistenceCulture(c)) {
-				Example<Culture> monExCulture = Example.of(c);
-				c = this.daoFacto.getCultureDao().findOne(monExCulture).get();
-				c.addParcelle(ParcelleMapper.fromParcelleDTOToParcelle(adhesion.getParcelleDTO()),
-						Calendar.getInstance().getTime());
-				monCalendrierRetour
-						.add(CultureMapper.fromCultureToCultureDto(this.daoFacto.getCultureDao().saveAndFlush(c)));
-			} else {
-				throw new RuntimeException("La culture n'existe pas " + c.getPlante().getNom());
-			}
-		});
-		return monCalendrierRetour;
 	}
 
 	@Override
@@ -105,23 +83,38 @@ public class CultureManager implements ICultureManager {
 	public CultureDTO modifierCultureBdd(CultureDTO culture) {
 		if (this.getDaoFacto().getCultureDao().findById(culture.getIdCulture()).isPresent()) {
 			Culture cultureInt = this.daoFacto.getCultureDao().findById(culture.getIdCulture()).get();
+			cultureInt.setNom(culture.getNom());
+			cultureInt.setEnConstruction(culture.isEnConstruction());
+			cultureInt.setRecommandationBasse(culture.getRecommandationBasse());
+			cultureInt.setRecommandationHaute(culture.getRecommandationHaute());
 			cultureInt.setPlante(
 					this.daoFacto.getPlanteDao().saveAndFlush(PlanteMapper.fromPlanteDtoToPlante(culture.getPlante())));
-			culture.getIntrants().stream().map(i -> IntrantMapper.fromIntrantDtoToIntrant(i)).forEach(i -> {
-				i.setCulture(cultureInt);
-				cultureInt.addIntrant(this.daoFacto.getIntrantDao().saveAndFlush(i));
-			});
-			culture.getOperationsCulturales().stream()
-					.map(op -> OperationCulturaleMapper.fromOperationCulturaleDtoToOperationCulturale(op))
-					.forEach(op -> {
-						op.setCulture(cultureInt);
-						cultureInt.addOperationCulturale(this.daoFacto.getOperationCulturaleDao().save(op));
-					});
+			if (culture.getIntrants() != null) {
+				culture.getIntrants().stream().map(i -> IntrantMapper.fromIntrantDtoToIntrant(i)).forEach(i -> {
+					i.setCulture(cultureInt);
+					cultureInt.addIntrant(this.daoFacto.getIntrantDao().saveAndFlush(i));
+				});
+			}
+			if (culture.getOperationsCulturales() != null) {
+				culture.getOperationsCulturales().stream()
+						.map(op -> OperationCulturaleMapper.fromOperationCulturaleDtoToOperationCulturale(op))
+						.forEach(op -> {
+							op.setCulture(cultureInt);
+							cultureInt.addOperationCulturale(this.daoFacto.getOperationCulturaleDao().save(op));
+						});
+			}
 			return CultureMapper.fromCultureToCultureDto(this.daoFacto.getCultureDao().saveAndFlush(cultureInt));
 		} else {
 			throw new RuntimeException("La culture n'existe pas " + culture.getPlante().getNom());
 		}
 
+	}
+
+	@Override
+	public List<CultureDTO> obtenirCulturesEnConstructionAuteur(Integer idUtilisateur) {
+		// TODO verifier l'existence de la culture
+		return this.daoFacto.getCultureDao().findByEnConstructionAndUtilisateurIdUtilisateur(true, idUtilisateur)
+				.stream().map(c -> CultureMapper.fromCultureToCultureDto(c)).collect(Collectors.toList());
 	}
 
 	private boolean verifExistenceCulture(Culture culture) {

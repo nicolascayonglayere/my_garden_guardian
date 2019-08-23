@@ -12,14 +12,11 @@ public class ParcelleMapper {
 		}
 		parcelleDTO.setCode(p.getCode());
 		parcelleDTO.setSurface(p.getSurface());
-		if (p.getListeCultures() != null) {
-			p.getListeCultures().stream().forEach(pa -> {
-				parcelleDTO.addCultureDTO(CalendrierCulturalMapper.fromCalendrierCulturalToCalendrierCulturalDTO(pa));
-//				parcelleDTO.getCalendrierCultural()
-//						.add(CalendrierCulturalMapper.fromCalendrierCulturalToCalendrierCulturalDTO(pa));
-			});
-		}
-		// parcelleDTO.setOccupation(p.isOccupation());
+//		if (p.getListeCultures() != null) {
+//			p.getListeCultures().stream().forEach(pa -> {
+//				parcelleDTO.addCultureInstanceDTO(CultureInstanceMapper.fromCultureInstanceToCultureInstanceDTO(pa));
+//			});
+//		}
 		return parcelleDTO;
 	}
 
@@ -30,13 +27,11 @@ public class ParcelleMapper {
 		}
 		maParcelle.setCode(p.getCode());
 		maParcelle.setSurface(p.getSurface());
-		if (p.getCalendrierCultural() != null) {
-			p.getCalendrierCultural().stream().forEach(pa -> {
-				maParcelle.getListeCultures()
-						.add(CalendrierCulturalMapper.fromCalendrierCulturalDtoToCalendrierCultural(pa));
-			});
-		}
-		// maParcelle.setOccupation(p.isOccupation());
+//		if (p.getlisteCultures() != null) {
+//			p.getlisteCultures().stream().forEach(pa -> {
+//				maParcelle.addCultureInstance(CultureInstanceMapper.fromCultureInstanceDtoToCultureInstance(pa));
+//			});
+//		}
 		return maParcelle;
 	}
 

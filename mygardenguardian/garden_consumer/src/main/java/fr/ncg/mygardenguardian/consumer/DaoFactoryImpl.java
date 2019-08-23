@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import fr.ncg.mygardenguardian.consumer.contract.AdhesionDao;
 import fr.ncg.mygardenguardian.consumer.contract.CoordonneesUtilisateurDao;
 import fr.ncg.mygardenguardian.consumer.contract.CultureDao;
+import fr.ncg.mygardenguardian.consumer.contract.CultureInstanceDao;
 import fr.ncg.mygardenguardian.consumer.contract.IntrantDao;
 import fr.ncg.mygardenguardian.consumer.contract.MaterielDao;
 import fr.ncg.mygardenguardian.consumer.contract.OperationCulturaleDao;
@@ -25,6 +26,7 @@ public class DaoFactoryImpl implements IDaoFactory {
 	private MaterielDao materielDao;
 	private OperationCulturaleDao operationCulturaleDao;
 	private PlanteDao planteDao;
+	private CultureInstanceDao cultureInstanceDao;
 
 	@Override
 	public AdhesionDao getAdhesionDao() {
@@ -123,6 +125,17 @@ public class DaoFactoryImpl implements IDaoFactory {
 	@Override
 	public void setPlanteDao(PlanteDao planteDao) {
 		this.planteDao = planteDao;
+	}
+
+	@Override
+	public CultureInstanceDao getCultureInstanceDao() {
+		return this.cultureInstanceDao;
+	}
+
+	@Autowired
+	@Override
+	public void setCultureInstanceDao(CultureInstanceDao cultureInstanceDao) {
+		this.cultureInstanceDao = cultureInstanceDao;
 	}
 
 }

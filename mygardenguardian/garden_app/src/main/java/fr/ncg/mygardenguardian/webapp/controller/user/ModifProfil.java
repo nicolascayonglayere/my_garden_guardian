@@ -40,7 +40,6 @@ public class ModifProfil {
 		formPreRempli.setNumPortable(monUtilisateur.getCoordonneeUtilisateurDTO().getNumPortable());
 		formPreRempli.setVille(monUtilisateur.getCoordonneeUtilisateurDTO().getVille());
 		model.addAttribute("modifUserFormulaire", formPreRempli);
-		// model.addAttribute("utilisateurDTO", monUtilisateur);
 		return ("user/modifier_profil");
 	}
 
@@ -48,8 +47,6 @@ public class ModifProfil {
 	public String modificationProfil(
 			@Valid @ModelAttribute("modifUserFormulaire") @RequestBody ModifUserFormulaire modifUserFormulaire,
 			BindingResult errors, Model model, RedirectAttributes monProfilModif) {
-		// System.out.println("CTRL controller ---------------------" +
-		// modifUserFormulaire.toString());
 
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 		GardenGuardianAppUser monUser = (GardenGuardianAppUser) loggedInUser.getPrincipal();
@@ -60,7 +57,6 @@ public class ModifProfil {
 			model.addAttribute("errors", errors.getAllErrors());
 			model.addAttribute("modifUserFormulaire", modifUserFormulaire);
 			model.addAttribute("utilisateurDTO", userDto);
-			// System.out.println("CTRL ERRORS");
 			return ("user/modifier_profil");
 		}
 
@@ -70,7 +66,6 @@ public class ModifProfil {
 		cuDto.setEmail(modifUserFormulaire.getEmail());
 		cuDto.setNumPortable(modifUserFormulaire.getNumPortable());
 		cuDto.setVille(modifUserFormulaire.getVille());
-		// System.out.println("CTRL controller " + cuDto.toString());
 
 		userDto.setIdUtilisateur(idUtilisateur);
 		userDto.setNom(modifUserFormulaire.getNom());
@@ -79,7 +74,7 @@ public class ModifProfil {
 		userDto.setCoordonneeUtilisateurDTO(cuDto);
 
 		this.businessManager.getUtilisateurManager().modifierProfil(userDto);
-
+		monProfilModif.addFlashAttribute("messageModif", userDto);
 		return ("redirect:/user/mon_profil");
 	}
 

@@ -23,36 +23,28 @@
 			</div>
 			
 				<h2><span th:text="#{message.modifCulture}"></span></h2>
-				<form th:action="@{/culture/select_modification_culture}" th:object="${idForm}" method="POST">
-<!-- 					<div class="form-check form-check-inline"> -->
-<!-- 					  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="modifPlante" th:field ="*{option}" th:value="modifPlante"> -->
-<!-- 					  <label class="form-check-label" for="inlineRadio1" th:text="#{menu.modifPlante}"></label> -->
-<!-- 					</div>					 -->
-<!-- 					<div class="form-check form-check-inline"> -->
-<!-- 					  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="modifIntrant" th:field="*{option}" th:value="modifIntrant"> -->
-<!-- 					  <label class="form-check-label" for="inlineRadio1" th:text="#{menu.modifIntrant}"></label> -->
-<!-- 					</div> -->
-<!-- 					<div class="form-check form-check-inline"> -->
-<!-- 					  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="modifOpCult" th:field="*{option}" th:value="modifOpCult"> -->
-<!-- 					  <label class="form-check-label" for="inlineRadio1" th:text="#{menu.modifOpCult}"></label> -->
-<!-- 					</div>									 -->
-		
 					<table id="table_culture" class="display">
 					    <thead>
 					        <tr>
+					        	<th></th>
 					        	<th></th>
 					            <th><span th:text="#{inscription.nom}"></span></th>
 					            <th><span th:text="#{ajoutCulture.variete}"></span></th>
 					            <th><span th:text="#{ajoutCulture.produit}"></span></th>
 					            <th><span th:text="#{ajoutCulture.nomOpCult}"></span></th>
 					            <th><span th:text="#{ajoutCulture.nomIntrant}"></span></th>
-	<!-- 				            <th><span th:text="#{ajoutCulture.nomMat}"></span></th> -->
 					        </tr>
 					    </thead>
 					    <tbody>	
 					    		
 					    	<tr th:each="cultureDTO : ${mesCulturesConstr}">
-					    		<td><input type="checkbox" name="cultureAdd" th:field=*{idCulture} th:value="${__${cultureDTO.idCulture}__}"/></td>
+					    		<input id ="culture" type="hidden" name="cultureAdd" th:value="${__${cultureDTO.idCulture}__}"/>
+ 					    		<td><img src="../../images/trash.ico" alt="Supprimer la culture" width="25" height="25" class="suppr"/></td>
+ 					    		<td>
+ 					    			<a th:href="@{/culture/modification_culture?idCulture=}+${__${cultureDTO.idCulture}__}">
+ 					    				<img src="../../images/gmo.ico" alt="Modifier la culture" width="25" height="25" id="modif"/>
+ 					    			</a>
+ 					    		</td> 					    		
 					    		<td><span th:utext="${cultureDTO.plante.nom}"></span></td>
 					    		<td><span th:utext="${cultureDTO.plante.variete}"></span></td>
 					    		<td><span th:utext="${cultureDTO.plante.produit}"></span></td>
@@ -73,8 +65,6 @@
 					    	</tr>				    	
 					    </tbody>
 					</table>
-				<input id="bouton_table" type="submit" class="btn btn-primary btn-lg" th:value="#{bouton.cultureModif}"/>						
-				</form>
 			</div>
 		<div th:replace="includes/_footer::footer"></div>
 	</body>
@@ -83,4 +73,27 @@
 		    $('#table_culture').DataTable()
 		} );	
 	</script>
+	<script th:inline="javascript">	
+		$(document).ready( function () {
+			$('.suppr').hover( function () {			
+				$(this).toggleClass("hoverImg");		
+			});			
+		});
+	</script>
+	<script th:inline="javascript">	
+		$(document).ready( function () {
+			$('body').on('click','.suppr', function () {
+				var idCulture = $('#culture').val();
+ 			    alert("Vous allez supprimer cette culture");
+			    $.ajax({	
+			    	type: "POST",
+			    	url: "/culture/culture_suppr",
+			    	data: "idCulture="+idCulture,			    	
+			    	success: function(){
+			    		document.location.href = "../accueil";
+			    	}
+			    });
+			});	
+		});	
+	</script>	 
 </html>

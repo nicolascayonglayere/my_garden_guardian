@@ -68,10 +68,10 @@ public class Intrant implements Serializable {
 		this.culture = culture;
 	}
 
-//	@Override
-//	public String toString() {
-//		return "Intrant [idIntrant=" + this.idIntrant + ", nom=" + this.nom + ", reference=" + this.reference
-//				+ ", culture=" + this.culture + "]";
-//	}
+	@Override
+	public String toString() {
+		return "Intrant [idIntrant=" + this.idIntrant + ", nom=" + this.nom + ", reference=" + this.reference
+				+ ", culture=" + this.culture + "]";
+	}
 
 }

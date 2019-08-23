@@ -86,7 +86,7 @@
 			        <div class="form-group row">
 			        	<label for="postal" class="col-2 col-form-label" th:text="#{inscription.postal}"></label>
 			        	<div class="col-10">
-			        		<input class="form-control" type="number" placeholder="01242" id="postal" th:field="*{codePostal}" th:classappend="${#fields.errors('codePostal')} ? is-invalid"required/>
+			        		<input class="form-control" type="text" placeholder="01242" id="postal" th:field="*{codePostal}" th:classappend="${#fields.errors('codePostal')} ? is-invalid"required/>
 			        		<div class="invalid-feedback" th:errors="*{codePostal}"></div>
 		        		</div>
 			        </div>

@@ -11,7 +11,8 @@ public class OperationCulturaleMapper {
 		if (op.getIdOperationCulturale() != null) {
 			monOp.setIdOperationCulturale(op.getIdOperationCulturale());
 		}
-		monOp.setDate(op.getDate());
+		monOp.setOrigIntervPossible(op.getOrigIntervPossible());
+		monOp.setIntervallePossible(op.getIntervallePossible());
 		monOp.setDescritpion(op.getDescription());
 		monOp.setNom(op.getNom());
 		monOp.setStatut(op.getStatut());
@@ -30,7 +31,8 @@ public class OperationCulturaleMapper {
 		if (op.getIdOperationCulturale() != null) {
 			monOp.setIdOperationCulturale(op.getIdOperationCulturale());
 		}
-		monOp.setDate(op.getDate());
+		monOp.setOrigIntervPossible(op.getOrigIntervPossible());
+		monOp.setIntervallePossible(op.getIntervallePossible());
 		monOp.setDescription(op.getDescritpion());
 		monOp.setNom(op.getNom());
 		monOp.setStatut(op.getStatut());

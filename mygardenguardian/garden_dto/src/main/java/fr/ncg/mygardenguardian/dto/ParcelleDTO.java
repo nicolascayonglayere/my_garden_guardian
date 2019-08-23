@@ -9,7 +9,7 @@ public class ParcelleDTO {
 	private double surface;
 	private String code;
 	// private boolean occupation;
-	private List<CalendrierCulturalDTO> calendrierCultural;
+	private List<CultureInstanceDTO> listeCultures;
 
 	public ParcelleDTO() {
 	}
@@ -44,25 +44,67 @@ public class ParcelleDTO {
 		this.code = code;
 	}
 
-	public void addCultureDTO(CalendrierCulturalDTO cal) {
-		if (this.calendrierCultural == null) {
-			this.calendrierCultural = new ArrayList<CalendrierCulturalDTO>();
+	public void addCultureInstanceDTO(CultureInstanceDTO cal) {
+		if (this.listeCultures == null) {
+			this.listeCultures = new ArrayList<CultureInstanceDTO>();
 		}
-		this.calendrierCultural.add(cal);
+		this.listeCultures.add(cal);
 	}
 
-	public List<CalendrierCulturalDTO> getCalendrierCultural() {
-		return this.calendrierCultural;
+	public List<CultureInstanceDTO> getlisteCultures() {
+		return this.listeCultures;
 	}
 
-	public void setCalendrierCultural(List<CalendrierCulturalDTO> calendrierCultural) {
-		this.calendrierCultural = calendrierCultural;
+	public void setlisteCultures(List<CultureInstanceDTO> listeCultures) {
+		this.listeCultures = listeCultures;
 	}
 
 	@Override
 	public String toString() {
 		return "ParcelleDTO [idParcelle=" + this.idParcelle + ", surface=" + this.surface + ", code=" + this.code
-				+ ", calendrierCultural=" + this.calendrierCultural + "]";
+				+ ", listeCultures=" + this.listeCultures + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((this.code == null) ? 0 : this.code.hashCode());
+		result = prime * result + ((this.idParcelle == null) ? 0 : this.idParcelle.hashCode());
+		result = prime * result + ((this.listeCultures == null) ? 0 : this.listeCultures.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(this.surface);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (this.getClass() != obj.getClass())
+			return false;
+		ParcelleDTO other = (ParcelleDTO) obj;
+		if (this.code == null) {
+			if (other.code != null)
+				return false;
+		} else if (!this.code.equals(other.code))
+			return false;
+		if (this.idParcelle == null) {
+			if (other.idParcelle != null)
+				return false;
+		} else if (!this.idParcelle.equals(other.idParcelle))
+			return false;
+		if (this.listeCultures == null) {
+			if (other.listeCultures != null)
+				return false;
+		} else if (!this.listeCultures.equals(other.listeCultures))
+			return false;
+		if (Double.doubleToLongBits(this.surface) != Double.doubleToLongBits(other.surface))
+			return false;
+		return true;
 	}
 
 }

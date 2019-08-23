@@ -3,6 +3,7 @@ package fr.ncg.mygardenguardian.consumer;
 import fr.ncg.mygardenguardian.consumer.contract.AdhesionDao;
 import fr.ncg.mygardenguardian.consumer.contract.CoordonneesUtilisateurDao;
 import fr.ncg.mygardenguardian.consumer.contract.CultureDao;
+import fr.ncg.mygardenguardian.consumer.contract.CultureInstanceDao;
 import fr.ncg.mygardenguardian.consumer.contract.IntrantDao;
 import fr.ncg.mygardenguardian.consumer.contract.MaterielDao;
 import fr.ncg.mygardenguardian.consumer.contract.OperationCulturaleDao;
@@ -47,5 +48,9 @@ public interface IDaoFactory {
 	public PlanteDao getPlanteDao();
 
 	public void setPlanteDao(PlanteDao planteDao);
+
+	public CultureInstanceDao getCultureInstanceDao();
+
+	public void setCultureInstanceDao(CultureInstanceDao cultureInstanceDao);
 
 }

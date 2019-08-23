@@ -3,6 +3,7 @@ package fr.ncg.mygardenguardian.business.impl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,19 @@ public class IntrantManagerImpl implements IIntrantManager {
 	@Override
 	public IntrantDTO creerIntrantBdd(CultureDTO culture) {
 		// --TODO verif existance intrant
-		Intrant monIntrant = IntrantMapper.fromIntrantDtoToIntrant(culture.getIntrants().get(0));
+
+		Intrant monIntrant = IntrantMapper.fromIntrantDtoToIntrant(culture.getIntrants().stream()
+				.filter(i -> i.getIdIntrant() == null).collect(Collectors.toList()).get(0));
+		monIntrant.setCulture(CultureMapper.fromCultureDtoToCulture(culture));
+		System.out.println(("CTRL BUSINESS save ---------- " + monIntrant.toString()));
+		return IntrantMapper.fromIntrantToIntrantDTO(this.daoFacto.getIntrantDao().saveAndFlush(monIntrant));
+	}
+
+	@Override
+	public IntrantDTO modifierIntrantBdd(IntrantDTO intrant, CultureDTO culture) {
+		// TODO verif existance intrant et de la culture
+		System.out.println(("CTRL BUSINESS update ---------- " + intrant.toString()));
+		Intrant monIntrant = IntrantMapper.fromIntrantDtoToIntrant(intrant);
 		monIntrant.setCulture(CultureMapper.fromCultureDtoToCulture(culture));
 		return IntrantMapper.fromIntrantToIntrantDTO(this.daoFacto.getIntrantDao().saveAndFlush(monIntrant));
 	}
@@ -40,6 +53,19 @@ public class IntrantManagerImpl implements IIntrantManager {
 		});
 		Collections.sort(nomsIntrants);
 		return nomsIntrants;
+	}
+
+	@Override
+	public List<IntrantDTO> obtenirIntrantsCultureId(Integer idCulture) {
+		// --TODO verfifier existence de culture
+		return this.daoFacto.getIntrantDao().findByCultureIdCulture(idCulture).stream()
+				.map(in -> IntrantMapper.fromIntrantToIntrantDTO(in)).collect(Collectors.toList());
+	}
+
+	@Override
+	public IntrantDTO obtenirIntrant(Integer IdIntrant) {
+		// TODO verifier existence de l'intrant
+		return IntrantMapper.fromIntrantToIntrantDTO(this.daoFacto.getIntrantDao().findById(IdIntrant).get());
 	}
 
 	public DaoFactoryImpl getDaoFacto() {

@@ -63,6 +63,13 @@ body
 	margin-bottom : 15px;
 }
 
+#boutonFinal{
+	background-color : #6e9e6c;
+	border-color : #5a7559;
+	margin-left : 15px;
+	margin-bottom : 15px;
+}
+
 #bouton_table{
 	position: center;
 	background-color : #5a7559;
@@ -134,8 +141,17 @@ body
 	text-align : center;
 }
 
+.hoverImg{
+	border : solid;
+}
 
+/* #formHide{ */
+/* 	display : none; */
+/* } */
 
+#listeBtnCult{
+	
+}
 
 #blocImgTopo
 {

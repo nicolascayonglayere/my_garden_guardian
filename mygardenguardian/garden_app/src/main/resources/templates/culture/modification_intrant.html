@@ -1,0 +1,133 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+	<head>
+		<div th:replace="includes/_head::head"/>
+		<title>Accueil</title>
+	</head>
+	
+	<body>
+		<div class="container">
+			<div th:each="role : ${#authentication.getPrincipal().getAuthorities()}">
+				<div th:if="${#strings.toString(role) == 'ROLE_Administrateur'}">
+					<div th:replace="includes/_navbar::navigation"></div>
+				</div>		
+				<div th:if="${#strings.toString(role) == 'ROLE_Jardinier'}">
+					<div th:replace="includes/_navbar::navigation_jardinier"></div>
+				</div>					
+			</div>
+
+			<div class="jumbotron jumbotron-fluid">
+				<div class="container text-center">
+					<h1 class="display-3" th:text="#{menu.modifIntrant}"></h1>
+				</div>
+			</div>
+			
+			<div th:with="idPlante=${param.idCulture}">
+				<h2><span th:text="#{message.modifIntrant}"></span></h2>
+					<table id="table_culture" class="display">
+					    <thead>
+					        <tr>
+					        	<th></th>
+					        	<th></th>
+					            <th><span th:text="#{ajoutCulture.nomIntrant}"></span></th>
+					            <th><span th:text="#{ajout.reference}"></span></th>
+					        </tr>
+					    </thead>
+					    <tbody>	
+					    		
+					    	<tr th:each="intrantDTO : ${listeIntrants}">
+					    		<input id ="intrant" type="hidden" name="intrantAdd" th:value="${intrantDTO.idIntrant}"/>
+ 					    		<td><img src="../../images/trash.ico" alt="Supprimer l'intrant" width="25" height="25" class="suppr"/></td>
+ 					    		<td th:id="${intrantDTO.idIntrant}">
+ 					    			<img src="../../images/gmo.ico" alt="Modifier l'intrant" width="25" height="25" class="modif"/>
+ 					    		</td> 					    		
+					    		<td><span th:utext="${intrantDTO.nom}"></span></td>
+					    		<td><span th:utext="${intrantDTO.reference}"></span></td>
+					    	</tr>				    	
+					    </tbody>
+					</table>
+					<div id="formHide">
+						<form class="form-horizontal was-validated" th:action="@{/culture/modif_intrant}" th:object="${intrantForm}" method="POST" id="intrantForm">
+							<div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+							    <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>    
+							</div>				
+						
+							<input id="intrantId" name="intrantId" th:field="${intrantForm.idIntrant}" type="hidden" />
+							<input id="planteId" name="planteId" th:value="@{${idPlante}}" type="hidden" />
+						
+					        <div class="form-group row">
+					        	<label for="nom" class="col-2 col-form-label"  th:text="#{inscription.nom}"></label>
+					        	<div class="col-10">
+					        		<input id="nom" class="form-control" type="text" th:field="${intrantForm.nom}" required/>
+					        	</div>
+					        </div>
+		
+					        <div class="form-group row">
+					        	<label for="reference" class="col-2 col-form-label"  th:text="#{ajout.reference}"></label>
+					        	<div class="col-10">
+					        		<input id="reference" class="form-control" type="text" th:field="${intrantForm.reference}" required/>
+					        	</div>
+					        </div>
+					        			        
+					        <div class="form-group row">		        
+								<input id="bouton" type="submit" class="btn btn-primary btn-lg" th:value="#{bouton.validation}"/>
+							</div>
+						</form>						
+					</div>
+				</div>
+			</div>
+		<div th:replace="includes/_footer::footer"></div>
+	</body>
+	<script type="text/javascript">
+		$(document).ready( function () {
+		    $('#table_culture').DataTable();
+		    $("div#formHide").hide();
+		} );	
+	</script>
+	<script th:inline="javascript">	
+		$(document).ready( function () {
+			$('.suppr').hover( function () {			
+				$(this).toggleClass("hoverImg");		
+			});			
+		});
+	</script>
+	
+	<script th:inline="javascript">	
+		$(document).ready( function () {
+			$('body').on('click','.suppr', function () {
+				var idIntrant = $('#intrant').val();
+ 			    alert("Vous allez supprimer cet intrant");
+			    $.ajax({	
+			    	type: "POST",
+			    	url: "/culture/intrant_suppr",
+			    	data: "idIntrant="+idIntrant,			    	
+			    	success: function(){
+			    		document.location.href = "/culture/tableau_bord_enregistrement_culture";
+			    	}
+			    });
+			});	
+		});	
+	</script>
+	<script th:inline="javascript">	
+		$(document).ready( function () {
+			$('body').on('click','.modif', function () {
+				var idIntrant = $(this).closest('td').attr('id');
+				var form = $('#intrantForm')
+				$.ajax({
+					type: "GET",
+					url : "/culture/get_intrant_modif?idIntrant="+idIntrant,
+					success: function (monIntrant){
+						populate(form, monIntrant);
+						$("div#formHide").show();
+					} 
+				});
+			});	
+		});
+		function populate(frm, data) {   
+		    $.each(data, function(key, value) {  
+		        var ctrl = $('[name='+key+']', frm);  
+		        ctrl.val(value);  
+		    });  
+		}	
+	</script>
+</html>

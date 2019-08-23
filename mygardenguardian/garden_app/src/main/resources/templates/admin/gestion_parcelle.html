@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<div th:replace="includes/_head::head"></div>
+		<title>Accueil</title>			
+	</head>
+	
+	<body>
+		<div class="container">
+			<div th:replace="includes/_navbar::navigation"></div>
+
+			<div class="jumbotron jumbotron-fluid">
+				<div class="container text-center">
+					<h1 class="display-3" th:text="#{accueil.animateur}"></h1>
+				</div>
+			</div>
+			
+			<h2><span th:text="#{parcelleTab.liste}"></span></h2>		
+			<table id="table_parcelle" class="display">
+			    <thead>
+			        <tr>
+			        	<th></th>
+			        	<th></th>
+			            <th><span th:text="#{parcelleTab.code}"></span></th>
+			            <th><span th:text="#{parcelleTab.surface}"></span></th>
+			            <th><span th:text="#{parcelleTab.jardinier}"></span></th>
+			        </tr>
+			    </thead>
+			    <tbody>
+			    	<tr th:each="parcelleDTO : ${parcellesListe}">
+			    		<input id ="parcelle" type="hidden" name="parcelleAdd" th:value="${parcelleDTO.key.idParcelle}"/>
+						<td><img src="../../images/trash.ico" alt="Supprimer la parcelle" width="25" height="25" id="suppr"/></td>
+ 					    <td th:id="${parcelleDTO.key.idParcelle}"><img src="../../images/gmo.ico" alt="Modifier la parcelle" width="25" height="25" id="modif"/></td>			    	
+			    		<td><span th:utext="${parcelleDTO.key.code}"></span></td>
+			    		<td><span th:utext="${parcelleDTO.key.surface}"></span></td>
+			    		<td><span th:utext="${parcelleDTO.value} ? ${parcelleDTO.value.utilisateurDTO.nom}+' '+${parcelleDTO.value.utilisateurDTO.prenom} : #{parcelleTab.noJardi}"></span></td>
+			    	</tr>
+			    </tbody>
+			</table>
+			<div id="formHide">
+				<form class="form-horizontal was-validated" th:action="@{/admin/modification_parcelle}" th:object="${parcelleForm}" method="POST" id="parcelleForm">
+					<div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+					    <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>    
+					</div>				
+				
+					<input id="parcelleId" name="parcelleId" th:field="${parcelleForm.idParcelle}" type="hidden" />
+				
+			        <div class="form-group row">
+			        	<label for="code" class="col-2 col-form-label"  th:text="#{parcelleTab.code}"></label>
+			        	<div class="col-10">
+			        		<input id="code" class="form-control" type="text" th:field="${parcelleForm.code}" required/>
+			        	</div>
+			        </div>
+	
+			        <div class="form-group row">
+			        	<label for="surface" class="col-2 col-form-label"  th:text="#{parcelleTab.surface}"></label>
+			        	<div class="col-10">
+			        		<input id="surface" class="form-control" type="text" th:field="${parcelleForm.surface}" required/>
+			        	</div>
+			        </div>
+			        			        
+			        <div class="form-group row">		        
+						<input id="bouton" type="submit" class="btn btn-primary btn-lg" th:value="#{bouton.validation}"/>
+					</div>
+				</form>						
+			</div>			
+
+			<div th:replace="includes/_footer::footer"></div>
+		</div>			
+	</body>
+	<script type="text/javascript">
+		$(document).ready( function () {
+		    $('#table_parcelle').DataTable();
+		    $("div#formHide").hide();
+		} );	
+	</script>
+	<script th:inline="javascript">	
+		$(document).ready( function () {
+			$('#suppr').hover( function () {			
+				$(this).toggleClass("hoverImg");		
+			} );			
+			$('body').on('click','#suppr', function () {				
+				var idParcelle = $('#parcelle').val();
+ 			    alert("Vous allez supprimer cette parcelle ");
+			    $.ajax({	
+			    	type: "POST",
+			    	url: "/admin/parcelle_suppr",
+			    	data: "idParcelle="+idParcelle,			    	
+			    	success: function(){
+			    		document.location.href = "../accueil";
+			    	}
+			    });
+			} );
+		} );
+	</script>
+	<script th:inline="javascript">	
+		$(document).ready( function () {
+			$('body').on('click','#modif', function () {
+				var idParcelle = $(this).closest('td').attr('id');
+				console.log(idParcelle);
+				var form = $('#parcelleForm');
+				$.ajax({
+					type: "GET",
+					url : "/admin/get_parcelle_modif?idParcelle="+idParcelle,
+					success: function (maParcelle){
+						console.log(maParcelle);
+						populate(form, maParcelle);
+						$("div#formHide").show();
+					} 
+				});
+			});	
+		});
+		function populate(frm, data) {   
+		    $.each(data, function(key, value) {  
+		        var ctrl = $('[name='+key+']', frm);  
+		        ctrl.val(value);  
+		    });  
+		}	
+	</script>
+</html>

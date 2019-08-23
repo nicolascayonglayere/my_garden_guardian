@@ -30,19 +30,15 @@
 					<table id="table_culture" class="display">
 					    <thead>
 					        <tr>
-					        	<th></th>
 					            <th><span th:text="#{inscription.nom}"></span></th>
 					            <th><span th:text="#{ajoutCulture.variete}"></span></th>
 					            <th><span th:text="#{ajoutCulture.produit}"></span></th>
 					            <th><span th:text="#{ajoutCulture.nomOpCult}"></span></th>
 					            <th><span th:text="#{ajoutCulture.nomIntrant}"></span></th>
-	<!-- 				            <th><span th:text="#{ajoutCulture.nomMat}"></span></th> -->
 					        </tr>
 					    </thead>
 					    <tbody>	
 					    	<tr>	
-<!-- 					    	<tr th:each="cultureDTO : ${mesCulturesConstr}"> -->
-<!-- 					    		<td><input type="checkbox" name="cultureAdd" th:field=*{culturesAjoutees} th:value="${__${cultureDTO.idCulture}__}"></td> -->
 					    		<td><span th:utext="${cultureCreee.plante.nom}"></span></td>
 					    		<td><span th:utext="${cultureCreee.plante.variete}"></span></td>
 					    		<td><span th:utext="${cultureCreee.plante.produit}"></span></td>
@@ -64,7 +60,6 @@
 					    </tbody>
 					</table>
 				<h2><span th:text="#{message.finalisation}"></span></h2>	
-<!-- 				<input id="planteId" name="planteId" th:value="@{${idCulture}}" type="hidden" />				 -->
 				<input id="bouton" type="submit" class="btn btn-primary btn-lg" th:value="#{bouton.validation}"/>						
 				</form>
 			</div>

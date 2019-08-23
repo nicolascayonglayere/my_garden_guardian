@@ -2,39 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
 	<head>
 		<div th:replace="includes/_head::head"></div>
-		<title>Calendrier prévisionnel</title>
+		<title>Calendrier previsionnel</title>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/fr.js"></script>		
-<!-- 		<div th:replace="includes/_full_calendar::fullCalendar"></div> -->
+
 		<link href='https://fullcalendar.io/js/fullcalendar-3.4.0/fullcalendar.css' rel='stylesheet' />
-
-
-
-
-
-<!-- 		<link href='https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.2.0/main.min.css' rel='stylesheet' />  -->
-<!-- 		<link href='https://cdn.jsdelivr.net/npm/@fullcalendar/list@4.2.0/main.min.css' rel='stylesheet' /> -->
-<!-- 		<link href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.2.0/main.min.css" rel='stylesheet' /> -->
-<!-- 		<link href="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.2.0/main.min.css" rel='stylesheet' /> -->
-<!-- 		<link href='https://cdn.jsdelivr.net/npm/@fullcalendar/bootstrap@4.2.0/main.min.css' rel='stylesheet' />     -->
-    	
-    	
     	<script src="https://fullcalendar.io/js/fullcalendar-3.4.0/fullcalendar.js"></script>
-
-
-
-
-
-
-<!--     	<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.2.0/main.min.js"></script> -->
-<!-- 		<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/list@4.2.0/main.min.js"></script> -->
-<!-- 		<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.2.0/main.min.js"></script> -->
-<!-- 		<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.2.0/main.min.js"></script> -->
-<!-- 		<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@4.2.0/main.min.js"></script> -->
-<!-- 		<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/moment@4.2.0/main.min.js"></script> -->
-<!-- 		<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/rrule@4.2.0/main.min.js"></script> -->
-<!-- 		<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.2.0/locales/fr.js"></script> -->
-<!-- 		<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/bootstrap@4.2.0/main.min.js"></script> -->
 		
 	    <script type="text/javascript">
 	
@@ -105,6 +78,18 @@
                       },
                       color:'brown',
                       textColor:'black'
+    		    },
+    		    {
+    		    	url:'/user/binageCalendar',
+    		        error: function() {
+    		            console.log('there was an error while fetching events!');
+    		          },
+                    success: function()
+                      {
+                          console.log("successfully loaded");
+                      },
+                      color:'blue',
+                      textColor:'yellow'
     		    }    		    
 	          ],
 
@@ -183,13 +168,37 @@
 				</div>
 			</div>
 
-			
+			<div th:if="${not #lists.isEmpty(culturesHorsRecom)}">
+					<h2 th:text="#{ajout.culturesHorsRecom}"></h2>
+					
+				<table id="table_culture" class="display">
+				    <thead>
+				        <tr>
+				            <th><span th:text="#{inscription.nom}"></span></th>
+				            <th><span th:text="#{ajoutCulture.variete}"></span></th>
+				            <th><span th:text="#{ajout.date}"></span></th>
+				        </tr>
+				    </thead>
+				    <tbody>	
+				    	<tr th:each="cultureInstanceDTO : ${culturesHorsRecom}">
+				    		<td><span th:utext="${cultureInstanceDTO.culture.plante.nom}"></span></td>
+				    		<td><span th:utext="${cultureInstanceDTO.culture.plante.variete}"></span></td>
+				    		<td><span th:utext="${#dates.format(cultureInstanceDTO.date, 'dd MMM yyyy')}"></span></td>
+				    	</tr>				    	
+				    </tbody>
+				</table>					
+			</div>			
 
 			<div id='calendar'></div>
 			
 			
 			
 			<div th:replace="includes/_footer::footer"></div>		
-		</div>			
+		</div>	
+	<script type="text/javascript">
+		$(document).ready( function () {
+		    $('#table_culture').DataTable()
+		} );	
+	</script>				
 	</body>
 </html>

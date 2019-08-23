@@ -8,5 +8,9 @@ public interface IParcelleManager {
 
 	public List<ParcelleDTO> trouverToutesParcellesVides();
 
+	public List<ParcelleDTO> trouverToutesParcelles();
+
 	public ParcelleDTO trouverParcelleParId(int idParcelle);
+
+	public ParcelleDTO enregistrerParcelle(ParcelleDTO parcelle);
 }

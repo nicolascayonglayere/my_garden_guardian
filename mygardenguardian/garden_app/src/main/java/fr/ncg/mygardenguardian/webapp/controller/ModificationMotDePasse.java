@@ -42,7 +42,7 @@ public class ModificationMotDePasse {
 	public String modificationMdp(
 			@Valid @ModelAttribute("modifMdpFormulaire") @RequestBody ModifMdpFormulaire modifMdpFormulaire,
 			BindingResult errors, Model model, RedirectAttributes monMdpModif) {
-		System.out.println("CTRL CONTROLLER ------------- " + modifMdpFormulaire.toString());
+
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 		GardenGuardianAppUser monUser = (GardenGuardianAppUser) loggedInUser.getPrincipal();
 		Integer idUtilisateur = monUser.getIdUtilisateur();
@@ -54,15 +54,15 @@ public class ModificationMotDePasse {
 			model.addAttribute("errors", errors.getAllErrors());
 			model.addAttribute("modifMdpFormulaire", modifMdpFormulaire);
 			model.addAttribute("utilisateurDTO", userDto);
-			// System.out.println("CTRL ERRORS");
 			return ("modif_mdp");
 		}
+
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String hashedPassword = passwordEncoder.encode(modifMdpFormulaire.getMdpConfirm());
 		userDto.setMdp(hashedPassword);
 		userDto = this.businessManager.getUtilisateurManager().modifierProfil(userDto);
-		monMdpModif.addFlashAttribute("modifMdp", userDto);
-		return ("redirect:/accueil");
+		monMdpModif.addFlashAttribute("messageMdp", userDto);
+		return ("redirect:/user/mon_profil");
 	}
 
 	public IBusinessManagerFactory getBusinessManager() {

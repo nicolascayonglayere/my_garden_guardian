@@ -14,6 +14,15 @@
 				</div>
 			</div>	
 			
+						
+			<div th:if="${messageMdp != null}">
+				<h2><span th:text="#{message.mdpModif}"></span></h2>
+			</div>
+			
+			<div th:if="${messageModif != null}">
+				<h2><span th:text="#{message.modifProfil}"></span></h2>
+			</div>
+			
 			<table id="table_id" class="display">
 				<thead>
 					<tr>
@@ -38,7 +47,7 @@
 			    		<td><span th:utext="${adhesionDTO.utilisateurDTO.coordonneeUtilisateurDTO.codePostal}"></span></td>
 			    		<td><span th:utext="${adhesionDTO.utilisateurDTO.coordonneeUtilisateurDTO.ville}"></span></td>
 			    		<td><span th:utext="${adhesionDTO.parcelleDTO.code}"></span></td>
-			    		<td><span th:utext="${adhesionDTO.dateAdhesion}"></span></td>						
+			    		<td><span th:utext="${#dates.format(adhesionDTO.dateAdhesion, 'dd MMM yyyy')}"></span></td>						
 					</tr>
 				</tbody>
 			</table>

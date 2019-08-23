@@ -9,5 +9,11 @@ public interface IIntrantManager {
 
 	public IntrantDTO creerIntrantBdd(CultureDTO culture);
 
+	public IntrantDTO modifierIntrantBdd(IntrantDTO intrant, CultureDTO culture);
+
+	public IntrantDTO obtenirIntrant(Integer IdIntrant);
+
 	public List<String> obtenirNomsIntrants();
+
+	public List<IntrantDTO> obtenirIntrantsCultureId(Integer idCulture);
 }

@@ -59,7 +59,8 @@ public class ModificationCultureControllerRest {
 					Integer.valueOf(request.getParameter("operationsCulturales[" + i + "].idOperationCulturale")));
 			monOpeModif.setNom(request.getParameter("operationsCulturales[" + i + "].nom"));
 			monOpeModif.setDescription(request.getParameter("operationsCulturales[" + i + "].description"));
-			monOpeModif.setDate(Integer.valueOf(request.getParameter("operationsCulturales[" + i + "].date")));
+			// monOpeModif.setDate(Integer.valueOf(request.getParameter("operationsCulturales["
+			// + i + "].date")));
 			monOpeModif.setStatut(String.valueOf(false));
 			maCultureModif.addOperationCulturale(monOpeModif);
 		});

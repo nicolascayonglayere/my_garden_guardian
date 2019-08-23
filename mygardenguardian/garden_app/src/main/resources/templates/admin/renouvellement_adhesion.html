@@ -27,6 +27,7 @@
 				            <th><span th:text="#{inscription.postal}"></span></th>
 				            <th><span th:text="#{inscription.ville}"></span></th>
 				            <th><span th:text="#{inscription.parcelle}"></span></th>
+				            <th><span th:text="#{inscription.date}"></span></th>
 				        </tr>
 				    </thead>
 				    
@@ -41,6 +42,7 @@
 				    		<td><span th:utext="${adhesionDTO.utilisateurDTO.coordonneeUtilisateurDTO.codePostal}"></span></td>
 				    		<td><span th:utext="${adhesionDTO.utilisateurDTO.coordonneeUtilisateurDTO.ville}"></span></td>
 				    		<td><span th:utext="${adhesionDTO.parcelleDTO.idParcelle}"></span></td>
+				    		<td><span th:text="${#dates.format(adhesionDTO.dateAdhesion, 'dd MMM yyyy')}"></span></td>
 				    	</tr>				    	
 				    </tbody>
 				</table>

@@ -2,7 +2,6 @@ package fr.ncg.mygardenguardian.entites;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -24,6 +23,8 @@ public class Culture implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_culture")
 	private Integer idCulture;
+	@Column(name = "nom", nullable = false)
+	private String nom;
 	@ManyToOne
 	@JoinColumn(name = "id_plante", nullable = false)
 	private Plante plante;
@@ -32,18 +33,25 @@ public class Culture implements Serializable {
 	@OneToMany(mappedBy = "culture")
 	private List<Intrant> intrants;
 	@OneToMany(mappedBy = "culture")
-	private List<CalendrierCultural> listeParcelles;
+	private List<CultureInstance> listeCulturesInstances;
 	@Column(name = "en_construction", nullable = false, columnDefinition = "boolean default true")
 	private boolean enConstruction;
 	@ManyToOne
 	@JoinColumn(name = "id_utilisateur")
 	private Utilisateur utilisateur;
+	@Column(name = "recommandation_basse", nullable = false)
+	private Integer recommandationBasse;
+	@Column(name = "recommandation_haute", nullable = false)
+	private Integer recommandationHaute;
 
 	public Culture() {
 	}
 
-	public Culture(boolean enConstruction) {
+	public Culture(String nom, boolean enConstruction, Integer recommandationBasse, Integer recommandationHaute) {
+		this.nom = nom;
 		this.enConstruction = enConstruction;
+		this.recommandationBasse = recommandationBasse;
+		this.recommandationHaute = recommandationHaute;
 	}
 
 	public boolean isEnConstruction() {
@@ -100,27 +108,19 @@ public class Culture implements Serializable {
 		this.operationsCulturales.add(op);
 	}
 
-	public void addParcelle(Parcelle parcelle, Date date) {
-		if (this.listeParcelles == null) {
-			this.listeParcelles = new ArrayList<CalendrierCultural>();
+	public List<CultureInstance> getlisteCulturesInstances() {
+		return this.listeCulturesInstances;
+	}
+
+	public void setlisteCulturesInstances(List<CultureInstance> listeCulturesInstances) {
+		this.listeCulturesInstances = listeCulturesInstances;
+	}
+
+	public void addCultureInstance(CultureInstance culture) {
+		if (this.listeCulturesInstances == null) {
+			this.listeCulturesInstances = new ArrayList<CultureInstance>();
 		}
-		CalendrierCultural cal = new CalendrierCultural();
-		cal.setCulture(this);
-		cal.setDate(date);
-		cal.setIdCulture(this.getIdCulture());
-		cal.setParcelle(parcelle);
-		cal.setIdParcelle(parcelle.getIdParcelle());
-		this.listeParcelles.add(cal);
-		parcelle.getListeCultures().add(cal);
-
-	}
-
-	public List<CalendrierCultural> getListeParcelles() {
-		return this.listeParcelles;
-	}
-
-	public void setListeParcelles(List<CalendrierCultural> listeParcelles) {
-		this.listeParcelles = listeParcelles;
+		this.listeCulturesInstances.add(culture);
 	}
 
 	public Utilisateur getUtilisateur() {
@@ -131,10 +131,37 @@ public class Culture implements Serializable {
 		this.utilisateur = utilisateur;
 	}
 
+	public String getNom() {
+		return this.nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public Integer getRecommandationBasse() {
+		return this.recommandationBasse;
+	}
+
+	public void setRecommandationBasse(Integer recommandationBasse) {
+		this.recommandationBasse = recommandationBasse;
+	}
+
+	public Integer getRecommandationHaute() {
+		return this.recommandationHaute;
+	}
+
+	public void setRecommandationHaute(Integer recommandationHaute) {
+		this.recommandationHaute = recommandationHaute;
+	}
+
 	@Override
 	public String toString() {
-		return "Culture [idCulture=" + this.idCulture + ", plante=" + this.plante + ", intrants=" + this.intrants
-				+ ", listeParcelles=" + this.listeParcelles + ", enConstruction=" + this.enConstruction + "]";
+		return "Culture [idCulture=" + this.idCulture + ", nom=" + this.nom + ", plante=" + this.plante
+//				+ ", operationsCulturales=" + this.operationsCulturales + ", intrants=" + this.intrants
+				+ ", enConstruction=" + this.enConstruction + ", utilisateur=" + this.utilisateur
+				+ ", recommandationBasse=" + this.recommandationBasse + ", recommandationHaute="
+				+ this.recommandationHaute + "]";
 	}
 
 }

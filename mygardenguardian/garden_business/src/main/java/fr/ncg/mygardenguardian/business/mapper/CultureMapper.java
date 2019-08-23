@@ -23,14 +23,17 @@ public class CultureMapper {
 			});
 		}
 		maCulture.setEnConstruction(cultureDTO.isEnConstruction());
+		maCulture.setNom(cultureDTO.getNom());
+		maCulture.setRecommandationBasse(cultureDTO.getRecommandationBasse());
+		maCulture.setRecommandationHaute(cultureDTO.getRecommandationHaute());
 
 //		if (cultureDTO.getUtilisateur() != null) {
 //			maCulture.setUtilisateur(UtilisateurMapper.fromUtilisateurDTOToUtilisateur(cultureDTO.getUtilisateur()));
 //		}
-		cultureDTO.getListeParcelles().stream()
-				.map(cal -> CalendrierCulturalMapper.fromCalendrierCulturalDtoToCalendrierCultural(cal))
-				.forEachOrdered(cal -> maCulture.getListeParcelles().add(cal));
-
+//		if (cultureDTO.getlisteInstances() != null) {
+//			cultureDTO.getlisteInstances().stream().forEachOrdered(cal -> maCulture
+//					.addCultureInstance(CultureInstanceMapper.fromCultureInstanceDtoToCultureInstance(cal)));
+//		}
 		return maCulture;
 	}
 
@@ -51,18 +54,17 @@ public class CultureMapper {
 		}
 
 		maCultureDTO.setEnConstruction(culture.isEnConstruction());
+		maCultureDTO.setNom(culture.getNom());
+		maCultureDTO.setRecommandationBasse(culture.getRecommandationBasse());
+		maCultureDTO.setRecommandationHaute(culture.getRecommandationHaute());
 //		if (culture.getUtilisateur() != null) {
 //			maCultureDTO.setUtilisateur(UtilisateurMapper.fromUtilisateurToUtilisateurDTO(culture.getUtilisateur()));
 //		}
 
-//		culture.getListeParcelles().stream()
-//				.map(cal -> CalendrierCulturalMapper.fromCalendrierCulturalToCalendrierCulturalDTO(cal))
-//				.forEachOrdered(cal -> {
-//					System.out.println(culture.toString());
-//
-////					maCultureDTO.addParcelleDTO(cal);
-////					System.out.println(maCultureDTO.toString());
-//				});
+//		if (culture.getlisteCulturesInstances() != null) {
+//			culture.getlisteCulturesInstances().stream().forEachOrdered(ci -> maCultureDTO
+//					.addCultureInstanceDTO(CultureInstanceMapper.fromCultureInstanceToCultureInstanceDTO(ci)));
+//		}
 		return maCultureDTO;
 	}
 

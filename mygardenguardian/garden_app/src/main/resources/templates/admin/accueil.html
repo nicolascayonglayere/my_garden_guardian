@@ -57,6 +57,7 @@
 				            <th><span th:text="#{inscription.postal}"></span></th>
 				            <th><span th:text="#{inscription.ville}"></span></th>
 				            <th><span th:text="#{inscription.parcelle}"></span></th>
+				            <th><span th:text="#{inscription.date}"></span></th>
 				        </tr>
 				    </thead>
 				    <tbody>
@@ -69,6 +70,7 @@
 				    		<td><span th:text="${monInscription.utilisateurDTO.coordonneeUtilisateurDTO.codePostal}"></span></td>
 				    		<td><span th:text="${monInscription.utilisateurDTO.coordonneeUtilisateurDTO.ville}"></span></td>
 				    		<td><span th:text="${monInscription.parcelleDTO.code}"></span></td>
+				    		<td><span th:text="${#dates.format(monInscription.dateAdhesion, 'dd MMM yyyy')}"></span></td>
 				    	</tr>
 				    </tbody>
 				</table>
@@ -87,6 +89,7 @@
 				            <th><span th:text="#{inscription.postal}"></span></th>
 				            <th><span th:text="#{inscription.ville}"></span></th>
 				            <th><span th:text="#{inscription.parcelle}"></span></th>
+				            <th><span th:text="#{inscription.date}"></span></th>
 				        </tr>
 				    </thead>
 					<tbody>
@@ -99,6 +102,7 @@
 				    		<td><span th:utext="${adhesionDTO.utilisateurDTO.coordonneeUtilisateurDTO.codePostal}"></span></td>
 				    		<td><span th:utext="${adhesionDTO.utilisateurDTO.coordonneeUtilisateurDTO.ville}"></span></td>
 				    		<td><span th:utext="${adhesionDTO.parcelleDTO.code}"></span></td>
+				    		<td><span th:text="${#dates.format(adhesionDTO.dateAdhesion, 'dd MMM yyyy')}"></span></td>
 				    	</tr>
 				    </tbody>
 				</table>
@@ -123,8 +127,27 @@
 			</div>
 			
 			<div th:if="${#lists.isEmpty(parcellesListe)}">
-				<h2>ATTENTION IL N'Y A PLUS DE PARCELLES VIDES !!</h2>
+				<h2><span th:text="#{message.parcelleVide}"></span></h2>
 			</div>
+			
+			<div th:if="${parcelleModif}">
+				<h2><span th:text="#{message.parcelleModif}"></span></h2>
+				<table id="table_parcelle" class="display">
+				    <thead>
+				        <tr>
+				            <th><span th:text="#{parcelleTab.code}"></span></th>
+				            <th><span th:text="#{parcelleTab.surface}"></span></th>
+				        </tr>
+				    </thead>
+				    <tbody>
+				    	<tr>
+			    			<td><span th:utext="${parcelleModif.code}"></span></td>
+			    			<td><span th:utext="${parcelleModif.surface}"></span></td>
+				    	</tr>
+				    </tbody>
+				</table>				
+			</div>
+			
 			<div th:replace="includes/_footer::footer"></div>
 		</div>			
 	</body>

@@ -75,4 +75,56 @@ public class AdhesionDTO {
 				+ ", dateAnnulation=" + this.dateAnnulation + "]";
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (this.archive ? 1231 : 1237);
+		result = prime * result + ((this.dateAdhesion == null) ? 0 : this.dateAdhesion.hashCode());
+		result = prime * result + ((this.dateAnnulation == null) ? 0 : this.dateAnnulation.hashCode());
+		result = prime * result + ((this.idAdhesion == null) ? 0 : this.idAdhesion.hashCode());
+		result = prime * result + ((this.parcelleDTO == null) ? 0 : this.parcelleDTO.hashCode());
+		result = prime * result + ((this.utilisateurDTO == null) ? 0 : this.utilisateurDTO.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (this.getClass() != obj.getClass())
+			return false;
+		AdhesionDTO other = (AdhesionDTO) obj;
+		if (this.archive != other.archive)
+			return false;
+		if (this.dateAdhesion == null) {
+			if (other.dateAdhesion != null)
+				return false;
+		} else if (!this.dateAdhesion.equals(other.dateAdhesion))
+			return false;
+		if (this.dateAnnulation == null) {
+			if (other.dateAnnulation != null)
+				return false;
+		} else if (!this.dateAnnulation.equals(other.dateAnnulation))
+			return false;
+		if (this.idAdhesion == null) {
+			if (other.idAdhesion != null)
+				return false;
+		} else if (!this.idAdhesion.equals(other.idAdhesion))
+			return false;
+		if (this.parcelleDTO == null) {
+			if (other.parcelleDTO != null)
+				return false;
+		} else if (!this.parcelleDTO.equals(other.parcelleDTO))
+			return false;
+		if (this.utilisateurDTO == null) {
+			if (other.utilisateurDTO != null)
+				return false;
+		} else if (!this.utilisateurDTO.equals(other.utilisateurDTO))
+			return false;
+		return true;
+	}
+
 }

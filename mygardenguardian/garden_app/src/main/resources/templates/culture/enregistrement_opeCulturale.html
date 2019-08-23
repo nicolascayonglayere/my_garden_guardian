@@ -39,13 +39,10 @@
 				            <th><span th:text="#{ajoutCulture.produit}"></span></th>
 				            <th><span th:text="#{ajoutCulture.nomOpCult}"></span></th>
 				            <th><span th:text="#{ajoutCulture.nomIntrant}"></span></th>
-<!-- 				            <th><span th:text="#{ajoutCulture.nomMat}"></span></th> -->
 				        </tr>
 				    </thead>
 				    <tbody>	
 				    	<tr>	
-<!-- 				    	<tr th:each="cultureDTO : ${mesCulturesConstr}"> -->
-<!-- 				    		<td><input type="checkbox" name="cultureAdd" th:field=*{culturesAjoutees} th:value="${__${cultureDTO.idCulture}__}"></td> -->
 				    		<td><span th:utext="${cultureCreee.idCulture}" ></span></td>	
 				    		<td><span th:utext="${cultureCreee.plante.nom}"></span></td>
 				    		<td><span th:utext="${cultureCreee.plante.variete}"></span></td>
@@ -81,15 +78,22 @@
 				             <select class="form-control" id="nom" th:field="*{nom}"> 
 						      	<option th:each="nom : ${nomOpeCult}" th:value="${nom}" th:text="${nom}" /> 
 						     </select>			        	
-<!-- 							<div class="invalid-feedback" th:errors="*{nom}"></div> -->
 			        	</div>
 			        </div>
 
 			        <div class="form-group row">
-			        	<label for="date" class="col-2 col-form-label"  th:text="#{ajout.date}"></label>
+			        	<label for="origIntervPossible" class="col-2 col-form-label"  th:text="#{ajout.orig}"></label>
 			        	<div class="col-10">
-			        		<input id="date" class="form-control" type="date" placeholder="date" th:field="*{date}" th:classappend="${#fields.errors('date')} ? is-invalid" required/>
-							<div class="invalid-feedback" th:errors="*{date}"></div>
+			        		<input id="origIntervPossible" class="form-control" type="number" placeholder="saisissez le nombre de jours apr�s le d�but de la culture" th:field="*{origIntervPossible}" th:classappend="${#fields.errors('origIntervPossible')} ? is-invalid" required/>
+							<div class="invalid-feedback" th:errors="*{origIntervPossible}"></div>
+			        	</div>
+			        </div>
+			        
+			        <div class="form-group row">
+			        	<label for="intervallePossible" class="col-2 col-form-label"  th:text="#{ajout.intervalle}"></label>
+			        	<div class="col-10">
+			        		<input id="intervallePossible" class="form-control" type="number" placeholder="saisissez le nombre de jours possible pour l'op�ration culturale" th:field="*{intervallePossible}" th:classappend="${#fields.errors('intervallePossible')} ? is-invalid" required/>
+							<div class="invalid-feedback" th:errors="*{intervallePossible}"></div>
 			        	</div>
 			        </div>
 			        
