@@ -24,76 +24,74 @@
 			</div>
 			
 				<h2><span th:text="#{message.modifCulture}"></span></h2>
-				<div th:with="idCulture=${cultureModif.idCulture}">
-				
-				
-					<table id="table_plante" class="display">
-					    <thead>
-					        <tr>
-					            <th><span th:text="#{inscription.nom}"></span></th>
-					            <th><span th:text="#{ajoutCulture.variete}"></span></th>
-					            <th><span th:text="#{ajoutCulture.nomLatin}"></span></th>
-					            <th><span th:text="#{ajoutCulture.duree}"></span></th>
-					            <th><span th:text="#{ajoutCulture.produit}"></span></th>
-					            <th><span th:text="#{ajoutCulture.enConstr}"></span></th>
-					            <th><span th:text="#{ajoutCulture.nomIntrant}"></span></th>
-					            <th><span th:text="#{ajout.reference}"></span></th>
-					            <th><span th:text="#{ajoutCulture.nomOpCult}"></span></th>
-					            <th><span th:text="#{ajout.date}"></span></th>
-					            <th><span th:text="#{ajout.description}"></span></th>
-					            
-	<!-- 				            <th><span th:text="#{ajoutCulture.nomMat}"></span></th> -->
-					        </tr>
-					    </thead>
-					    <tbody>	
-					    	<tr>	
-					    		
-								<input id="idCulture" name="idCulture" th:value="@{${idCulture}}" type="hidden" />
-								<input id="idPlante" th:field="${cultureModif.plante.idPlante}" type="hidden" />
-					    		<td><input id="nomPlante" class="form-control" type="text" th:field="${cultureModif.plante.nom}"/></td>
-					    		<td><input id="variete" class="form-control" type="text" th:field="${cultureModif.plante.variete}"/></td>
-					    		<td><input id="nomLatin" class="form-control" type="text" th:field="${cultureModif.plante.nomLatin}" /></td>
-					    		<td><input id="dureeDeCycle" class="form-control" type="number" th:field="${cultureModif.plante.dureeCycle}"></td>
-					    		<td><input id="produit" class="form-control" type="text" th:field="${cultureModif.plante.produit}" /></td>
-					    		<td><input id="enConstr" class="form-control" type="boolean" th:field="${cultureModif.enConstruction}" /></td>
-<!-- 					    			<th:block th:each="intrantDTO, itemStat : ${cultureModif.intrants}"> -->
-					    			<td>
-					    				
-					    				<ul th:each="intrantDTO, itemStat : ${cultureModif.intrants}">
-					    					<input id="idIntrant" th:field="${cultureModif.intrants[__${itemStat.index}__].idIntrant}" type="hidden" />
-					    					<input id="nom" class="form-control" type="text" th:field="${cultureModif.intrants[__${itemStat.index}__].nom}"/><br/>
-					    				</ul>		
-			    					</td>	
-					    			<td>
-					    				<ul th:each="intrantDTO, itemStat : ${cultureModif.intrants}">
-					    					<input id="reference" class="form-control" type="text" th:field="${cultureModif.intrants[__${itemStat.index}__].reference}"/><br/>
-				    					</ul>
-			    					</td>
-<!-- 				    			</th:block> -->
-<!-- 				    			<th:block th:each="operationCulturaleDTO, itemStat : ${cultureModif.operationsCulturales}"> -->
-						    		<td>
-						    			<ol th:each="operationCulturaleDTO, itemStat : ${cultureModif.operationsCulturales}">
-						    				<input id="idOperationCulturale" th:field="${cultureModif.operationsCulturales[__${itemStat.index}__].idOperationCulturale}" type="hidden" />
-						    				<input id="nom" class="form-control" type="text" th:field="${cultureModif.operationsCulturales[__${itemStat.index}__].nom}"/><br/>
-					    				</ol>
-					    			</td>
-					    			<td>	
-					    				<ol th:each="operationCulturaleDTO, itemStat : ${cultureModif.operationsCulturales}">
-						    				<input id="date" class="form-control" type="text" th:field="${cultureModif.operationsCulturales[__${itemStat.index}__].date}"/><br/>
-										</ol>
-									</td>
-									<td>
-										<ol th:each="operationCulturaleDTO, itemStat : ${cultureModif.operationsCulturales}">
-						    				<input id="descritpion" class="form-control" type="text" th:field="${cultureModif.operationsCulturales[__${itemStat.index}__].description}"/><br/>
-										</ol>
-					    			</td>
-<!-- 				    			</th:block>				    			 -->
-					    	</tr>				    	
-					    </tbody>
-					</table	>	
-
+				<div th:with="idCulture=${planteFormulaire.idCulture}">
+				<form class="form-horizontal was-validated" th:action="@{/culture/modif_plante}" th:object="${planteFormulaire}" method="POST">
+					<div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+					    <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>    
+					</div>				
 					
-					<button id="bouton" type="submit" class="btn btn-primary btn-lg" th:value="#{bouton.validation}"></button>		
+					<input id ="culture" type="hidden" name="cultureAdd" th:value="@{${idCulture}}" th:field="*{idCulture}"/>
+					
+			        <div class="form-group row">
+			        	<label for="nomCulture" class="col-2 col-form-label"  th:text="#{ajoutCulture.nomCulture}"></label>
+			        	<div class="col-10">
+			        		<input id="nomCulture" class="form-control" type="text" th:field="${planteFormulaire.nomCulture}" required/>
+			        	</div>
+			        </div>
+			        
+			        <div class="form-group row">
+			        	<label for="nomPlante" class="col-2 col-form-label"  th:text="#{ajoutCulture.nomPlante}"></label>
+			        	<div class="col-10">
+			        		<input id="nomPlante" class="form-control" type="text" th:field="${planteFormulaire.nomPlante}" required/>
+			        	</div>
+			        </div>			        
+			        
+			        <div class="form-group row">
+			        	<label for="variete" class="col-2 col-form-label"  th:text="#{ajoutCulture.variete}"></label>
+			        	<div class="col-10">
+			        		<input id="variete" class="form-control" type="text" th:field="${planteFormulaire.variete}" required/>
+			        	</div>
+			        </div>				        
+
+			        <div class="form-group row">
+			        	<label for="nomLatin" class="col-2 col-form-label"  th:text="#{ajoutCulture.nomLatin}"></label>
+			        	<div class="col-10">
+			        		<input id="nomLatin" class="form-control" type="text" th:field="${planteFormulaire.nomLatin}" required/>
+			        	</div>
+			        </div>			        
+			        
+			        <div class="form-group row">
+			        	<label for="dureeDeCycle" class="col-2 col-form-label"  th:text="#{ajoutCulture.duree}"></label>
+			        	<div class="col-10">
+			        		<input id="dureeDeCycle" class="form-control" type="number" th:field="${planteFormulaire.dureeCycle}" required/>
+			        	</div>
+			        </div>	
+			        
+			        <div class="form-group row">
+			        	<label for="recommandationBasse" class="col-2 col-form-label"  th:text="#{ajoutCulture.recomBasse}"></label>
+			        	<div class="col-10">
+			        		<input id="recommandationBasse" class="form-control" type="number" th:field="${planteFormulaire.recommandationBasse}" required/>
+			        	</div>
+			        </div>	
+			        
+			        <div class="form-group row">
+			        	<label for="recommandationHaute" class="col-2 col-form-label"  th:text="#{ajoutCulture.recomHaute}"></label>
+			        	<div class="col-10">
+			        		<input id="recommandationHaute" class="form-control" type="number"th:field="${planteFormulaire.recommandationHaute}" required/>
+			        	</div>
+			        </div>
+			        
+			        <div class="form-group row">
+			        	<label for="produit" class="col-2 col-form-label"  th:text="#{ajoutCulture.produit}"></label>
+			        	<div class="col-10">
+			        		<input id="produit" class="form-control" type="text" th:field="${planteFormulaire.produit}" required/>
+			   			</div>
+			        </div>	
+
+			        <div class="form-group row">		        
+						<input id="bouton" type="submit" class="btn btn-primary btn-lg" th:value="#{bouton.validation}"/>
+					</div>
+				</form>			
 				</div>	
 				
 			<div th:replace="includes/_footer::footer"></div>
@@ -102,46 +100,41 @@
 	<script type="text/javascript">
 	$(document).ready(function() {
 	    var table = $('#table_plante').DataTable({
-	        //"processing": true,
-	        //"serverSide": true,	    	
-	        columnDefs: [{
-	            orderable: false,
-	            targets: [1,2,3]
-	        }]
+	    	{ select : true}
 	    });
 	 
-	    $('#bouton').click( function() {
-	        var data = table.$('input, select').serialize();
-			//console.log("AAAAAHHHH ---------- "+data1);
-			//var data = JSON.stringify(data1);
-			//var data = JSON.parse(dataInt)
-			console.log("AAAAAHHHH ---------- "+(data));
-	        $.ajax({
-	        	  type: "POST",
-	        	  //contentType: "application/json",
-	        	  url: "/culture/modification_culture",
-	        	  data: (data),
-	        	  success: function(response){
-	        		  console.log("reponse --------- "+response);
-	        		  if(response == "success"){
-	        			  console.log("SUCCES --------------");
-	        			  document.location.href = "../accueil";
-	        		  }
-	        		  else{
-	        			  console.log("ERROR ---------------");
-	        		  }
-	        	  }
-	        	  //dataType: "JSON"
-	        	});	        
+// 	    $('#bouton').click( function() {
+// 	        var data = table.$('input, select').serialize();
+// 			//console.log("AAAAAHHHH ---------- "+data1);
+// 			//var data = JSON.stringify(data1);
+// 			//var data = JSON.parse(dataInt)
+// 			console.log("AAAAAHHHH ---------- "+(data));
+// 	        $.ajax({
+// 	        	  type: "POST",
+// 	        	  //contentType: "application/json",
+// 	        	  url: "/culture/modification_culture",
+// 	        	  data: (data),
+// 	        	  success: function(response){
+// 	        		  console.log("reponse --------- "+response);
+// 	        		  if(response == "success"){
+// 	        			  console.log("SUCCES --------------");
+// 	        			  document.location.href = "../accueil";
+// 	        		  }
+// 	        		  else{
+// 	        			  console.log("ERROR ---------------");
+// 	        		  }
+// 	        	  }
+// 	        	  //dataType: "JSON"
+// 	        	});	        
 	        
-	        //--TODO requete AJAX vers le serveur pour MAJ de la culture
-// 	        alert(
-// 	            "The following data would have been submitted to the server: \n\n"+
-// 	            data.substr( 0, 120 )+'...'
-// 	        );
-	        return false;
+// 	        //--TODO requete AJAX vers le serveur pour MAJ de la culture
+// // 	        alert(
+// // 	            "The following data would have been submitted to the server: \n\n"+
+// // 	            data.substr( 0, 120 )+'...'
+// // 	        );
+// 	        return false;
 	        
-	    } );
+// 	    } );
 	    
 	} );	
 	</script>

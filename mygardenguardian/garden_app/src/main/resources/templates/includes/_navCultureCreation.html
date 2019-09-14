@@ -1,17 +1,15 @@
 <th:block th:fragment="navCultureCreation"> 
 
-	<ul  style="display:inline;">
-		<a id="bouton" class="btn btn-info" th:href="@{/culture/enregistrement_intrant(idCulture = @{${idCulture}})}" th:text="#{menu.enregIntrant}" role="button"></a>							
-		<a id="bouton" class="btn btn-info" th:href="@{/culture/enregistrement_opeCulturale (idCulture = @{${idCulture}})}" th:text="#{menu.enregOpCult}" role="button"></a>			
-		<a id="bouton" class="btn btn-info" th:href="@{/culture/finalisation_culture (idCulture = @{${idCulture}})}" th:text="#{menu.finalCult}" role="button"></a>			
-	</ul>
-</th:block>
-
-<th:block th:fragment="navCultureModification"> 
-
-	<ul  style="display:inline;">
-		<a id="bouton" class="btn btn-info" th:href="@{/culture/enregistrement_intrant(idCulture = @{${idCulture}})}" th:text="#{menu.modifIntrant}" role="button"></a>							
-		<a id="bouton" class="btn btn-info" th:href="@{/culture/enregistrement_opeCulturale (idCulture = @{${idCulture}})}" th:text="#{menu.modifOpCult}" role="button"></a>			
-		<a id="bouton" class="btn btn-info" th:href="@{/culture/finalisation_culture (idCulture = @{${idCulture}})}" th:text="#{menu.modifPlante}" role="button"></a>			
+	<ul  id="listeBtnCult">
+		<div>
+			<a id="bouton" class="btn btn-info" th:href="@{/culture/enregistrement_intrant(idCulture = @{${idCulture}})}" th:text="#{menu.enregIntrant}" role="button"></a>							
+			<a id="bouton" class="btn btn-info" th:href="@{/culture/enregistrement_opeCulturale (idCulture = @{${idCulture}})}" th:text="#{menu.enregOpCult}" role="button"></a>			
+			<a id="boutonFinal" class="btn btn-info" th:href="@{/culture/finalisation_culture (idCulture = @{${idCulture}})}" th:text="#{menu.finalCult}" role="button"></a>
+		</div>
+		<div>
+			<a id="bouton" class="btn btn-info" th:href="@{/culture/modif_plante (idCulture = @{${idCulture}})}" th:text="#{menu.modifPlante}" role="button"></a>
+			<a id="bouton" class="btn btn-info" th:href="@{/culture/modif_intrant (idCulture = @{${idCulture}})}" th:text="#{menu.modifIntrant}" role="button"></a>	
+			<a id="bouton" class="btn btn-info" th:href="@{/culture/modif_ope_culturale (idCulture = @{${idCulture}})}" th:text="#{menu.modifOpCult}" role="button"></a>		
+		</div>
 	</ul>
 </th:block>

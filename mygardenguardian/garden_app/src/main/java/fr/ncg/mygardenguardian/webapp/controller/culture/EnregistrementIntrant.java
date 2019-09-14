@@ -1,5 +1,6 @@
 package fr.ncg.mygardenguardian.webapp.controller.culture;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,10 +56,50 @@ public class EnregistrementIntrant {
 		monIntrant.setNom(intrantForm.getNom());
 		monIntrant.setReference(intrantForm.getReference());
 
-		System.out.println("CTRL CONTROLLER IDPLANTE --------------" + intrantForm.getPlanteId());
 		CultureDTO maCulture = this.managerFactory.getCultureManager().trouverLaCulture(intrantForm.getPlanteId());
 		maCulture.addIntrant(monIntrant);
 		IntrantDTO monIntrantCree = this.managerFactory.getIntrantManager().creerIntrantBdd(maCulture);
+		intrantCree.addFlashAttribute("cultureCreee", maCulture);
+		intrantCree.addFlashAttribute("intrantCree", monIntrantCree);
+
+		return ("redirect:/culture/tableau_bord_enregistrement_culture?idCulture=" + maCulture.getIdCulture());
+	}
+
+	@GetMapping("/culture/modif_intrant")
+	public String goModifIntrant(Model model, HttpServletRequest req) {
+		model.addAttribute("listeIntrants", this.managerFactory.getIntrantManager()
+				.obtenirIntrantsCultureId(Integer.valueOf(req.getParameter("idCulture"))));
+		model.addAttribute("intrantForm", new EnregistrementIntrantBddFormulaire());
+		return ("/culture/modification_intrant");
+	}
+
+	@PostMapping("/culture/modif_intrant")
+	public String modifIntrant(
+			@Valid @ModelAttribute("intrantForm") @RequestBody EnregistrementIntrantBddFormulaire intrantForm,
+			BindingResult errors, Model model, RedirectAttributes intrantCree) {
+
+		if (errors.hasErrors()) {
+			System.out.println(errors.toString());
+			model.addAttribute("errors", errors.getAllErrors());
+			model.addAttribute("intrantForm", intrantForm);
+			model.addAttribute("cultureCreee",
+					this.managerFactory.getCultureManager().trouverLaCulture(intrantForm.getPlanteId()));
+			return ("/culture/modif_intrant");
+		}
+		IntrantDTO monIntrantCree;
+		System.out.println("CTRL CONTROLLER IDPLANTE --------------" + intrantForm.getPlanteId());
+		CultureDTO maCulture = this.managerFactory.getCultureManager().trouverLaCulture(intrantForm.getPlanteId());
+		IntrantDTO monIntrant = new IntrantDTO();
+		monIntrant.setNom(intrantForm.getNom());
+		monIntrant.setReference(intrantForm.getReference());
+		if (intrantForm.getIdIntrant() != null) {
+			monIntrant.setIdIntrant(intrantForm.getIdIntrant());
+			monIntrantCree = this.managerFactory.getIntrantManager().modifierIntrantBdd(monIntrant, maCulture);
+		} else {
+			maCulture.addIntrant(monIntrant);
+			monIntrantCree = this.managerFactory.getIntrantManager().creerIntrantBdd(maCulture);
+		}
+
 		intrantCree.addFlashAttribute("cultureCreee", maCulture);
 		intrantCree.addFlashAttribute("intrantCree", monIntrantCree);
 

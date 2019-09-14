@@ -51,10 +51,9 @@ public class AdhesionManagerImpl implements IAdhesionManager {
 
 		if (!this.verfierExistenceAdhesion(adhesionDTO)) {
 			Adhesion adhesion = AdhesionMapper.fromAdhesionDTOToAdhesion(adhesionDTO);
-			// this.daoFacto.getCoordonneesUtilisateurDao()
-			// .saveAndFlush(adhesion.getUtilisateur().getCoordonneeUtilisateur());
 			Utilisateur monJardinier = UtilisateurMapper.fromUtilisateurDTOToUtilisateur(
 					this.userManager.inscriptionUtilisateur(adhesionDTO.getUtilisateurDTO()));
+			adhesion.setDateAdhesion(Calendar.getInstance().getTime());
 			adhesion.setUtilisateur(monJardinier);
 			adhesion.setDateAnnulation(null);
 			adhesion = this.daoFacto.getAdhesionDao().saveAndFlush(adhesion);
@@ -72,10 +71,6 @@ public class AdhesionManagerImpl implements IAdhesionManager {
 		if (this.verfierExistenceAdhesion(adhesionDTO)) {
 			adhesionDTO.setDateAnnulation(Calendar.getInstance().getTime());
 			adhesionDTO.setArchive(true);
-			// Parcelle maParcelleLiberee =
-			// ParcelleMapper.fromParcelleDTOToParcelle(adhesionDTO.getParcelleDTO());
-			// maParcelleLiberee.setOccupation(false);
-			// this.daoFacto.getParcelleDao().saveAndFlush(maParcelleLiberee);
 			this.daoFacto.getAdhesionDao().saveAndFlush(AdhesionMapper.fromAdhesionDTOToAdhesion(adhesionDTO));
 		} else {
 			throw new RuntimeException("L'adhesion n'existe pas.");
@@ -84,6 +79,7 @@ public class AdhesionManagerImpl implements IAdhesionManager {
 
 	private boolean verfierExistenceAdhesion(AdhesionDTO adhesionDto) {
 		// --verification de l'existence de l'utilisateur au prealable
+		// --TODO passer par userManager.trouverUtilisateurParId
 		if (this.userManager.verifExistenceUtilisateur(adhesionDto.getUtilisateurDTO())) {
 			Example<Utilisateur> monExUtilisateur = Example
 					.of(UtilisateurMapper.fromUtilisateurDTOToUtilisateur(adhesionDto.getUtilisateurDTO()));
@@ -109,7 +105,6 @@ public class AdhesionManagerImpl implements IAdhesionManager {
 
 	@Override
 	public AdhesionDTO trouverAdhesionIdUtilisateur(Integer idUtilisateur) {
-		System.out.println("CTRL *---------" + idUtilisateur);
 		return AdhesionMapper.fromAdhesionToAdhesionDTO(
 				this.daoFacto.getAdhesionDao().findByIdUtilisateurAndArchive(idUtilisateur, false));
 	}
@@ -131,6 +126,15 @@ public class AdhesionManagerImpl implements IAdhesionManager {
 	@Override
 	public AdhesionDTO trouverParId(Integer idAdhesion) {
 		return AdhesionMapper.fromAdhesionToAdhesionDTO(this.daoFacto.getAdhesionDao().findById(idAdhesion).get());
+	}
+
+	@Override
+	public AdhesionDTO trouverAdhesionIdParcelle(Integer idParcelle) {
+		// --TODO verifier existence parcelle
+		return this.daoFacto.getAdhesionDao().findByParcelleIdParcelleAndArchive(idParcelle, false).isPresent()
+				? AdhesionMapper.fromAdhesionToAdhesionDTO(
+						this.daoFacto.getAdhesionDao().findByParcelleIdParcelleAndArchive(idParcelle, false).get())
+				: null;
 	}
 
 	public IDaoFactory getDaoFacto() {

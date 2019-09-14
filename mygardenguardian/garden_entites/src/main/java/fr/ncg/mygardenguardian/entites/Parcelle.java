@@ -2,7 +2,6 @@ package fr.ncg.mygardenguardian.entites;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -31,7 +30,7 @@ public class Parcelle implements Serializable {
 	private String code;
 
 	@OneToMany(mappedBy = "parcelle")
-	private List<CalendrierCultural> listeCultures;
+	private List<CultureInstance> listeCultures;
 
 	public Parcelle() {
 	}
@@ -66,32 +65,25 @@ public class Parcelle implements Serializable {
 		this.code = code;
 	}
 
-	public void addCulture(Culture culture, Date date) {
+	public void addCultureInstance(CultureInstance culture) {
 		if (this.listeCultures == null) {
-			this.listeCultures = new ArrayList<CalendrierCultural>();
+			this.listeCultures = new ArrayList<CultureInstance>();
 		}
-		CalendrierCultural cal = new CalendrierCultural();
-		cal.setCulture(culture);
-		cal.setDate(date);
-		cal.setIdCulture(culture.getIdCulture());
-		cal.setParcelle(this);
-		cal.setIdParcelle(this.getIdParcelle());
-		this.listeCultures.add(cal);
-		culture.getListeParcelles().add(cal);
+		this.listeCultures.add(culture);
 	}
 
-	public List<CalendrierCultural> getListeCultures() {
+	public List<CultureInstance> getListeCultures() {
 		return this.listeCultures;
 	}
 
-	public void setListeCultures(List<CalendrierCultural> listeCultures) {
+	public void setListeCultures(List<CultureInstance> listeCultures) {
 		this.listeCultures = listeCultures;
 	}
 
 	@Override
 	public String toString() {
 		return "Parcelle [idParcelle=" + this.idParcelle + ", surface=" + this.surface + ", code=" + this.code
-				+ ", calendrierCultural=" + this.listeCultures + "]";
+				+ ", CultureInstance=" + this.listeCultures + "]";
 	}
 
 }

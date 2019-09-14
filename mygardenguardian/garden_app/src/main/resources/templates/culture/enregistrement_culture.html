@@ -28,17 +28,25 @@
 					</div>				
 				
 			        <div class="form-group row">
+			        	<label for="nomCulture" class="col-2 col-form-label"  th:text="#{ajoutCulture.nomCulture}"></label>
+			        	<div class="col-10">
+			        		<input id="nomCulture" class="form-control" type="text" placeholder="Nom personnalisé de votre culture" th:field="*{nomCulture}" th:classappend="${#fields.errors('nomCulture')} ? is-invalid" required/>
+							<div class="invalid-feedback" th:errors="*{nomCulture}"></div>
+			        	</div>
+			        </div>
+			        
+			        <div class="form-group row">
 			        	<label for="nomPlante" class="col-2 col-form-label"  th:text="#{ajoutCulture.nomPlante}"></label>
 			        	<div class="col-10">
 			        		<input id="nomPlante" class="form-control" type="text" placeholder="Nom" th:field="*{nomPlante}" th:classappend="${#fields.errors('nomPlante')} ? is-invalid" required/>
 							<div class="invalid-feedback" th:errors="*{nomPlante}"></div>
 			        	</div>
-			        </div>
+			        </div>			        
 			        
 			        <div class="form-group row">
 			        	<label for="variete" class="col-2 col-form-label"  th:text="#{ajoutCulture.variete}"></label>
 			        	<div class="col-10">
-			        		<input id="variete" class="form-control" type="text" placeholder="Variete" th:field="*{variete}" th:classappend="${#fields.errors('variete')} ? is-invalid" required/>
+			        		<input id="variete" class="form-control" type="text" placeholder="Variété" th:field="*{variete}" th:classappend="${#fields.errors('variete')} ? is-invalid" required/>
 							<div class="invalid-feedback" th:errors="*{variete}"></div>
 			        	</div>
 			        </div>				        
@@ -54,10 +62,26 @@
 			        <div class="form-group row">
 			        	<label for="dureeDeCycle" class="col-2 col-form-label"  th:text="#{ajoutCulture.duree}"></label>
 			        	<div class="col-10">
-			        		<input id="dureeDeCycle" class="form-control" type="number" placeholder="Duree du cycle" th:field="*{dureeCycle}" th:classappend="${#fields.errors('dureeCycle')} ? is-invalid" required/>
+			        		<input id="dureeDeCycle" class="form-control" type="number" placeholder="Durée du cycle" th:field="*{dureeCycle}" th:classappend="${#fields.errors('dureeCycle')} ? is-invalid" required/>
 							<div class="invalid-feedback" th:errors="*{dureeCycle}"></div>
 			        	</div>
 			        </div>	
+			        
+			        <div class="form-group row">
+			        	<label for="recommandationBasse" class="col-2 col-form-label"  th:text="#{ajoutCulture.recomBasse}"></label>
+			        	<div class="col-10">
+			        		<input id="recommandationBasse" class="form-control" type="number" placeholder="Numéro de semaine minimum pour la culture" th:field="*{recommandationBasse}" th:classappend="${#fields.errors('recommandationBasse')} ? is-invalid" required/>
+							<div class="invalid-feedback" th:errors="*{recommandationBasse}"></div>
+			        	</div>
+			        </div>	
+			        
+			        <div class="form-group row">
+			        	<label for="recommandationHaute" class="col-2 col-form-label"  th:text="#{ajoutCulture.recomHaute}"></label>
+			        	<div class="col-10">
+			        		<input id="recommandationHaute" class="form-control" type="number" placeholder="Numéro de semaine maximum pour la culture" th:field="*{recommandationHaute}" th:classappend="${#fields.errors('recommandationHaute')} ? is-invalid" required/>
+							<div class="invalid-feedback" th:errors="*{recommandationHaute}"></div>
+			        	</div>
+			        </div>
 			        
 			        <div class="form-group row">
 			        	<label for="produit" class="col-2 col-form-label"  th:text="#{ajoutCulture.produit}"></label>

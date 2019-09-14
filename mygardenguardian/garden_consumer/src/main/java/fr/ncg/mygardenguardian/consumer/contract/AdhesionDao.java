@@ -1,6 +1,7 @@
 package fr.ncg.mygardenguardian.consumer.contract;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,5 +21,7 @@ public interface AdhesionDao extends JpaRepository<Adhesion, Integer> {
 	public Adhesion findByNomUser(@Param("nomUtilisateur") String nomUtilisateur);
 
 	public List<Adhesion> findByArchive(boolean archive);
+
+	public Optional<Adhesion> findByParcelleIdParcelleAndArchive(Integer idParcelle, boolean archive);
 
 }

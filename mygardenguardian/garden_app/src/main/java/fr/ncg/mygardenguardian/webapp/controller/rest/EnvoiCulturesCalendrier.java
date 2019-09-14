@@ -46,6 +46,13 @@ public class EnvoiCulturesCalendrier {
 				OperationsCulturalesTypes.Recolte.getOperationCulturaleType());
 	}
 
+	@GetMapping("/user/binageCalendar")
+	public List<EventCalendarDTO> envoiListeBinage() {
+		Integer idUtilisateur = this.recuperationIdUtilisateur();
+		return this.managerFactory.getEventCalendarManager().constructionEventOpeCultCalendar(idUtilisateur,
+				OperationsCulturalesTypes.Binage.getOperationCulturaleType());
+	}
+
 	private Integer recuperationIdUtilisateur() {
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 		GardenGuardianAppUser monUser = (GardenGuardianAppUser) loggedInUser.getPrincipal();

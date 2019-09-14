@@ -74,7 +74,6 @@ public class UtilisateurManagerImpl implements IUtilisateurManager {
 	@Override
 	public UtilisateurDTO modifierProfil(UtilisateurDTO utilisateur) {
 		if (this.verifierExistenceUtilisateurParId(utilisateur.getIdUtilisateur())) {
-			System.out.println("CTRL Business update");
 			String role = utilisateur.getRole().split("_")[1];
 			utilisateur.setRole(this.constructionRoleSpringSecurity(role));
 			return UtilisateurMapper.fromUtilisateurToUtilisateurDTO(this.daoFacto.getUtilisateurDao()
@@ -84,21 +83,17 @@ public class UtilisateurManagerImpl implements IUtilisateurManager {
 		}
 	}
 
+	// --TODO rendre privee cette methode
 	@Override
 	public boolean verifExistenceUtilisateur(UtilisateurDTO utilisateur) {
-		System.out.println("CTRL Business check utilisateur -------- " + utilisateur.toString());
 		Utilisateur monUtilisateur = UtilisateurMapper.fromUtilisateurDTOToUtilisateur(utilisateur);
 		Example<Utilisateur> monExUtilisateur = Example.of(monUtilisateur);
-		// System.out.println(monExUtilisateur.getProbe().toString());
 		System.out.println(this.daoFacto.getUtilisateurDao().findOne(monExUtilisateur).toString());
 		if (!this.daoFacto.getUtilisateurDao().findOne(monExUtilisateur).isPresent()) {
-
 			return false;
 		} else {
-			System.out.println("-------TRUE------------");
 			return true;
 		}
-
 	}
 
 	private boolean verifierExistenceUtilisateurParId(Integer idUtilisateur) {
@@ -110,10 +105,12 @@ public class UtilisateurManagerImpl implements IUtilisateurManager {
 	}
 
 	private String constructionRoleSpringSecurity(String role) {
+		if (role.endsWith("]")) {
+			role = role.replace("]", "");
+		}
 		return "ROLE_" + role;
 	}
 
-	// Encryte Password with BCryptPasswordEncoder
 	private String encrytePassword(String password) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		return encoder.encode(password);

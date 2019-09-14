@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<div th:replace="includes/_head::head"></div>
+		<title>Accueil</title>			
+	</head>
+	
+	<body>
+		<div class="container">
+			<div th:replace="includes/_navbar::navigation"></div>
+
+			<div class="jumbotron jumbotron-fluid">
+				<div class="container text-center">
+					<h1 class="display-3" th:text="#{accueil.modifAdhesion}"></h1>
+				</div>
+			</div>
+			
+			<h2><span th:text="#{parcelleTab.modifAdhesion}"></span></h2>
+			<form class="form-horizontal was-validated" th:action="@{/admin/modification_adhesion}" th:object="${adhesionModifForm}" method="POST" id="adhesionModifForm">
+				<div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+				    <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>    
+				</div>				
+		
+		        <div class="form-group row">
+		        	<label for="utilisateur" class="col-2 col-form-label"  th:text="#{parcelleTab.utilisateur}"></label>
+		        	<div class="col-10">
+	        		     <select class="form-control" id="utilisateur" th:field="*{idUtilisateur}"> 
+					      	<option th:each="utilisateur : ${utilisateursListe}" th:value="${utilisateur.idUtilisateur}" th:text="${utilisateur.nom}+' '+${utilisateur.prenom}" /> 
+					     </select>	
+		        	</div>
+		        </div>
+
+		        <div class="form-group row">
+		        	<label for="parcelle" class="col-2 col-form-label"  th:text="#{parcelleTab.parcelle}"></label>
+		        	<div class="col-10">
+	        		     <select class="form-control" id="parcelle" th:field="*{idParcelle}"> 
+					      	<option th:each="parcelle : ${parcelleVideListe}" th:value="${parcelle.idParcelle}" th:text="${parcelle.code}" /> 
+					     </select>
+		        	</div>
+		        </div>
+		        			        
+		        <div class="form-group row">		        
+					<input id="bouton" type="submit" class="btn btn-primary btn-lg" th:value="#{bouton.validation}"/>
+				</div>
+			</form>				
+			
+			<div th:replace="includes/_footer::footer"></div>
+		</div>			
+	</body>
+</html>

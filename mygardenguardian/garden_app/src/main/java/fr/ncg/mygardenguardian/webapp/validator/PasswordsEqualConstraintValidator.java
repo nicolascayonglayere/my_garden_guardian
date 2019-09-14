@@ -17,19 +17,15 @@ public class PasswordsEqualConstraintValidator implements ConstraintValidator<Pa
 			return user.getMdp().equals(user.getMdpConfirm());
 		} else if (value.getClass().isInstance(new ModifMdpFormulaire())) {
 			ModifMdpFormulaire user = (ModifMdpFormulaire) value;
-			System.out.println("CTRL PASS CONTRAINTE ---------- " + user.toString() + " - "
-					+ ((ModifMdpFormulaire) value).toString());
 			return user.getMdp().equals(user.getMdpConfirm());
 		} else {
 			return false;
 		}
-
 	}
 
 	public static <T> String getValidationMessage(ConstraintViolation<T> violation) {
 		String className = violation.getRootBeanClass().getSimpleName();
 		String property = violation.getPropertyPath().toString();
-		// Object invalidValue = violation.getInvalidValue();
 		String message = violation.getMessage();
 		return String.format("%s.%s %s", className, property, message);
 	}

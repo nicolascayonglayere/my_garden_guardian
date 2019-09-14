@@ -1,0 +1,154 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+	<head>
+		<div th:replace="includes/_head::head"/>
+		<title>Accueil</title>
+	</head>
+	
+	<body>
+		<div class="container">
+			<div th:each="role : ${#authentication.getPrincipal().getAuthorities()}">
+				<div th:if="${#strings.toString(role) == 'ROLE_Administrateur'}">
+					<div th:replace="includes/_navbar::navigation"></div>
+				</div>		
+				<div th:if="${#strings.toString(role) == 'ROLE_Jardinier'}">
+					<div th:replace="includes/_navbar::navigation_jardinier"></div>
+				</div>					
+			</div>
+
+			<div class="jumbotron jumbotron-fluid">
+				<div class="container text-center">
+					<h1 class="display-3" th:text="#{menu.modifOpCult}"></h1>
+				</div>
+			</div>
+			
+			<div th:with="idPlante=${param.idCulture}">
+				<h2><span th:text="#{message.modifIntrant}"></span></h2>
+					<table id="table_culture" class="display">
+					    <thead>
+					        <tr>
+					        	<th><span th:text="#{accueil.suppr}"></span></th>
+					            <th><span th:text="#{accueil.modif}"></span></th>
+					            <th><span th:text="#{ajoutCulture.nomOpCult}"></span></th>
+					            <th><span th:text="#{ajout.description}"></span></th>
+					            <th><span th:text="#{ajout.orig}"></span></th>
+					            <th><span th:text="#{ajout.intervalle}"></span></th>
+					        </tr>
+					    </thead>
+					    <tbody>	
+					    		
+					    	<tr th:each="opeCultDTO : ${listeOperationCulturale}" id="${opeCultDTO.idOperationCulturale}">
+					    		<input id ="opeCult" type="hidden" name="opeCultAdd" th:value="${opeCultDTO.idOperationCulturale}"/>
+ 					    		<td><img src="../../images/trash.ico" alt="Supprimer l'operation culturale" width="25" height="25" class="suppr"/></td>
+ 					    		<td th:id="${opeCultDTO.idOperationCulturale}">
+<!--  					    			<a th:href="@{/culture/modification_culture?idCulture=}+${__${cultureDTO.idCulture}__}"> -->
+ 					    			<img src="../../images/gmo.ico" alt="Modifier l'operation culturale" width="25" height="25" class="modif"/>
+<!--  					    			</a> -->
+ 					    		</td> 					    		
+					    		<td><span th:utext="${opeCultDTO.nom}"></span></td>
+					    		<td><span th:utext="${opeCultDTO.description}"></span></td>
+					    		<td><span th:utext="${opeCultDTO.origIntervPossible}"></span></td>
+					    		<td><span th:utext="${opeCultDTO.intervallePossible}"></span></td>
+					    	</tr>				    	
+					    </tbody>
+					</table>
+					<div id="formHide">
+						<form class="form-horizontal was-validated" th:action="@{/culture/modif_ope_culturale}" th:object="${opeCultForm}" method="POST" id="opeCultForm">
+							<div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+							    <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>    
+							</div>				
+						
+							<input id="opeCultId" name="opeCultId" th:field="${opeCultForm.idOperationCulturale}" type="hidden" />
+							<input id="planteId" name="planteId" th:value="@{${idPlante}}" type="hidden" />
+						
+					        <div class="form-group row">
+					        	<label for="nom" class="col-2 col-form-label"  th:text="#{inscription.nom}"></label>
+					        	<div class="col-10">
+					        		<input id="nom" class="form-control" type="text" th:field="${opeCultForm.nom}" required/>
+					        	</div>
+					        </div>
+		
+					        <div class="form-group row">
+					        	<label for="description" class="col-2 col-form-label"  th:text="#{ajout.description}"></label>
+					        	<div class="col-10">
+					        		<input id="description" class="form-control" type="text" th:field="${opeCultForm.description}" required/>
+					        	</div>
+					        </div>
+					        
+					        <div class="form-group row">
+					        	<label for="origIntervPossible" class="col-2 col-form-label"  th:text="#{ajout.orig}"></label>
+					        	<div class="col-10">
+					        		<input id="origIntervPossible" class="form-control" type="text" th:field="${opeCultForm.origIntervPossible}" required/>
+					        	</div>
+					        </div>
+					        
+					        <div class="form-group row">
+					        	<label for="intervPossible" class="col-2 col-form-label"  th:text="#{ajout.intervalle}"></label>
+					        	<div class="col-10">
+					        		<input id="intervPossible" class="form-control" type="text" th:field="${opeCultForm.intervallePossible}" required/>
+					        	</div>
+					        </div>						        					        
+					        			        
+					        <div class="form-group row">		        
+								<input id="bouton" type="submit" class="btn btn-primary btn-lg" th:value="#{bouton.validation}"/>
+							</div>
+						</form>						
+					</div>
+				</div>
+			</div>
+		<div th:replace="includes/_footer::footer"></div>
+	</body>
+	<script type="text/javascript">
+		$(document).ready( function () {
+		    $('#table_culture').DataTable({ select : true});
+		    $("div#formHide").hide();
+		} );	
+	</script>
+	<script th:inline="javascript">	
+		$(document).ready( function () {
+			$('.suppr').hover( function () {			
+				$(this).toggleClass("hoverImg");		
+			});			
+		});
+	</script>
+	
+	<script th:inline="javascript">	
+		$(document).ready( function () {
+			$('body').on('click','.suppr', function () {
+				var idIntrant = $('#intrant').val();
+ 			    alert("Vous allez supprimer cet intrant");
+			    $.ajax({	
+			    	type: "POST",
+			    	url: "/culture/intrant_suppr",
+			    	data: "idIntrant="+idIntrant,			    	
+			    	success: function(){
+			    		document.location.href = "/culture/tableau_bord_enregistrement_culture";
+			    	}
+			    });
+			});	
+		});	
+	</script>
+	<script th:inline="javascript">	
+		$(document).ready( function () {
+			$('body').on('click','.modif', function () {
+				var idOpeCult = $(this).closest('td').attr('id');
+				var form = $('#opeCultForm')
+				$.ajax({
+					type: "GET",
+					url : "/culture/get_opeCult_modif?idOperationCulturale="+idOpeCult,
+					success: function (monOperationCulturale){
+						console.log(monOperationCulturale);
+						populate(form, monOperationCulturale);
+						$("div#formHide").show();
+					} 
+				});
+			});	
+		});
+		function populate(frm, data) {   
+		    $.each(data, function(key, value) {  
+		        var ctrl = $('[name='+key+']', frm);  
+		        ctrl.val(value);  
+		    });  
+		}	
+	</script>
+</html>

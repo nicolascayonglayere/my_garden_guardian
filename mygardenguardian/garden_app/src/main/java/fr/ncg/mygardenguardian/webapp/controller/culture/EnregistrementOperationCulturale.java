@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +68,8 @@ public class EnregistrementOperationCulturale {
 
 		OperationCulturaleDTO monOpeCult = new OperationCulturaleDTO();
 		monOpeCult.setNom(operationCulturaleForm.getNom());
-		monOpeCult.setDate(operationCulturaleForm.getDate());
+		monOpeCult.setIntervallePossible(operationCulturaleForm.getIntervallePossible());
+		monOpeCult.setOrigIntervPossible(operationCulturaleForm.getOrigIntervPossible());
 		monOpeCult.setDescription(operationCulturaleForm.getDescription());
 
 		System.out.println("CTRL CONTROLLER IDPLANTE --------------" + operationCulturaleForm.getPlanteId());
@@ -80,6 +82,44 @@ public class EnregistrementOperationCulturale {
 		// opeCree.addFlashAttribute("operationCultCree", monOpeCultCree);
 
 		return ("redirect:/culture/enregistrement_opeCulturale?idCulture=" + monOpeCultCree.getIdCulture());
+	}
+
+	@GetMapping("/culture/modif_ope_culturale")
+	public String goModifierOperationCulturale(Model model, HttpServletRequest req) {
+		model.addAttribute("listeOperationCulturale", this.managerFactory.getOperationCulturaleManager()
+				.obtenirOperationsCulturalesParCulture(Integer.valueOf(req.getParameter("idCulture"))));
+		model.addAttribute("opeCultForm", new EnregistrementOperationCulturaleBddFormulaire());
+		return "/culture/modification_opeCulturale";
+	}
+
+	@PostMapping("/culture/modif_ope_culturale")
+	public String modifierOperationCulturale(
+			@Valid @ModelAttribute("opeCultForm") @RequestBody EnregistrementOperationCulturaleBddFormulaire opeCultForm,
+			BindingResult errors, Model model, RedirectAttributes opeCultCree) {
+		if (errors.hasErrors()) {
+			System.out.println(errors.toString());
+			model.addAttribute("errors", errors.getAllErrors());
+			model.addAttribute("opeCultForm", opeCultForm);
+			model.addAttribute("cultureCreee",
+					this.managerFactory.getCultureManager().trouverLaCulture(opeCultForm.getPlanteId()));
+			return ("/culture/modif_intrant");
+		}
+		System.out.println("CTRL CONTROLLER IDPLANTE --------------" + opeCultForm.getPlanteId());
+		CultureDTO maCulture = this.managerFactory.getCultureManager().trouverLaCulture(opeCultForm.getPlanteId());
+
+		OperationCulturaleDTO monOpeCult = new OperationCulturaleDTO();
+		monOpeCult.setDescription(opeCultForm.getDescription());
+		monOpeCult.setIntervallePossible(opeCultForm.getIntervallePossible());
+		monOpeCult.setNom(opeCultForm.getNom());
+		monOpeCult.setOrigIntervPossible(opeCultForm.getOrigIntervPossible());
+		monOpeCult.setIdOperationCulturale(opeCultForm.getIdOperationCulturale());
+		monOpeCult.setStatut("previsionnel");
+
+		opeCultCree.addFlashAttribute("cultureCreee", maCulture);
+		opeCultCree.addFlashAttribute("opeCultCreee", this.managerFactory.getOperationCulturaleManager()
+				.modifierOperationCulturaleBdd(maCulture, monOpeCult));
+
+		return "redirect:/culture/tableau_bord_enregistrement_culture?idCulture=" + maCulture.getIdCulture();
 	}
 
 	public IBusinessManagerFactory getManagerFactory() {

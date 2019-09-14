@@ -25,23 +25,18 @@
 			<div th:with="idCulture=${cultureCreee.idCulture != null ? cultureCreee.idCulture : param.idCulture}">
 				<div th:replace="includes/_navCultureCreation::navCultureCreation"></div>
 				<h2><span th:text="#{message.cultureConstr}"></span></h2>
-<!-- 				<form th:action="@{/accueil }" th:object="${ajoutCultureForm}" method="POST"> -->
 					<table id="table_culture" class="display">
 					    <thead>
 					        <tr>
-					        	<th></th>
 					            <th><span th:text="#{inscription.nom}"></span></th>
 					            <th><span th:text="#{ajoutCulture.variete}"></span></th>
 					            <th><span th:text="#{ajoutCulture.produit}"></span></th>
 					            <th><span th:text="#{ajoutCulture.nomOpCult}"></span></th>
 					            <th><span th:text="#{ajoutCulture.nomIntrant}"></span></th>
-	<!-- 				            <th><span th:text="#{ajoutCulture.nomMat}"></span></th> -->
 					        </tr>
 					    </thead>
 					    <tbody>	
 					    	<tr>	
-<!-- 					    	<tr th:each="cultureDTO : ${mesCulturesConstr}"> -->
-<!-- 					    		<td><input type="checkbox" name="cultureAdd" th:field=*{culturesAjoutees} th:value="${__${cultureDTO.idCulture}__}"></td> -->
 					    		<td><span th:utext="${cultureCreee.plante.nom}"></span></td>
 					    		<td><span th:utext="${cultureCreee.plante.variete}"></span></td>
 					    		<td><span th:utext="${cultureCreee.plante.produit}"></span></td>
@@ -62,34 +57,14 @@
 					    	</tr>				    	
 					    </tbody>
 					</table>
-<!-- 				<input type="submit" class="btn btn-primary btn-lg" th:value="#{bouton.validation}"/>						 -->
-<!-- 				</form> -->
 			</div>
 			<div th:replace="includes/_footer::footer"></div>
 		</div>
 	</body>
 	<script type="text/javascript">
 		$(document).ready( function () {
-		    $('#table_culture').DataTable()
+		    $('#table_culture').DataTable({ select : true})
 		} );	
 	</script>
-	
-<!-- 	<script type="text/javascript" th:inline="javascript"> -->
-<!-- // // 		$(document).ready(  -->
-<!-- // 				$(function finaliserCulture(){ -->
-<!-- // 				    $.ajax({ -->
-<!-- // 				    	type:'POST', -->
-<!-- // 				    	url: '/culture/finalisation_culture', -->
-<!-- // 				    	data : '@{${idCulture}}', -->
-<!-- // 				    	dataType: 'JSON', -->
-<!-- // 				        success: function(result) { -->
-<!-- // 				            alert('ok'); -->
-<!-- // 				          }, -->
-<!-- // 				          error: function(result) { -->
-<!-- // 				            alert('error'); -->
-<!-- // 				          } -->
-<!-- // 				    }) -->
-<!-- // 		});	 -->
-<!-- 	</script>		 -->
-	
+
 </html>

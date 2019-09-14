@@ -74,4 +74,59 @@ public class PlanteDTO {
 				+ ", dureeCycle=" + this.dureeCycle + ", produit=" + this.produit + ", variete=" + this.variete + "]";
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((this.dureeCycle == null) ? 0 : this.dureeCycle.hashCode());
+		result = prime * result + ((this.idPlante == null) ? 0 : this.idPlante.hashCode());
+		result = prime * result + ((this.nom == null) ? 0 : this.nom.hashCode());
+		result = prime * result + ((this.nomLatin == null) ? 0 : this.nomLatin.hashCode());
+		result = prime * result + ((this.produit == null) ? 0 : this.produit.hashCode());
+		result = prime * result + ((this.variete == null) ? 0 : this.variete.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (this.getClass() != obj.getClass())
+			return false;
+		PlanteDTO other = (PlanteDTO) obj;
+		if (this.dureeCycle == null) {
+			if (other.dureeCycle != null)
+				return false;
+		} else if (!this.dureeCycle.equals(other.dureeCycle))
+			return false;
+		if (this.idPlante == null) {
+			if (other.idPlante != null)
+				return false;
+		} else if (!this.idPlante.equals(other.idPlante))
+			return false;
+		if (this.nom == null) {
+			if (other.nom != null)
+				return false;
+		} else if (!this.nom.equals(other.nom))
+			return false;
+		if (this.nomLatin == null) {
+			if (other.nomLatin != null)
+				return false;
+		} else if (!this.nomLatin.equals(other.nomLatin))
+			return false;
+		if (this.produit == null) {
+			if (other.produit != null)
+				return false;
+		} else if (!this.produit.equals(other.produit))
+			return false;
+		if (this.variete == null) {
+			if (other.variete != null)
+				return false;
+		} else if (!this.variete.equals(other.variete))
+			return false;
+		return true;
+	}
+
 }

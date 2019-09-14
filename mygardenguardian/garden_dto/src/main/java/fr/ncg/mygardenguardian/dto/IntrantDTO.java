@@ -53,4 +53,41 @@ public class IntrantDTO {
 		// + ", culture=" + this.culture + "]";
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((this.idIntrant == null) ? 0 : this.idIntrant.hashCode());
+		result = prime * result + ((this.nom == null) ? 0 : this.nom.hashCode());
+		result = prime * result + ((this.reference == null) ? 0 : this.reference.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (this.getClass() != obj.getClass())
+			return false;
+		IntrantDTO other = (IntrantDTO) obj;
+		if (this.idIntrant == null) {
+			if (other.idIntrant != null)
+				return false;
+		} else if (!this.idIntrant.equals(other.idIntrant))
+			return false;
+		if (this.nom == null) {
+			if (other.nom != null)
+				return false;
+		} else if (!this.nom.equals(other.nom))
+			return false;
+		if (this.reference == null) {
+			if (other.reference != null)
+				return false;
+		} else if (!this.reference.equals(other.reference))
+			return false;
+		return true;
+	}
+
 }

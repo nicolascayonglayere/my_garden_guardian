@@ -19,6 +19,8 @@ public interface IAdhesionManager {
 
 	public AdhesionDTO trouverAdhesionIdUtilisateur(Integer idUtilisateur);
 
+	public AdhesionDTO trouverAdhesionIdParcelle(Integer idParcelle);
+
 	public List<AdhesionDTO> trouverJardiniers();
 
 	public AdhesionDTO trouverParId(Integer idAdhesion);

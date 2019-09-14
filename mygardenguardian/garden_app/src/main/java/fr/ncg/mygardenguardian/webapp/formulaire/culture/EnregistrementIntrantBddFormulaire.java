@@ -4,6 +4,7 @@ import javax.validation.constraints.NotBlank;
 
 public class EnregistrementIntrantBddFormulaire {
 
+	private Integer idIntrant;
 	@NotBlank(message = "Un nom est requis")
 	private String nom;
 	@NotBlank(message = "Une référence est requiss")
@@ -37,5 +38,13 @@ public class EnregistrementIntrantBddFormulaire {
 
 	public void setPlanteId(Integer planteId) {
 		this.planteId = planteId;
+	}
+
+	public Integer getIdIntrant() {
+		return this.idIntrant;
+	}
+
+	public void setIdIntrant(Integer idIntrant) {
+		this.idIntrant = idIntrant;
 	}
 }

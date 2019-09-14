@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+	<head>
+		<div th:replace="includes/_head::head"></div>
+		<title>Dater les cultures du calendrier previsionnel</title>
+	</head>
+	
+	<body>
+		<div class="container ">
+			<div th:replace="includes/_navbar::navigation_jardinier"></div>
+			<div class="jumbotron jumbotron-fluid">
+				<div class="container text-center">
+					<h1 class="display-3" th:text="#{ajoutCulture.dateImpl}"></h1>
+				</div>
+			</div>
+			
+			<div th:if="${not #lists.isEmpty(culturesEnTerre)}">
+				<h2 th:text="#{ajout.culturesEnTerre}"></h2>
+
+				
+				<table id="table_culture" class="display">
+				    <thead>
+				        <tr>
+				            <th><span th:text="#{inscription.nom}"></span></th>
+				            <th><span th:text="#{ajoutCulture.variete}"></span></th>
+				            <th><span th:text="#{ajout.date}"></span></th>
+				        </tr>
+				    </thead>
+				    <tbody>	
+				    	<tr th:each="cultureInstanceDTO : ${culturesEnTerre}">
+				    		<td><span th:utext="${cultureInstanceDTO.culture.plante.nom}"></span></td>
+				    		<td><span th:utext="${cultureInstanceDTO.culture.plante.variete}"></span></td>
+				    		<td><span th:utext="${#dates.format(cultureInstanceDTO.date, 'dd MMM yyyy')}"></span></td>
+				    	</tr>				    	
+				    </tbody>
+				</table>				
+			</div>
+			
+			<h2 th:text="#{ajout.dateImplantation}"></h2>
+			
+			<form th:action="@{/user/date_culture_instance}" method="POST">
+				<div th:each="cultureInstanceDTO : ${culturesAjoutees}">
+			        <div class="form-group row">
+			        	<input type="hidden" id="idCultureInstance" name="idCultureInstance" th:value="${__${cultureInstanceDTO.idCultureInstance}__}"/>
+			        	<label for="date" class="col-6 col-form-label"  th:text="${cultureInstanceDTO.culture.plante.nom+' '+cultureInstanceDTO.culture.plante.variete}"></label>
+			        	<div class="col-6">
+			        		<input id="date" class="form-control" type="date" name="date" required/>
+			        	</div>
+			        </div>					
+				</div>
+		        <div class="form-group row">		        
+					<input id="bouton" type="submit" class="btn btn-primary btn-lg" th:value="#{bouton.validation}"/>
+				</div>							
+			</form>
+
+			<div th:replace="includes/_footer::footer"></div>		
+		</div>		
+	<script type="text/javascript">
+		$(document).ready( function () {
+		    $('#table_culture').DataTable({ select : true})
+		} );	
+	</script>
+	</body>
+</html>
