@@ -68,11 +68,11 @@ public class CultureManagerTest {
 
 		this.ope1 = new OperationCulturaleDTO(1, "op", 1, 2, "descr", "statut");
 		this.ope2 = new OperationCulturaleDTO(2, "oq", 4, 5, "descr 2", "statut");
-		List<OperationCulturaleDTO> opeCultTemoin = Arrays.asList(this.ope1, this.ope2);
+		List<OperationCulturaleDTO> opeCultTemoin = new ArrayList<>(Arrays.asList(this.ope1, this.ope2));
 
 		this.opeEntite1 = new OperationCulturale(1, "op", 1, 2, "descr", "statut");
 		this.opeEntite2 = new OperationCulturale(2, "oq", 4, 5, "descr 2", "statut");
-		List<OperationCulturale> opeCultEntiteTemoin = Arrays.asList(this.opeEntite1, this.opeEntite2);
+		List<OperationCulturale> opeCultEntiteTemoin = new ArrayList<>(Arrays.asList(this.opeEntite1, this.opeEntite2));
 
 		this.planteTemoin = new PlanteDTO("nom", "nomLatin", 12, "produit", "variete");
 		this.planteTemoin.setIdPlante(1);
@@ -192,7 +192,7 @@ public class CultureManagerTest {
 				.thenReturn(Optional.of(this.cultureEntiteTemoin));
 		Mockito.when(this.daoFacto.getPlanteDao().saveAndFlush(Mockito.any())).thenReturn(this.planteEntiteTemoin);
 		Mockito.when(this.daoFacto.getIntrantDao().saveAndFlush(Mockito.any())).thenReturn(this.intrantEntite);
-		Mockito.when(this.daoFacto.getOperationCulturaleDao().saveAndFlush(Mockito.any())).thenReturn(this.opeEntite1);
+		Mockito.when(this.daoFacto.getOperationCulturaleDao().save(Mockito.any())).thenReturn(this.opeEntite1);
 		Mockito.when(this.daoFacto.getOperationCulturaleDao().saveAndFlush(Mockito.any())).thenReturn(this.opeEntite2);
 		Mockito.when(this.daoFacto.getCultureDao().saveAndFlush(Mockito.any())).thenReturn(this.cultureEntiteTemoin);
 
@@ -200,4 +200,15 @@ public class CultureManagerTest {
 		Assert.assertEquals(this.cultureTemoin, this.cultManager.modifierCultureBdd(this.cultureTemoin));
 	}
 
+	@Test
+	public void whenGivenIdUtilisateur_thenReturnListCulturesConstruction() {
+		List<CultureDTO> listeTest = Arrays.asList(this.cultureTemoin);
+		Mockito.when(this.daoFacto.getCultureDao().findByEnConstructionAndUtilisateurIdUtilisateur(Mockito.anyBoolean(),
+				Mockito.anyInt())).thenReturn(Arrays.asList(this.cultureEntiteTemoin));
+
+		Assert.assertTrue(this.cultManager.obtenirCulturesEnConstructionAuteur(1).size() > 0);
+		IntStream.range(0, listeTest.size()).forEachOrdered(i -> {
+			Assert.assertEquals(listeTest.get(i), this.cultManager.obtenirCulturesEnConstructionAuteur(1).get(i));
+		});
+	}
 }

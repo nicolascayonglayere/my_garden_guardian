@@ -8,6 +8,8 @@ public interface IEventCalendarManager {
 
 	List<EventCalendarDTO> listeCulturesCalendrier(Integer idUtilisateur);
 
+	List<EventCalendarDTO> listeCulturesCalendrier(String uuidUtilisateur);
+
 	List<EventCalendarDTO> constructionEventOpeCultCalendar(Integer idUtilisateur, String nomOpeCult);
 
 }

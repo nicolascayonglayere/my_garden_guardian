@@ -2,6 +2,7 @@ package fr.ncg.mygardenguardian.business.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -31,6 +32,7 @@ public class UtilisateurManagerImpl implements IUtilisateurManager {
 			monUtilisateur.setCoordonneeUtilisateur(mesCoordonnees);
 			monUtilisateur.setRole(this.constructionRoleSpringSecurity(utilisateur.getRole()));
 			monUtilisateur.setMdp(this.encrytePassword(utilisateur.getMdp()));
+			monUtilisateur.setUuid(UUID.randomUUID().toString());
 			monUtilisateur = this.daoFacto.getUtilisateurDao().saveAndFlush(monUtilisateur);
 		}
 
@@ -81,6 +83,12 @@ public class UtilisateurManagerImpl implements IUtilisateurManager {
 		} else {
 			return utilisateur;
 		}
+	}
+
+	@Override
+	public UtilisateurDTO trouverUtilisateurParUuid(String uuidUtilisateur) {
+		return UtilisateurMapper
+				.fromUtilisateurToUtilisateurDTO(this.daoFacto.getUtilisateurDao().findByUuid(uuidUtilisateur).get());
 	}
 
 	// --TODO rendre privee cette methode

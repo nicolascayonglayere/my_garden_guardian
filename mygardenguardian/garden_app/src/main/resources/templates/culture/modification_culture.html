@@ -97,45 +97,4 @@
 			<div th:replace="includes/_footer::footer"></div>
 		</div>
 	</body>
-	<script type="text/javascript">
-	$(document).ready(function() {
-	    var table = $('#table_plante').DataTable({
-	    	{ select : true}
-	    });
-	 
-// 	    $('#bouton').click( function() {
-// 	        var data = table.$('input, select').serialize();
-// 			//console.log("AAAAAHHHH ---------- "+data1);
-// 			//var data = JSON.stringify(data1);
-// 			//var data = JSON.parse(dataInt)
-// 			console.log("AAAAAHHHH ---------- "+(data));
-// 	        $.ajax({
-// 	        	  type: "POST",
-// 	        	  //contentType: "application/json",
-// 	        	  url: "/culture/modification_culture",
-// 	        	  data: (data),
-// 	        	  success: function(response){
-// 	        		  console.log("reponse --------- "+response);
-// 	        		  if(response == "success"){
-// 	        			  console.log("SUCCES --------------");
-// 	        			  document.location.href = "../accueil";
-// 	        		  }
-// 	        		  else{
-// 	        			  console.log("ERROR ---------------");
-// 	        		  }
-// 	        	  }
-// 	        	  //dataType: "JSON"
-// 	        	});	        
-	        
-// 	        //--TODO requete AJAX vers le serveur pour MAJ de la culture
-// // 	        alert(
-// // 	            "The following data would have been submitted to the server: \n\n"+
-// // 	            data.substr( 0, 120 )+'...'
-// // 	        );
-// 	        return false;
-	        
-// 	    } );
-	    
-	} );	
-	</script>
 </html>

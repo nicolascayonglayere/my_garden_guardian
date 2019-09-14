@@ -20,6 +20,8 @@ public class UtilisateurMapper {
 			utilisateur.getCulturesAjoutees().stream().map(c -> CultureMapper.fromCultureToCultureDto(c))
 					.forEach(c -> userDto.addCulture(c));
 		}
+		userDto.setUuid(utilisateur.getUuid());
+		userDto.setMotSecret(utilisateur.getMotSecret());
 		return userDto;
 	}
 
@@ -38,6 +40,8 @@ public class UtilisateurMapper {
 			utilisateurDto.getCultureAjoutees().stream().map(c -> CultureMapper.fromCultureDtoToCulture(c))
 					.forEach(c -> user.addCulture(c));
 		}
+		user.setUuid(utilisateurDto.getUuid());
+		user.setMotSecret(utilisateurDto.getMotSecret());
 		return user;
 	}
 }

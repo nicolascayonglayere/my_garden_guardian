@@ -5,6 +5,12 @@ import org.springframework.stereotype.Repository;
 
 import fr.ncg.mygardenguardian.entites.Plante;
 
+/**
+ * Interface JpaRepository requetant la table plante
+ * 
+ * @author nicolas
+ *
+ */
 @Repository
 public interface PlanteDao extends JpaRepository<Plante, Integer> {
 

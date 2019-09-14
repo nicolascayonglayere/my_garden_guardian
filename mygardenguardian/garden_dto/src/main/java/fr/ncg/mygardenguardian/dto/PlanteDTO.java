@@ -1,5 +1,11 @@
 package fr.ncg.mygardenguardian.dto;
 
+/**
+ * Data Transfer Object Plante
+ * 
+ * @author nicolas
+ *
+ */
 public class PlanteDTO {
 
 	private Integer idPlante;
@@ -74,18 +80,18 @@ public class PlanteDTO {
 				+ ", dureeCycle=" + this.dureeCycle + ", produit=" + this.produit + ", variete=" + this.variete + "]";
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((this.dureeCycle == null) ? 0 : this.dureeCycle.hashCode());
-		result = prime * result + ((this.idPlante == null) ? 0 : this.idPlante.hashCode());
-		result = prime * result + ((this.nom == null) ? 0 : this.nom.hashCode());
-		result = prime * result + ((this.nomLatin == null) ? 0 : this.nomLatin.hashCode());
-		result = prime * result + ((this.produit == null) ? 0 : this.produit.hashCode());
-		result = prime * result + ((this.variete == null) ? 0 : this.variete.hashCode());
-		return result;
-	}
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = 1;
+//		result = prime * result + ((this.dureeCycle == null) ? 0 : this.dureeCycle.hashCode());
+//		result = prime * result + ((this.idPlante == null) ? 0 : this.idPlante.hashCode());
+//		result = prime * result + ((this.nom == null) ? 0 : this.nom.hashCode());
+//		result = prime * result + ((this.nomLatin == null) ? 0 : this.nomLatin.hashCode());
+//		result = prime * result + ((this.produit == null) ? 0 : this.produit.hashCode());
+//		result = prime * result + ((this.variete == null) ? 0 : this.variete.hashCode());
+//		return result;
+//	}
 
 	@Override
 	public boolean equals(Object obj) {

@@ -9,6 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Entite de persistence CoordonneesUtilisateur
+ * 
+ * @author nicolas
+ *
+ */
 @Entity
 @Table(name = "coordonnees_utilisateur", schema = "garden_guardian")
 public class CoordonneesUtilisateur implements Serializable {

@@ -13,6 +13,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * Entite de persistance CultureInstance representant une {@link Culture} en
+ * terre
+ * 
+ * @author nicolas
+ *
+ */
 @Entity
 @Table(name = "culture_instance", schema = "garden_guardian")
 public class CultureInstance implements Serializable {

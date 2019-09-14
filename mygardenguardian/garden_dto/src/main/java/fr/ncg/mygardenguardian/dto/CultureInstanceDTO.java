@@ -2,6 +2,12 @@ package fr.ncg.mygardenguardian.dto;
 
 import java.util.Date;
 
+/**
+ * Data Transfer Object CultureInstance
+ * 
+ * @author nicolas
+ *
+ */
 public class CultureInstanceDTO {
 
 	private Integer idCultureInstance;
@@ -61,16 +67,16 @@ public class CultureInstanceDTO {
 				+ ", parcelle=" + this.parcelle + ", date=" + this.date + "]";
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((this.culture == null) ? 0 : this.culture.hashCode());
-		result = prime * result + ((this.date == null) ? 0 : this.date.hashCode());
-		result = prime * result + ((this.idCultureInstance == null) ? 0 : this.idCultureInstance.hashCode());
-		result = prime * result + ((this.parcelle == null) ? 0 : this.parcelle.hashCode());
-		return result;
-	}
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = 1;
+//		result = prime * result + ((this.culture == null) ? 0 : this.culture.hashCode());
+//		result = prime * result + ((this.date == null) ? 0 : this.date.hashCode());
+//		result = prime * result + ((this.idCultureInstance == null) ? 0 : this.idCultureInstance.hashCode());
+//		result = prime * result + ((this.parcelle == null) ? 0 : this.parcelle.hashCode());
+//		return result;
+//	}
 
 	@Override
 	public boolean equals(Object obj) {

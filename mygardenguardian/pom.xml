@@ -124,6 +124,13 @@
 				<artifactId>mockito-all</artifactId>
 				<version>1.9.5</version>
 			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.mnode.ical4j/ical4j -->
+			<dependency>
+			    <groupId>org.mnode.ical4j</groupId>
+			    <artifactId>ical4j</artifactId>
+			    <version>3.0.0</version>
+			</dependency>			
+			
 		</dependencies>
 	</dependencyManagement>
 

@@ -11,6 +11,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * Entite de persistance Materiel
+ * 
+ * @author nicolas
+ *
+ */
 @Entity
 @Table(name = "materiel", schema = "garden_guardian")
 public class Materiel implements Serializable {

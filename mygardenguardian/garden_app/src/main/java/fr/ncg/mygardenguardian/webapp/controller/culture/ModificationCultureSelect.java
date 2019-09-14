@@ -29,7 +29,6 @@ public class ModificationCultureSelect {
 	@PostMapping("/culture/select_modification_culture")
 	public String selectCulture(@ModelAttribute("idForm") @RequestBody IdIntegerFormlaire idForm, BindingResult errors,
 			Model model, RedirectAttributes cultureSelect) {
-		System.out.println("CTRL CULTURE SELECT MODIF ------------- " + idForm.getIdCulture());
 
 		cultureSelect.addFlashAttribute("cultureModif",
 				this.managerFactory.getCultureManager().trouverLaCulture(idForm.getIdCulture()));

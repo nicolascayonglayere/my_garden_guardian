@@ -2,6 +2,12 @@ package fr.ncg.mygardenguardian.dto;
 
 import java.util.Date;
 
+/**
+ * Data Transfer Object Adhesion
+ * 
+ * @author nicolas
+ *
+ */
 public class AdhesionDTO {
 
 	private Integer idAdhesion;

@@ -153,10 +153,25 @@
 	</body>
 	<script type="text/javascript">
 		$(document).ready( function () {
-		    $('#table_jardi_suppr').DataTable({ select : true}),
-		    $('#table_inscription').DataTable({ select : true}),
-		    $('#table_jardi_renouvel').DataTable({ select : true}),
-		    $('#table_parcelle').DataTable({ select : true});
+		    $('#table_jardi_suppr').DataTable({		    	
+		    	language: {
+		        	url: 'http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json'
+		    }}),
+		    $('#table_inscription').DataTable({
+		    	language: {
+		        	url: 'http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json'
+		    	}
+		    }),
+		    $('#table_jardi_renouvel').DataTable({
+		    	language: {
+		        	url: 'http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json'
+		    	}
+		    }),
+		    $('#table_parcelle').DataTable({
+		    	language: {
+		        	url: 'http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json'
+		    	}
+		    });
 		} );	
 	</script>
 </html>

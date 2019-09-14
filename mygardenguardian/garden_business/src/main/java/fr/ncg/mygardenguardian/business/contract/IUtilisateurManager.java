@@ -14,6 +14,8 @@ public interface IUtilisateurManager {
 
 	public UtilisateurDTO trouverUtilisateurParId(Integer idUtilisateur);
 
+	public UtilisateurDTO trouverUtilisateurParUuid(String uuidUtilisateur);
+
 	public boolean verifExistenceUtilisateur(UtilisateurDTO utilisateur);
 
 	public UtilisateurDTO trouverUtilisateurParNom(String nom);

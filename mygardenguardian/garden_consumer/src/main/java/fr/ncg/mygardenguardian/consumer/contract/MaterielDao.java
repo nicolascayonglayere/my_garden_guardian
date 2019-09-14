@@ -5,6 +5,12 @@ import org.springframework.stereotype.Repository;
 
 import fr.ncg.mygardenguardian.entites.Materiel;
 
+/**
+ * Interface JpaRepository requetant la table materiel
+ * 
+ * @author nicolas
+ *
+ */
 @Repository
 public interface MaterielDao extends JpaRepository<Materiel, Integer> {
 

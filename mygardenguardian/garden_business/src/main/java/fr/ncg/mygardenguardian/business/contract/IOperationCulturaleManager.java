@@ -7,8 +7,6 @@ import fr.ncg.mygardenguardian.dto.OperationCulturaleDTO;
 
 public interface IOperationCulturaleManager {
 
-	public OperationCulturaleDTO creerOperationCulturaleBdd(CultureDTO culture);
-
 	public OperationCulturaleDTO modifierOperationCulturaleBdd(CultureDTO culture,
 			OperationCulturaleDTO operationCulturale);
 

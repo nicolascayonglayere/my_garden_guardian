@@ -49,7 +49,7 @@ public class EnregistrementIntrant {
 			model.addAttribute("planteFormulaire", intrantForm);
 			model.addAttribute("cultureCreee",
 					this.managerFactory.getCultureManager().trouverLaCulture(intrantForm.getPlanteId()));
-			return ("/culture/enregistrement_intrant");
+			return ("culture/enregistrement_intrant");
 		}
 
 		IntrantDTO monIntrant = new IntrantDTO();
@@ -70,7 +70,7 @@ public class EnregistrementIntrant {
 		model.addAttribute("listeIntrants", this.managerFactory.getIntrantManager()
 				.obtenirIntrantsCultureId(Integer.valueOf(req.getParameter("idCulture"))));
 		model.addAttribute("intrantForm", new EnregistrementIntrantBddFormulaire());
-		return ("/culture/modification_intrant");
+		return ("culture/modification_intrant");
 	}
 
 	@PostMapping("/culture/modif_intrant")
@@ -84,7 +84,7 @@ public class EnregistrementIntrant {
 			model.addAttribute("intrantForm", intrantForm);
 			model.addAttribute("cultureCreee",
 					this.managerFactory.getCultureManager().trouverLaCulture(intrantForm.getPlanteId()));
-			return ("/culture/modif_intrant");
+			return ("culture/modif_intrant");
 		}
 		IntrantDTO monIntrantCree;
 		System.out.println("CTRL CONTROLLER IDPLANTE --------------" + intrantForm.getPlanteId());

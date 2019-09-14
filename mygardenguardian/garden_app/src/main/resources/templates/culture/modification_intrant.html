@@ -80,7 +80,12 @@
 	</body>
 	<script type="text/javascript">
 		$(document).ready( function () {
-		    $('#table_culture').DataTable({ select : true});
+		    $('#table_culture').DataTable({ 
+		    	select : true,
+		    	language: {
+		        	url: 'http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json'
+		    	}
+	    	});
 		    $("div#formHide").hide();
 		} );	
 	</script>

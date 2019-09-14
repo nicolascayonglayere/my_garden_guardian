@@ -7,6 +7,7 @@ import fr.ncg.mygardenguardian.business.contract.IAdhesionManager;
 import fr.ncg.mygardenguardian.business.contract.ICultureInstanceManager;
 import fr.ncg.mygardenguardian.business.contract.ICultureManager;
 import fr.ncg.mygardenguardian.business.contract.IEventCalendarManager;
+import fr.ncg.mygardenguardian.business.contract.IExportCalendrier;
 import fr.ncg.mygardenguardian.business.contract.IIntrantManager;
 import fr.ncg.mygardenguardian.business.contract.IOperationCulturaleManager;
 import fr.ncg.mygardenguardian.business.contract.IParcelleManager;
@@ -25,6 +26,7 @@ public class BusinessManagerFactoryImpl implements IBusinessManagerFactory {
 	private IOperationCulturaleManager opeCultManager;
 	private IEventCalendarManager eventManager;
 	private ICultureInstanceManager cultureInstanceManager;
+	private IExportCalendrier exportCalendrier;
 
 	@Override
 	public IAdhesionManager getAdhesionManager() {
@@ -123,6 +125,17 @@ public class BusinessManagerFactoryImpl implements IBusinessManagerFactory {
 	@Override
 	public void setICultureInstanceManager(ICultureInstanceManager cultureInstanceManager) {
 		this.cultureInstanceManager = cultureInstanceManager;
+	}
+
+	@Override
+	public IExportCalendrier getExportCalendrier() {
+		return this.exportCalendrier;
+	}
+
+	@Autowired
+	@Override
+	public void setIExportCalendrier(IExportCalendrier exportCalendrier) {
+		this.exportCalendrier = exportCalendrier;
 	}
 
 }

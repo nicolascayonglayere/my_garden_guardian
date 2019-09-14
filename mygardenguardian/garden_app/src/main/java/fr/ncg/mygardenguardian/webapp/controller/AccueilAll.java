@@ -50,7 +50,7 @@ public class AccueilAll {
 		}
 
 		model.addAttribute("ajoutCultureForm", new AjoutCultureFormulaire());
-		return "/accueil";
+		return "accueil";
 	}
 
 	@PostMapping("/accueil")

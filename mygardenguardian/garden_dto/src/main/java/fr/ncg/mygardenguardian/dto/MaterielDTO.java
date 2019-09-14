@@ -1,5 +1,11 @@
 package fr.ncg.mygardenguardian.dto;
 
+/**
+ * Data Transfer Object Materiel
+ * 
+ * @author nicolas
+ *
+ */
 public class MaterielDTO {
 
 	private Integer idMateriel;

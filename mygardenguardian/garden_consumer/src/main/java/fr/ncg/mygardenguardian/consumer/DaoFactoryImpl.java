@@ -14,6 +14,12 @@ import fr.ncg.mygardenguardian.consumer.contract.ParcelleDao;
 import fr.ncg.mygardenguardian.consumer.contract.PlanteDao;
 import fr.ncg.mygardenguardian.consumer.contract.UtilisateurDao;
 
+/**
+ * Implementation de {@link IDaoFactory}
+ * 
+ * @author nicolas
+ *
+ */
 @Component
 public class DaoFactoryImpl implements IDaoFactory {
 

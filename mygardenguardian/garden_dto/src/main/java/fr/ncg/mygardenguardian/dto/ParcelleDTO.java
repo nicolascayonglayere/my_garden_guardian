@@ -3,12 +3,17 @@ package fr.ncg.mygardenguardian.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Data Transfer Object Parcelle
+ * 
+ * @author nicolas
+ *
+ */
 public class ParcelleDTO {
 
 	private Integer idParcelle;
 	private double surface;
 	private String code;
-	// private boolean occupation;
 	private List<CultureInstanceDTO> listeCultures;
 
 	public ParcelleDTO() {
@@ -17,7 +22,6 @@ public class ParcelleDTO {
 	public ParcelleDTO(double surface, String code) {
 		this.surface = surface;
 		this.code = code;
-		// this.occupation = occupation;
 	}
 
 	public Integer getIdParcelle() {
@@ -49,6 +53,7 @@ public class ParcelleDTO {
 			this.listeCultures = new ArrayList<CultureInstanceDTO>();
 		}
 		this.listeCultures.add(cal);
+		cal.setParcelle(this);
 	}
 
 	public List<CultureInstanceDTO> getlisteCultures() {
@@ -59,24 +64,24 @@ public class ParcelleDTO {
 		this.listeCultures = listeCultures;
 	}
 
-	@Override
-	public String toString() {
-		return "ParcelleDTO [idParcelle=" + this.idParcelle + ", surface=" + this.surface + ", code=" + this.code
-				+ ", listeCultures=" + this.listeCultures + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "ParcelleDTO [idParcelle=" + this.idParcelle + ", surface=" + this.surface + ", code=" + this.code
+//				+ ", listeCultures=" + this.listeCultures + "]";
+//	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((this.code == null) ? 0 : this.code.hashCode());
-		result = prime * result + ((this.idParcelle == null) ? 0 : this.idParcelle.hashCode());
-		result = prime * result + ((this.listeCultures == null) ? 0 : this.listeCultures.hashCode());
-		long temp;
-		temp = Double.doubleToLongBits(this.surface);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		return result;
-	}
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = 1;
+//		result = prime * result + ((this.code == null) ? 0 : this.code.hashCode());
+//		result = prime * result + ((this.idParcelle == null) ? 0 : this.idParcelle.hashCode());
+//		result = prime * result + ((this.listeCultures == null) ? 0 : this.listeCultures.hashCode());
+//		long temp;
+//		temp = Double.doubleToLongBits(this.surface);
+//		result = prime * result + (int) (temp ^ (temp >>> 32));
+//		return result;
+//	}
 
 	@Override
 	public boolean equals(Object obj) {

@@ -55,11 +55,41 @@ public class EventCalendarManagerImpl implements IEventCalendarManager {
 	}
 
 	@Override
-	public List<EventCalendarDTO> constructionEventOpeCultCalendar(Integer idUtilisateur, String nomOpeCult) {
-		System.out.println("CTRL user --------------- " + idUtilisateur);
+	public List<EventCalendarDTO> listeCulturesCalendrier(String uuidUtilisateur) {
+		Integer idUtilisateur = this.managerFactory.getUtilisateurManager().trouverUtilisateurParUuid(uuidUtilisateur)
+				.getIdUtilisateur();
 		Integer idParcelle = this.managerFactory.getAdhesionManager().trouverAdhesionIdUtilisateur(idUtilisateur)
 				.getParcelleDTO().getIdParcelle();
-		System.out.println("CTRL parcelle--------------- " + idParcelle);
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+		List<EventCalendarDTO> monCalPrev = new ArrayList<EventCalendarDTO>();
+
+		this.managerFactory.getParcelleManager().trouverParcelleParId(idParcelle).getlisteCultures().stream()
+				.forEachOrdered(ci -> {
+					String start = dateFormat.format(ci.getDate());
+					Calendar monCal = Calendar.getInstance();
+					monCal.setTime(ci.getDate());
+					monCal.add(Calendar.MONTH, ci.getCulture().getPlante().getDureeCycle());
+					Date dateFin = monCal.getTime();
+					String end = dateFormat.format(dateFin);
+
+					EventCalendarDTO maCultureAjoutee = new EventCalendarDTO();
+					maCultureAjoutee.setId(this.compteur);
+					maCultureAjoutee.setTitle(ci.getCulture().getNom());
+					maCultureAjoutee.setStart(start);
+					maCultureAjoutee.setEnd(end);
+					maCultureAjoutee.setAllDay(true);
+					maCultureAjoutee.setUrl("/user/culture?idCulture=" + ci.getIdCultureInstance());
+					monCalPrev.add(maCultureAjoutee);
+					this.compteur++;
+				});
+		return monCalPrev;
+	}
+
+	@Override
+	public List<EventCalendarDTO> constructionEventOpeCultCalendar(Integer idUtilisateur, String nomOpeCult) {
+		Integer idParcelle = this.managerFactory.getAdhesionManager().trouverAdhesionIdUtilisateur(idUtilisateur)
+				.getParcelleDTO().getIdParcelle();
 		List<EventCalendarDTO> monSemisPrev = new ArrayList<EventCalendarDTO>();
 		this.managerFactory.getParcelleManager().trouverParcelleParId(idParcelle).getlisteCultures().stream()
 				.forEachOrdered(c -> {
@@ -107,5 +137,4 @@ public class EventCalendarManagerImpl implements IEventCalendarManager {
 	public void setManagerFactory(IBusinessManagerFactory managerFactory) {
 		this.managerFactory = managerFactory;
 	}
-
 }

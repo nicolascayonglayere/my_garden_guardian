@@ -49,7 +49,7 @@ public class EnregistrementOperationCulturale {
 		// this.managerFactory.getOperationCulturaleManager().obtenirNomsOperationCulturale());
 		model.addAttribute("operationCulturaleForm", new EnregistrementOperationCulturaleBddFormulaire());
 
-		return "/culture/enregistrement_opeCulturale";
+		return "culture/enregistrement_opeCulturale";
 	}
 
 	@PostMapping("/culture/enregistrement_opeCulturale")
@@ -63,7 +63,7 @@ public class EnregistrementOperationCulturale {
 			model.addAttribute("operationCulturaleForm", operationCulturaleForm);
 			model.addAttribute("cultureCreee",
 					this.managerFactory.getCultureManager().trouverLaCulture(operationCulturaleForm.getPlanteId()));
-			return ("/culture/enregistrement_opeCulturale");
+			return ("culture/enregistrement_opeCulturale");
 		}
 
 		OperationCulturaleDTO monOpeCult = new OperationCulturaleDTO();
@@ -89,7 +89,7 @@ public class EnregistrementOperationCulturale {
 		model.addAttribute("listeOperationCulturale", this.managerFactory.getOperationCulturaleManager()
 				.obtenirOperationsCulturalesParCulture(Integer.valueOf(req.getParameter("idCulture"))));
 		model.addAttribute("opeCultForm", new EnregistrementOperationCulturaleBddFormulaire());
-		return "/culture/modification_opeCulturale";
+		return "culture/modification_opeCulturale";
 	}
 
 	@PostMapping("/culture/modif_ope_culturale")
@@ -102,7 +102,7 @@ public class EnregistrementOperationCulturale {
 			model.addAttribute("opeCultForm", opeCultForm);
 			model.addAttribute("cultureCreee",
 					this.managerFactory.getCultureManager().trouverLaCulture(opeCultForm.getPlanteId()));
-			return ("/culture/modif_intrant");
+			return ("culture/modif_intrant");
 		}
 		System.out.println("CTRL CONTROLLER IDPLANTE --------------" + opeCultForm.getPlanteId());
 		CultureDTO maCulture = this.managerFactory.getCultureManager().trouverLaCulture(opeCultForm.getPlanteId());

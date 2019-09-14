@@ -42,7 +42,7 @@ public class AdhesionController {
 			model.addAttribute("utilisateursListe", this.managerFactory.getUtilisateurManager().trouverJardiniers());
 			model.addAttribute("parcelleVideListe",
 					this.managerFactory.getParcelleManager().trouverToutesParcellesVides());
-			return ("/admin/modification_adhesion");
+			return ("admin/modification_adhesion");
 		}
 
 		AdhesionDTO adhesionModif = this.managerFactory.getAdhesionManager()

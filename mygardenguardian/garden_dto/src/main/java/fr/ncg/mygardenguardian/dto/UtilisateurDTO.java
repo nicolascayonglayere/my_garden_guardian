@@ -3,6 +3,12 @@ package fr.ncg.mygardenguardian.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Data Transfer Object Utilisateur
+ * 
+ * @author nicolas
+ *
+ */
 public class UtilisateurDTO {
 
 	private Integer idUtilisateur;
@@ -12,6 +18,8 @@ public class UtilisateurDTO {
 	private CoordonneesUtilisateurDTO coordonneeUtilisateurDTO;
 	private String role;
 	private List<CultureDTO> cultureAjoutees;
+	private String uuid;
+	private String motSecret;
 
 	public UtilisateurDTO() {
 	}
@@ -90,6 +98,22 @@ public class UtilisateurDTO {
 			this.cultureAjoutees = new ArrayList<CultureDTO>();
 		}
 		this.cultureAjoutees.add(culture);
+	}
+
+	public String getUuid() {
+		return this.uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	public String getMotSecret() {
+		return this.motSecret;
+	}
+
+	public void setMotSecret(String motSecret) {
+		this.motSecret = motSecret;
 	}
 
 	@Override
