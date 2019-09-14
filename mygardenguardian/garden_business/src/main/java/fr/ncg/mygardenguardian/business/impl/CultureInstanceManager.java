@@ -19,14 +19,11 @@ import fr.ncg.mygardenguardian.dto.CultureInstanceDTO;
 @Transactional
 public class CultureInstanceManager implements ICultureInstanceManager {
 
-	// private DaoFactoryImpl daoFacto;
 	private IDaoFactory daoFacto;
-	// private CultureManager cultureManager;
 	private ICultureManager cultureManager;
 
 	@Override
 	public CultureInstanceDTO prevoirCulture(CultureInstanceDTO cultureinstanceDTO) {
-		System.out.println(this.daoFacto);
 		return CultureInstanceMapper.fromCultureInstanceToCultureInstanceDTO(this.daoFacto.getCultureInstanceDao()
 				.saveAndFlush(CultureInstanceMapper.fromCultureInstanceDtoToCultureInstance(cultureinstanceDTO)));
 	}

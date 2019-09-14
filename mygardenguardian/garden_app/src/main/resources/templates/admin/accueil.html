@@ -153,10 +153,10 @@
 	</body>
 	<script type="text/javascript">
 		$(document).ready( function () {
-		    $('#table_jardi_suppr').DataTable(),
-		    $('#table_inscription').DataTable(),
-		    $('#table_jardi_renouvel').DataTable(),
-		    $('#table_parcelle').DataTable();
+		    $('#table_jardi_suppr').DataTable({ select : true}),
+		    $('#table_inscription').DataTable({ select : true}),
+		    $('#table_jardi_renouvel').DataTable({ select : true}),
+		    $('#table_parcelle').DataTable({ select : true});
 		} );	
 	</script>
 </html>

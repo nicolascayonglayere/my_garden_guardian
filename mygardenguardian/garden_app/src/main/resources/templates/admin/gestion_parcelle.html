@@ -19,8 +19,8 @@
 			<table id="table_parcelle" class="display">
 			    <thead>
 			        <tr>
-			        	<th></th>
-			        	<th></th>
+			        	<th><span th:text="#{accueil.suppr}"></span></th>
+			        	<th><span th:text="#{accueil.modif}"></span></th>
 			            <th><span th:text="#{parcelleTab.code}"></span></th>
 			            <th><span th:text="#{parcelleTab.surface}"></span></th>
 			            <th><span th:text="#{parcelleTab.jardinier}"></span></th>
@@ -70,7 +70,7 @@
 	</body>
 	<script type="text/javascript">
 		$(document).ready( function () {
-		    $('#table_parcelle').DataTable();
+		    $('#table_parcelle').DataTable({ select : true});
 		    $("div#formHide").hide();
 		} );	
 	</script>

@@ -100,12 +100,7 @@
 	<script type="text/javascript">
 	$(document).ready(function() {
 	    var table = $('#table_plante').DataTable({
-	        //"processing": true,
-	        //"serverSide": true,	    	
-	        columnDefs: [{
-	            orderable: false,
-	            targets: [1,2,3]
-	        }]
+	    	{ select : true}
 	    });
 	 
 // 	    $('#bouton').click( function() {

@@ -99,6 +99,7 @@ public class Culture implements Serializable {
 			this.intrants = new ArrayList<Intrant>();
 		}
 		this.intrants.add(i);
+		i.setCulture(this);
 	}
 
 	public void addOperationCulturale(OperationCulturale op) {
@@ -106,6 +107,7 @@ public class Culture implements Serializable {
 			this.operationsCulturales = new ArrayList<OperationCulturale>();
 		}
 		this.operationsCulturales.add(op);
+		op.setCulture(this);
 	}
 
 	public List<CultureInstance> getlisteCulturesInstances() {
@@ -121,6 +123,7 @@ public class Culture implements Serializable {
 			this.listeCulturesInstances = new ArrayList<CultureInstance>();
 		}
 		this.listeCulturesInstances.add(culture);
+		culture.setCulture(this);
 	}
 
 	public Utilisateur getUtilisateur() {
@@ -158,7 +161,7 @@ public class Culture implements Serializable {
 	@Override
 	public String toString() {
 		return "Culture [idCulture=" + this.idCulture + ", nom=" + this.nom + ", plante=" + this.plante
-//				+ ", operationsCulturales=" + this.operationsCulturales + ", intrants=" + this.intrants
+				+ ", operationsCulturales=" + this.operationsCulturales + ", intrants=" + this.intrants
 				+ ", enConstruction=" + this.enConstruction + ", utilisateur=" + this.utilisateur
 				+ ", recommandationBasse=" + this.recommandationBasse + ", recommandationHaute="
 				+ this.recommandationHaute + "]";

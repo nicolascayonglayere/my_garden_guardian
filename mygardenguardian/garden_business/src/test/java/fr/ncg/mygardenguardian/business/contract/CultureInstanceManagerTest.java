@@ -3,6 +3,8 @@ package fr.ncg.mygardenguardian.business.contract;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.IntStream;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -64,8 +66,10 @@ public class CultureInstanceManagerTest {
 		List<OperationCulturale> opeCultEntiteTemoin = Arrays.asList(opeEntite1, opeEntite2);
 
 		this.planteTemoin = new PlanteDTO("nom", "nomLatin", 12, "produit", "variete");
+		this.planteTemoin.setIdPlante(1);
 
 		this.planteEntiteTemoin = new Plante("nom", "nomLatin", "variete", 12, "produit");
+		this.planteEntiteTemoin.setIdPlante(1);
 
 		this.cultureTemoin = new CultureDTO(false);
 		this.cultureTemoin.setIdCulture(1);
@@ -82,8 +86,10 @@ public class CultureInstanceManagerTest {
 		this.cultureEntiteTemoin.setOperationsCulturales(opeCultEntiteTemoin);
 		this.cultureEntiteTemoin.setPlante(this.planteEntiteTemoin);
 
-		this.cultureInstanceTemoin = new CultureInstanceDTO(1, Calendar.getInstance().getTime());
+		this.cultureInstanceTemoin = new CultureInstanceDTO();
 		this.cultureInstanceTemoin.setCulture(this.cultureTemoin);
+		this.cultureInstanceTemoin.setIdCultureInstance(1);
+		this.cultureInstanceTemoin.setDate(Calendar.getInstance().getTime());
 		this.cultureInstanceTemoin.setParcelle(new ParcelleDTO(100, "ZZ"));
 
 		this.cultureInstanceEntiteTemoin = new CultureInstance(this.cultureInstanceTemoin.getDate());
@@ -96,10 +102,72 @@ public class CultureInstanceManagerTest {
 	public void whenGivenCultureInstanceDTO_thenReturnCultureInstanceDTOSave() {
 		Mockito.when(this.daoFacto.getCultureInstanceDao().saveAndFlush(Mockito.any()))
 				.thenReturn(this.cultureInstanceEntiteTemoin);
-		System.out.println(this.daoFacto.getCultureInstanceDao());
 		Assert.assertTrue(
 				this.cultInstManager.prevoirCulture(this.cultureInstanceTemoin) instanceof CultureInstanceDTO);
 		Assert.assertEquals(this.cultureInstanceTemoin,
 				this.cultInstManager.prevoirCulture(this.cultureInstanceTemoin));
+	}
+
+	@Test
+	public void whenGivenCultureInstanceDTO_thenReturnCultureInstanceDTODatee() {
+		Mockito.when(this.daoFacto.getCultureInstanceDao().findById(Mockito.anyInt()))
+				.thenReturn(Optional.of(this.cultureInstanceEntiteTemoin));
+		Mockito.when(this.daoFacto.getCultureInstanceDao().saveAndFlush(Mockito.any()))
+				.thenReturn(this.cultureInstanceEntiteTemoin);
+
+		Assert.assertTrue(this.cultInstManager.daterCulture(this.cultureInstanceTemoin) instanceof CultureInstanceDTO);
+		Assert.assertEquals(this.cultureInstanceTemoin, this.cultInstManager.daterCulture(this.cultureInstanceTemoin));
+	}
+
+	@Test
+	public void whenGivenIdCultureInstance_thenReturnRightCultureInstanceDTO() {
+		Mockito.when(this.daoFacto.getCultureInstanceDao().findById(Mockito.anyInt()))
+				.thenReturn(Optional.of(this.cultureInstanceEntiteTemoin));
+
+		Assert.assertTrue(this.cultInstManager.trouverCultureInstance(
+				this.cultureInstanceTemoin.getIdCultureInstance()) instanceof CultureInstanceDTO);
+		Assert.assertEquals(this.cultureInstanceTemoin,
+				this.cultInstManager.trouverCultureInstance(this.cultureInstanceTemoin.getIdCultureInstance()));
+	}
+
+	@Test
+	public void whenGivenIdParcelleAndDate_thenReturnListCultureInstanceDTO() {
+		List<CultureInstanceDTO> listeTemoin = Arrays.asList(this.cultureInstanceTemoin);
+		Mockito.when(this.daoFacto.getCultureInstanceDao().findByParcelleIdParcelle(Mockito.anyInt()))
+				.thenReturn(Arrays.asList(this.cultureInstanceEntiteTemoin));
+
+		Assert.assertTrue(this.cultInstManager.trouverCultureEnTerre(1, Calendar.getInstance().getTime()).size() > 0);
+		IntStream.range(0, listeTemoin.size()).forEachOrdered(i -> {
+			Assert.assertEquals(listeTemoin.get(i),
+					this.cultInstManager.trouverCultureEnTerre(1, Calendar.getInstance().getTime()).get(i));
+		});
+	}
+
+	@Test
+	public void whenGivenIdCulture_thenReturnListCultureInstanceDTO() {
+		List<CultureInstanceDTO> listeTemoin = Arrays.asList(this.cultureInstanceTemoin);
+		Mockito.when(this.cultureManager.trouverLaCulture(Mockito.anyInt())).thenReturn(this.cultureTemoin);
+		Mockito.when(this.daoFacto.getCultureInstanceDao().findByCultureIdCulture(Mockito.anyInt()))
+				.thenReturn(Arrays.asList(this.cultureInstanceEntiteTemoin));
+
+		Assert.assertTrue(this.cultInstManager.trouverCultureInstanceParCultureId(1).size() > 0);
+		IntStream.range(0, listeTemoin.size()).forEachOrdered(i -> {
+			Assert.assertEquals(listeTemoin.get(i), this.cultInstManager.trouverCultureInstanceParCultureId(1).get(i));
+		});
+	}
+
+	@Test
+	public void whenGivenIdParcelle_thenReturnListCultureInstanceDTOHorsRecommandation() {
+		List<CultureInstanceDTO> listeTemoin = Arrays.asList(this.cultureInstanceTemoin);
+		Mockito.when(this.cultureManager.trouverLaCulture(Mockito.anyInt())).thenReturn(this.cultureTemoin);
+		Mockito.when(this.daoFacto.getCultureInstanceDao().findByCultureIdCulture(Mockito.anyInt()))
+				.thenReturn(Arrays.asList(this.cultureInstanceEntiteTemoin));
+		Mockito.when(this.daoFacto.getCultureInstanceDao().findByParcelleIdParcelle(Mockito.anyInt()))
+				.thenReturn(Arrays.asList(this.cultureInstanceEntiteTemoin));
+
+		Assert.assertTrue(this.cultInstManager.trouverCultureInstanceParCultureId(1).size() > 0);
+		IntStream.range(0, listeTemoin.size()).forEachOrdered(i -> {
+			Assert.assertEquals(listeTemoin.get(i), this.cultInstManager.trouverCultureHorsRecommandation(1).get(i));
+		});
 	}
 }

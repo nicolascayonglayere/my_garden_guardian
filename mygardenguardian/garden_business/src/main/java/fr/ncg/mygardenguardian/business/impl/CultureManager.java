@@ -15,7 +15,7 @@ import fr.ncg.mygardenguardian.business.mapper.IntrantMapper;
 import fr.ncg.mygardenguardian.business.mapper.OperationCulturaleMapper;
 import fr.ncg.mygardenguardian.business.mapper.PlanteMapper;
 import fr.ncg.mygardenguardian.business.mapper.UtilisateurMapper;
-import fr.ncg.mygardenguardian.consumer.DaoFactoryImpl;
+import fr.ncg.mygardenguardian.consumer.IDaoFactory;
 import fr.ncg.mygardenguardian.dto.CultureDTO;
 import fr.ncg.mygardenguardian.dto.OperationCulturaleDTO;
 import fr.ncg.mygardenguardian.dto.UtilisateurDTO;
@@ -25,7 +25,7 @@ import fr.ncg.mygardenguardian.entites.Culture;
 @Transactional
 public class CultureManager implements ICultureManager {
 
-	private DaoFactoryImpl daoFacto;
+	private IDaoFactory daoFacto;
 
 	@Override
 	public List<CultureDTO> obtenirToutesLesCultures() {
@@ -33,6 +33,7 @@ public class CultureManager implements ICultureManager {
 				.collect(Collectors.toList());
 	}
 
+	// --TODO checker l'existence de l'auteur
 	@Override
 	public CultureDTO creerCultureBdd(CultureDTO culture, UtilisateurDTO auteur) {
 		Culture maCulture = CultureMapper.fromCultureDtoToCulture(culture);
@@ -126,12 +127,12 @@ public class CultureManager implements ICultureManager {
 		}
 	}
 
-	public DaoFactoryImpl getDaoFacto() {
+	public IDaoFactory getDaoFacto() {
 		return this.daoFacto;
 	}
 
 	@Autowired
-	public void setDaoFacto(DaoFactoryImpl daoFacto) {
+	public void setDaoFacto(IDaoFactory daoFacto) {
 		this.daoFacto = daoFacto;
 	}
 

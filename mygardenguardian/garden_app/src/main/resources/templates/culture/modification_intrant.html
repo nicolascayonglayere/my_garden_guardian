@@ -27,8 +27,8 @@
 					<table id="table_culture" class="display">
 					    <thead>
 					        <tr>
-					        	<th></th>
-					        	<th></th>
+					        	<th><span th:text="#{accueil.suppr}"></span></th>
+					        	<th><span th:text="#{accueil.modif}"></span></th>
 					            <th><span th:text="#{ajoutCulture.nomIntrant}"></span></th>
 					            <th><span th:text="#{ajout.reference}"></span></th>
 					        </tr>
@@ -80,7 +80,7 @@
 	</body>
 	<script type="text/javascript">
 		$(document).ready( function () {
-		    $('#table_culture').DataTable();
+		    $('#table_culture').DataTable({ select : true});
 		    $("div#formHide").hide();
 		} );	
 	</script>
@@ -95,7 +95,7 @@
 	<script th:inline="javascript">	
 		$(document).ready( function () {
 			$('body').on('click','.suppr', function () {
-				var idIntrant = $('#intrant').val();
+					var idIntrant = $('#intrant').val();
  			    alert("Vous allez supprimer cet intrant");
 			    $.ajax({	
 			    	type: "POST",

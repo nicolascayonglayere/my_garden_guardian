@@ -56,10 +56,12 @@ public class EventCalendarManagerImpl implements IEventCalendarManager {
 
 	@Override
 	public List<EventCalendarDTO> constructionEventOpeCultCalendar(Integer idUtilisateur, String nomOpeCult) {
+		System.out.println("CTRL user --------------- " + idUtilisateur);
 		Integer idParcelle = this.managerFactory.getAdhesionManager().trouverAdhesionIdUtilisateur(idUtilisateur)
 				.getParcelleDTO().getIdParcelle();
+		System.out.println("CTRL parcelle--------------- " + idParcelle);
 		List<EventCalendarDTO> monSemisPrev = new ArrayList<EventCalendarDTO>();
-		this.getManagerFactory().getParcelleManager().trouverParcelleParId(idParcelle).getlisteCultures().stream()
+		this.managerFactory.getParcelleManager().trouverParcelleParId(idParcelle).getlisteCultures().stream()
 				.forEachOrdered(c -> {
 					c.getCulture().getOperationsCulturales().stream()
 							.filter(op -> op.getNom().equalsIgnoreCase(nomOpeCult)).forEachOrdered(op -> {
