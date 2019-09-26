@@ -166,7 +166,6 @@ public class CultureManagerTest {
 		});
 	}
 
-	// --TODO Explication de Geoffrey !!!
 	@Test
 	public void whenGivenCultureDTO_thenSaveOperationsCulturalesAndReturnCultureDTO() {
 		Mockito.when(this.daoFacto.getCultureDao().findOne(Mockito.any()))

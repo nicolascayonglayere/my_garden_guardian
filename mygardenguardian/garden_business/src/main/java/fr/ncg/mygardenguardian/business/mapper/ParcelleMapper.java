@@ -3,8 +3,20 @@ package fr.ncg.mygardenguardian.business.mapper;
 import fr.ncg.mygardenguardian.dto.ParcelleDTO;
 import fr.ncg.mygardenguardian.entites.Parcelle;
 
+/**
+ * Mapper de {@link Parcelle}
+ * 
+ * @author nicolas
+ *
+ */
 public class ParcelleMapper {
 
+	/**
+	 * Methode depuis {@link Parcelle} vers {@link ParcelleDTO}
+	 * 
+	 * @param p
+	 * @return {@link ParcelleDTO}
+	 */
 	public static ParcelleDTO fromParcelleToParcelleDTO(Parcelle p) {
 		ParcelleDTO parcelleDTO = new ParcelleDTO();
 		if (p.getIdParcelle() != null) {
@@ -20,6 +32,12 @@ public class ParcelleMapper {
 		return parcelleDTO;
 	}
 
+	/**
+	 * Methode depuis {@link ParcelleDTO} vers {@link Parcelle}
+	 * 
+	 * @param p
+	 * @return {@link Parcelle}
+	 */
 	public static Parcelle fromParcelleDTOToParcelle(ParcelleDTO p) {
 		Parcelle maParcelle = new Parcelle();
 		if (p.getIdParcelle() != null) {

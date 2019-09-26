@@ -3,8 +3,20 @@ package fr.ncg.mygardenguardian.business.mapper;
 import fr.ncg.mygardenguardian.dto.IntrantDTO;
 import fr.ncg.mygardenguardian.entites.Intrant;
 
+/**
+ * Mapper de {@link Intrant}
+ * 
+ * @author nicolas
+ *
+ */
 public class IntrantMapper {
 
+	/**
+	 * Methode depuis {@link Intrant} vers {@link IntrantDTO}
+	 * 
+	 * @param intrant
+	 * @return {@link IntrantDTO}
+	 */
 	public static Intrant fromIntrantDtoToIntrant(IntrantDTO intrant) {
 		Intrant monIntrant = new Intrant();
 		if (intrant.getIdIntrant() != null) {
@@ -16,6 +28,12 @@ public class IntrantMapper {
 		return monIntrant;
 	}
 
+	/**
+	 * Methode depuis {@link IntrantDTO} vers {@link Intrant}
+	 * 
+	 * @param intrant
+	 * @return {@link Intrant}
+	 */
 	public static IntrantDTO fromIntrantToIntrantDTO(Intrant intrant) {
 		IntrantDTO monIntrant = new IntrantDTO();
 		if (intrant.getIdIntrant() != null) {

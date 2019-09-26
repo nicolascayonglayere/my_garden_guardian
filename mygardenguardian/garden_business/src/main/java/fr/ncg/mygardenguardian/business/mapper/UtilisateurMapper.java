@@ -3,8 +3,20 @@ package fr.ncg.mygardenguardian.business.mapper;
 import fr.ncg.mygardenguardian.dto.UtilisateurDTO;
 import fr.ncg.mygardenguardian.entites.Utilisateur;
 
+/**
+ * Mapper de {@link Utilisateur}
+ * 
+ * @author nicolas
+ *
+ */
 public class UtilisateurMapper {
 
+	/**
+	 * Methode depuis {@link Utilisateur} vers {@link UtilisateurDTO}
+	 * 
+	 * @param utilisateur
+	 * @return {@link UtilisateurDTO}
+	 */
 	public static UtilisateurDTO fromUtilisateurToUtilisateurDTO(Utilisateur utilisateur) {
 		UtilisateurDTO userDto = new UtilisateurDTO();
 		if (utilisateur.getIdUtilisateur() != null) {
@@ -25,6 +37,12 @@ public class UtilisateurMapper {
 		return userDto;
 	}
 
+	/**
+	 * Methode depuis {@link UtilisateurDTO} vers {@link Utilisateur}
+	 * 
+	 * @param utilisateurDto
+	 * @return {@link Utilisateur}
+	 */
 	public static Utilisateur fromUtilisateurDTOToUtilisateur(UtilisateurDTO utilisateurDto) {
 		Utilisateur user = new Utilisateur();
 		if (utilisateurDto.getIdUtilisateur() != null) {

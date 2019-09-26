@@ -3,8 +3,20 @@ package fr.ncg.mygardenguardian.business.mapper;
 import fr.ncg.mygardenguardian.dto.CultureDTO;
 import fr.ncg.mygardenguardian.entites.Culture;
 
+/**
+ * Mapper de {@link Culture}
+ * 
+ * @author nicolas
+ *
+ */
 public class CultureMapper {
 
+	/**
+	 * Methode depuis {@link CultureDTO} vers {@link Culture}
+	 * 
+	 * @param cultureDTO
+	 * @return {@link Culture}
+	 */
 	public static Culture fromCultureDtoToCulture(CultureDTO cultureDTO) {
 		Culture maCulture = new Culture();
 		if (cultureDTO.getIdCulture() != null) {
@@ -37,6 +49,12 @@ public class CultureMapper {
 		return maCulture;
 	}
 
+	/**
+	 * Methode depuis {@link Culture} vers {@link CultureDTO}
+	 * 
+	 * @param culture
+	 * @return {@link CultureDTO}
+	 */
 	public static CultureDTO fromCultureToCultureDto(Culture culture) {
 		CultureDTO maCultureDTO = new CultureDTO();
 		maCultureDTO.setIdCulture(culture.getIdCulture());
