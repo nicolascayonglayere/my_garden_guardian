@@ -41,7 +41,7 @@ public class ParcelleManagerImpl implements IParcelleManager {
 	public ParcelleDTO trouverParcelleParId(int idParcelle) {
 		// --TODO verifier existence de la parcelle
 		ParcelleDTO maParcelle = ParcelleMapper
-				.fromParcelleToParcelleDTO(this.getDaoFacto().getParcelleDao().findById(idParcelle).get());
+				.fromParcelleToParcelleDTO(this.daoFacto.getParcelleDao().findById(idParcelle).get());
 		this.daoFacto.getCultureInstanceDao().findByParcelleIdParcelle(maParcelle.getIdParcelle()).stream()
 				.forEachOrdered(ci -> {
 					maParcelle.addCultureInstanceDTO(CultureInstanceMapper.fromCultureInstanceToCultureInstanceDTO(ci));

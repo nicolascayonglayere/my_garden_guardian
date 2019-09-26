@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class Login {
 	@GetMapping("/")
 	public String home1() {
-		return "/login";
+		return "login";
 	}
 
 	@GetMapping("/home")
 	public String home() {
-		return "/login";
+		return "login";
 	}
 
 	// @GetMapping("/admin")
@@ -32,11 +32,11 @@ public class Login {
 
 	@GetMapping("/login")
 	public String login() {
-		return "/login";
+		return "login";
 	}
 
 	@GetMapping("/403")
 	public String error403() {
-		return "/errors/403";
+		return "errors/403";
 	}
 }

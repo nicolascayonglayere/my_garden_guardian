@@ -3,8 +3,21 @@ package fr.ncg.mygardenguardian.business.mapper;
 import fr.ncg.mygardenguardian.dto.CoordonneesUtilisateurDTO;
 import fr.ncg.mygardenguardian.entites.CoordonneesUtilisateur;
 
+/**
+ * Mapper de {@link CoordonneesUtilisateur}
+ * 
+ * @author nicolas
+ *
+ */
 public class CoordonneesUtilisateurMapper {
 
+	/**
+	 * Methode depuis {@link CoordonneesUtilisateur} vers
+	 * {@link CoordonneesUtilisateurDTO}
+	 * 
+	 * @param coordonneeUtilisateur
+	 * @return {@link CoordonneesUtilisateurDTO}
+	 */
 	public static CoordonneesUtilisateurDTO fromCoordonneeToCoordonneeDTO(
 			CoordonneesUtilisateur coordonneeUtilisateur) {
 		CoordonneesUtilisateurDTO cuDto = new CoordonneesUtilisateurDTO();
@@ -19,6 +32,13 @@ public class CoordonneesUtilisateurMapper {
 		return cuDto;
 	}
 
+	/**
+	 * Methode depuis {@link CoordonneesUtilisateurDTO} vers
+	 * {@link CoordonneesUtilisateur}
+	 * 
+	 * @param coordonneeUtilisateur
+	 * @return {@link CoordonneesUtilisateur}
+	 */
 	public static CoordonneesUtilisateur fromCoordonneeDTOToCoordonnee(
 			CoordonneesUtilisateurDTO coordonneeUtilisateur) {
 		CoordonneesUtilisateur cu = new CoordonneesUtilisateur();

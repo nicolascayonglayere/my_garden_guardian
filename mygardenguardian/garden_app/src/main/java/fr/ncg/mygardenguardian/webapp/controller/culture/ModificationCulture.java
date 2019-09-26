@@ -36,14 +36,12 @@ public class ModificationCulture {
 			maCultureModif = (CultureDTO) model.asMap().get("cultureModif");
 		}
 
-		System.out.println("CTRL CONTROLLER GET MODIF CULTURE ------------" + maCultureModif.toString());
 		model.addAttribute("cultureCreee", maCultureModif);
 		return "culture/tableau_bord_enregistrement_culture";
 	}
 
 	@GetMapping("/culture/modif_plante")
 	public String goModifPlanteCulture(Model model, HttpServletRequest req) {
-		System.out.println("CTRL CONTROLLER modif culture " + req.getParameter("idCulture"));
 		ModifPlanteFormulaire cultureModif = new ModifPlanteFormulaire();
 		cultureModif.setIdCulture(Integer.valueOf(req.getParameter("idCulture")));
 		cultureModif.setDureeCycle(this.managerFactory.getCultureManager()
@@ -65,7 +63,7 @@ public class ModificationCulture {
 		model.addAttribute("planteFormulaire", cultureModif);
 		model.addAttribute("cultureCreee", this.managerFactory.getCultureManager()
 				.trouverLaCulture(Integer.valueOf(req.getParameter("idCulture"))));
-		return "/culture/modification_culture";
+		return "culture/modification_culture";
 	}
 
 	@PostMapping("/culture/modif_plante")
@@ -76,10 +74,9 @@ public class ModificationCulture {
 		if (errors.hasErrors()) {
 			model.addAttribute("errors", errors.getAllErrors());
 			model.addAttribute("planteFormulaire", modifPlanteFormulaire);
-			return ("/culture/modification_culture");
+			return ("culture/modification_culture");
 		}
 
-		System.out.println("CTRL CONTROLLER POST Modif culture -------" + modifPlanteFormulaire.getIdCulture());
 		CultureDTO maCultureModif = new CultureDTO();
 		maCultureModif.setIdCulture(modifPlanteFormulaire.getIdCulture());
 		maCultureModif.setEnConstruction(true);

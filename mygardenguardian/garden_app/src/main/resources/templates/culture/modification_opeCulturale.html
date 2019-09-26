@@ -41,9 +41,7 @@
 					    		<input id ="opeCult" type="hidden" name="opeCultAdd" th:value="${opeCultDTO.idOperationCulturale}"/>
  					    		<td><img src="../../images/trash.ico" alt="Supprimer l'operation culturale" width="25" height="25" class="suppr"/></td>
  					    		<td th:id="${opeCultDTO.idOperationCulturale}">
-<!--  					    			<a th:href="@{/culture/modification_culture?idCulture=}+${__${cultureDTO.idCulture}__}"> -->
  					    			<img src="../../images/gmo.ico" alt="Modifier l'operation culturale" width="25" height="25" class="modif"/>
-<!--  					    			</a> -->
  					    		</td> 					    		
 					    		<td><span th:utext="${opeCultDTO.nom}"></span></td>
 					    		<td><span th:utext="${opeCultDTO.description}"></span></td>
@@ -100,7 +98,12 @@
 	</body>
 	<script type="text/javascript">
 		$(document).ready( function () {
-		    $('#table_culture').DataTable({ select : true});
+		    $('#table_culture').DataTable({ 
+		    	select : true,
+		    	language: {
+		        	url: 'http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json'
+		    	}
+	    	});
 		    $("div#formHide").hide();
 		} );	
 	</script>

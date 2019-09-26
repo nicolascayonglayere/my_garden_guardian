@@ -152,14 +152,8 @@ body
 	border : solid;
 }
 
-
-
-/* #formHide{ */
-/* 	display : none; */
-/* } */
-
-#listeBtnCult{
-	
+#chemin{
+	padding-top : 2px;
 }
 
 #blocImgTopo

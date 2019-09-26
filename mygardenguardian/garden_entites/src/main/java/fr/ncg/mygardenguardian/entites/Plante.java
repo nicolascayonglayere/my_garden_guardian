@@ -9,6 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Entite de persistance Plante
+ * 
+ * @author nicolas
+ *
+ */
 @Entity
 @Table(name = "plante", schema = "garden_guardian")
 public class Plante implements Serializable {

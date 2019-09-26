@@ -8,16 +8,26 @@ import org.springframework.data.jpa.repository.Query;
 
 import fr.ncg.mygardenguardian.entites.Parcelle;
 
+/**
+ * Interface JpaRepository requetant la table parcelle
+ * 
+ * @author nicolas
+ *
+ */
 public interface ParcelleDao extends JpaRepository<Parcelle, Integer> {
 
-	// @Query("SELECT p FROM Parcelle p LEFT JOIN Adhesion a ON p.idParcelle =
-	// a.parcelle.idParcelle WHERE a.archive=:archive OR a.parcelle.idParcelle IS
-	// NULL")
+	/**
+	 * Methode de selection de {@link Parcelle} vides
+	 * 
+	 * @return liste de {@link Parcelle}
+	 */
 	@Query("SELECT p FROM Parcelle p WHERE (SELECT COUNT(a) FROM Adhesion a WHERE a.parcelle.idParcelle = p.idParcelle AND a.archive IS FALSE) = 0 ")
 	public List<Parcelle> trouverParcelleVide();
 
-	// public List<Parcelle> findByOccupation(boolean occupation);
-
+	/**
+	 * Methode de selection de {@link Parcelle} avec l'id de {@link Parcelle} return
+	 * {@link Parcelle}
+	 */
 	@Override
 	public Optional<Parcelle> findById(Integer idParcelle);
 }

@@ -3,6 +3,12 @@ package fr.ncg.mygardenguardian.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Data Transfer Object OperationCulturale
+ * 
+ * @author nicolas
+ *
+ */
 public class OperationCulturaleDTO {
 
 	private Integer idOperationCulturale;
@@ -12,6 +18,7 @@ public class OperationCulturaleDTO {
 	private String description;
 	private List<MaterielDTO> materiels;
 	private String statut;
+	private CultureDTO culture;
 
 	public OperationCulturaleDTO() {
 	}
@@ -89,6 +96,14 @@ public class OperationCulturaleDTO {
 		this.intervallePossible = intervallePossible;
 	}
 
+	public CultureDTO getCulture() {
+		return this.culture;
+	}
+
+	public void setCulture(CultureDTO culture) {
+		this.culture = culture;
+	}
+
 	@Override
 	public String toString() {
 		return "OperationCulturaleDTO [idOperationCulturale=" + this.idOperationCulturale + ", nom=" + this.nom
@@ -97,19 +112,19 @@ public class OperationCulturaleDTO {
 				+ "]";
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((this.description == null) ? 0 : this.description.hashCode());
-		result = prime * result + ((this.idOperationCulturale == null) ? 0 : this.idOperationCulturale.hashCode());
-		result = prime * result + ((this.intervallePossible == null) ? 0 : this.intervallePossible.hashCode());
-		result = prime * result + ((this.materiels == null) ? 0 : this.materiels.hashCode());
-		result = prime * result + ((this.nom == null) ? 0 : this.nom.hashCode());
-		result = prime * result + ((this.origIntervPossible == null) ? 0 : this.origIntervPossible.hashCode());
-		result = prime * result + ((this.statut == null) ? 0 : this.statut.hashCode());
-		return result;
-	}
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = 1;
+//		result = prime * result + ((this.description == null) ? 0 : this.description.hashCode());
+//		result = prime * result + ((this.idOperationCulturale == null) ? 0 : this.idOperationCulturale.hashCode());
+//		result = prime * result + ((this.intervallePossible == null) ? 0 : this.intervallePossible.hashCode());
+//		result = prime * result + ((this.materiels == null) ? 0 : this.materiels.hashCode());
+//		result = prime * result + ((this.nom == null) ? 0 : this.nom.hashCode());
+//		result = prime * result + ((this.origIntervPossible == null) ? 0 : this.origIntervPossible.hashCode());
+//		result = prime * result + ((this.statut == null) ? 0 : this.statut.hashCode());
+//		return result;
+//	}
 
 	@Override
 	public boolean equals(Object obj) {

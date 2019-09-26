@@ -35,11 +35,8 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 			monUtilisateur = this.businessManager.getUtilisateurManager()
 					.trouverUtilisateurParNom((((User) authentication.getPrincipal()).getUsername()));
 		}
-		System.out.println("id utilisateur : " + monUtilisateur.getIdUtilisateur());
-		// HttpSession session = request.getSession();
 		this.session.setAttribute("idUtilisateur", monUtilisateur.getIdUtilisateur());
 		response.sendRedirect("/accueil");
-
 	}
 
 	public HttpSession getSession() {

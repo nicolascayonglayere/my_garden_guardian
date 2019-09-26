@@ -12,6 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * Entite de persistance Parcelle
+ * 
+ * @author nicolas
+ *
+ */
 @Entity
 @Table(name = "parcelle", schema = "garden_guardian")
 public class Parcelle implements Serializable {
@@ -70,6 +76,7 @@ public class Parcelle implements Serializable {
 			this.listeCultures = new ArrayList<CultureInstance>();
 		}
 		this.listeCultures.add(culture);
+		culture.setParcelle(this);
 	}
 
 	public List<CultureInstance> getListeCultures() {

@@ -14,6 +14,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * Entite de persistance OperationCulturale
+ * 
+ * @author nicolas
+ *
+ */
 @Entity
 @Table(name = "operation_culturale", schema = "garden_guardian")
 public class OperationCulturale implements Serializable {
@@ -121,15 +127,14 @@ public class OperationCulturale implements Serializable {
 			this.materiels = new ArrayList<Materiel>();
 		}
 		this.materiels.add(mat);
+		mat.setOperationCulturale(this);
 	}
 
 	@Override
 	public String toString() {
 		return "OperationCulturale [idOperationCulturale=" + this.idOperationCulturale + ", nom=" + this.nom
 				+ ", origIntervPossible=" + this.origIntervPossible + ", intervallePossible=" + this.intervallePossible
-				// + ", descritpion=" + this.descritpion + " materiels=" + this.materiels + ",
-				// statut=" + this.statut
-				+ "]";
+				+ ", descritpion=" + this.descritpion + " materiels=" + this.materiels + "statut=" + this.statut + "]";
 	}
 
 }

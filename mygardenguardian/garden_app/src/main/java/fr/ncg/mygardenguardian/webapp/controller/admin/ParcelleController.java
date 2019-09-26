@@ -31,15 +31,11 @@ public class ParcelleController {
 	public String goModifParcelle(Model model, HttpServletRequest req) {
 		Map<ParcelleDTO, AdhesionDTO> parcellesListe = new HashMap<ParcelleDTO, AdhesionDTO>();
 		List<ParcelleDTO> parcelles = this.managerFacto.getParcelleManager().trouverToutesParcelles();
-		System.out.println("CTRL CONTROLLER parcelle " + parcelles.size());
-		parcelles.stream().forEach(p -> System.out.println("CTRL CONTROLLER parcelle " + p.toString()));
 		parcelles.stream().forEachOrdered(p -> {
 			if (this.managerFacto.getAdhesionManager().trouverAdhesionIdParcelle(p.getIdParcelle()) != null) {
-				System.out.println("CTRL TRACE adhesion");
 				parcellesListe.put(p,
 						this.managerFacto.getAdhesionManager().trouverAdhesionIdParcelle(p.getIdParcelle()));
 			} else {
-				System.out.println("CTRL TRACE adhesion null");
 				parcellesListe.put(p, null);
 			}
 		});

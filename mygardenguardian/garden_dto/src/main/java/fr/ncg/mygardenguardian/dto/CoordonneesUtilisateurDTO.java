@@ -1,5 +1,11 @@
 package fr.ncg.mygardenguardian.dto;
 
+/**
+ * Data Transfer Object CoordonneesUtilisateur
+ * 
+ * @author nicolas
+ *
+ */
 public class CoordonneesUtilisateurDTO {
 
 	private Integer idCoordonneesUtilisateur;

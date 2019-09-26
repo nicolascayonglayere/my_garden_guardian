@@ -29,8 +29,6 @@ public class FinalisationCulture {
 	@GetMapping("culture/finalisation_culture")
 	public String goFinaliserCulture(Model model, @RequestParam Integer idCulture) {
 		if (model.asMap().containsKey("cultureCreee")) {
-			System.out.println(
-					"CTRL CONTROLLER FINALISATION CULT GET -----------------" + model.asMap().get("cultureCreee"));
 			model.addAttribute("cultureCreee", model.asMap().get("cultureCreee"));
 		}
 		if (idCulture != null) {
@@ -44,8 +42,6 @@ public class FinalisationCulture {
 	@PostMapping("culture/finalisation_culture")
 	public String finaliserCulture(@ModelAttribute("idIntegerForm") @RequestBody IdIntegerFormlaire idIntegerForm,
 			BindingResult errors, Model model, RedirectAttributes cultureCreee) throws IOException {
-
-		System.out.println("CTRL CONTROLLER POST ------------ " + idIntegerForm.getIdCulture());
 
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 		GardenGuardianAppUser monUser = (GardenGuardianAppUser) loggedInUser.getPrincipal();

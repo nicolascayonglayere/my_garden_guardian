@@ -14,6 +14,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * Entite de persistance Culture
+ * 
+ * @author nicolas
+ *
+ */
 @Entity
 @Table(name = "culture", schema = "garden_guardian")
 public class Culture implements Serializable {

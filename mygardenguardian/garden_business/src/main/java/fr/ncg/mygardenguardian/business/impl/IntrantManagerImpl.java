@@ -30,14 +30,13 @@ public class IntrantManagerImpl implements IIntrantManager {
 		Intrant monIntrant = IntrantMapper.fromIntrantDtoToIntrant(culture.getIntrants().stream()
 				.filter(i -> i.getIdIntrant() == null).collect(Collectors.toList()).get(0));
 		monIntrant.setCulture(CultureMapper.fromCultureDtoToCulture(culture));
-		System.out.println(("CTRL BUSINESS save ---------- " + monIntrant.toString()));
 		return IntrantMapper.fromIntrantToIntrantDTO(this.daoFacto.getIntrantDao().saveAndFlush(monIntrant));
 	}
 
 	@Override
 	public IntrantDTO modifierIntrantBdd(IntrantDTO intrant, CultureDTO culture) {
 		// TODO verif existance intrant et de la culture
-		System.out.println(("CTRL BUSINESS update ---------- " + intrant.toString()));
+
 		Intrant monIntrant = IntrantMapper.fromIntrantDtoToIntrant(intrant);
 		monIntrant.setCulture(CultureMapper.fromCultureDtoToCulture(culture));
 		return IntrantMapper.fromIntrantToIntrantDTO(this.daoFacto.getIntrantDao().saveAndFlush(monIntrant));

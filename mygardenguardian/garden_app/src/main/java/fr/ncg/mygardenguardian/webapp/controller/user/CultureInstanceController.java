@@ -26,7 +26,7 @@ public class CultureInstanceController {
 			e.printStackTrace();
 			model.addAttribute("errorMessage", e.getMessage());
 		}
-		return "/user/culture";
+		return "user/culture";
 	}
 
 	@PostMapping("/user/culture_instance_suppr")

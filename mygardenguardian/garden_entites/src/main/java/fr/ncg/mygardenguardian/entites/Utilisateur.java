@@ -15,6 +15,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * Entite de persistance Utilisateur
+ * 
+ * @author nicolas
+ *
+ */
 @Entity
 @Table(name = "utilisateur", schema = "garden_guardian")
 public class Utilisateur implements Serializable {
@@ -40,6 +46,10 @@ public class Utilisateur implements Serializable {
 	private String role;
 	@OneToMany(mappedBy = "utilisateur")
 	private List<Culture> culturesAjoutees;
+	@Column(name = "uuid")
+	private String uuid;
+	@Column(name = "mot_secret")
+	private String motSecret;
 
 	public Utilisateur() {
 	}
@@ -112,6 +122,23 @@ public class Utilisateur implements Serializable {
 			this.culturesAjoutees = new ArrayList<Culture>();
 		}
 		this.culturesAjoutees.add(culture);
+		culture.setUtilisateur(this);
+	}
+
+	public String getUuid() {
+		return this.uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	public String getMotSecret() {
+		return this.motSecret;
+	}
+
+	public void setMotSecret(String motSecret) {
+		this.motSecret = motSecret;
 	}
 
 	@Override

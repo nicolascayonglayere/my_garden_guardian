@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import fr.ncg.mygardenguardian.business.contract.IOperationCulturaleManager;
 import fr.ncg.mygardenguardian.business.mapper.CultureMapper;
 import fr.ncg.mygardenguardian.business.mapper.OperationCulturaleMapper;
-import fr.ncg.mygardenguardian.consumer.DaoFactoryImpl;
+import fr.ncg.mygardenguardian.consumer.IDaoFactory;
 import fr.ncg.mygardenguardian.dto.CultureDTO;
 import fr.ncg.mygardenguardian.dto.OperationCulturaleDTO;
 import fr.ncg.mygardenguardian.entites.OperationCulturale;
@@ -21,33 +21,14 @@ import fr.ncg.mygardenguardian.entites.OperationCulturale;
 @Transactional
 public class OperationCulturaleManager implements IOperationCulturaleManager {
 
-	private DaoFactoryImpl daoFacto;
+	private IDaoFactory daoFacto;
 
-	@Override
-	public OperationCulturaleDTO creerOperationCulturaleBdd(CultureDTO culture) {
-//		List<OperationCulturaleDTO> mesOperationsCreees = new ArrayList<OperationCulturaleDTO>();
-//		// TODO verifier existence de operation culturale et de la culture
-//		culture.getOperationsCulturales().stream()
-//				.map(op -> OperationCulturaleMapper.fromOperationCulturaleDtoToOperationCulturale(op)).forEach(op -> {
-//					op.setCulture(CultureMapper.fromCultureDtoToCulture(culture));
-//					op.setStatut("previsionnel");
-//					System.out.println("CTRL BUSINESS OPE CULT --------------" + op.toString());
-//					mesOperationsCreees.add(OperationCulturaleMapper.fromOperationCulturaleToOperationCulturaleDTO(
-//							this.daoFacto.getOperationCulturaleDao().saveAndFlush(op)));
-//				});
-//		culture.setOperationsCulturales(mesOperationsCreees);
-//
-//		return OperationCulturaleMapper.fromOperationCulturaleToOperationCulturaleDTO(
-//				this.daoFacto.getOperationCulturaleDao().saveAndFlush(monOpeCult));
-		return null;
-	}
-
-	public DaoFactoryImpl getDaoFacto() {
+	public IDaoFactory getDaoFacto() {
 		return this.daoFacto;
 	}
 
 	@Autowired
-	public void setDaoFacto(DaoFactoryImpl daoFacto) {
+	public void setDaoFacto(IDaoFactory daoFacto) {
 		this.daoFacto = daoFacto;
 	}
 

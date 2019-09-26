@@ -11,6 +11,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * Entite de persistance Intrant
+ * 
+ * @author nicolas
+ *
+ */
 @Entity
 @Table(name = "intrant", schema = "garden_guardian")
 public class Intrant implements Serializable {

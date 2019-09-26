@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+	<head>
+		<div th:replace="includes/_head::head"></div>
+		<title>Export Calendrier</title>
+	</head>
+	<body>
+		<div class="container">
+			<div th:replace="includes/_navbar::navigation_jardinier"></div>
+			
+			<div class="jumbotron jumbotron-fluid">
+				<div class="container text-center">
+					<h1 class="display-3" th:text="#{menu.export}" ></h1>
+				</div>
+			</div>
+			
+			
+			<form class="form-horizontal was-validated" th:action="@{/user/export_calendrier}" th:object="${motSecretForm}" method="POST">
+		        <div class="form-group row">
+		        	<label for="motSecret" class="col-2 col-form-label"  th:text="#{export.mot}"></label>
+		        	<div class="col-10">
+		        		<input id="motSecret" class="form-control" type="text" th:field="*{motSecret}" required/>
+		        	</div>
+		        </div>			
+
+		        <div class="form-group row">		        
+					<input id="bouton" type="submit" class="btn btn-primary btn-lg" th:value="#{bouton.validation}"/>
+				</div>			
+			</form>
+			
+			<h2 id=export><div th:utext="${url}"></div></h2>
+
+			<div th:replace="includes/_footer::footer"></div>		
+		</div>
+	</body>
+</html>

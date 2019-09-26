@@ -16,7 +16,6 @@ public class TableauBordEnregistrementCultureBdd {
 	@GetMapping("culture/tableau_bord_enregistrement_culture")
 	public String goTableauBord(@RequestParam Integer idCulture, Model model) {
 		if (model.asMap().containsKey("cultureCreee")) {
-			System.out.println("CTRL CONTROLLER TAB BORD GET -----------------" + model.asMap().get("cultureCreee"));
 			model.addAttribute("cultureCreee", model.asMap().get("cultureCreee"));
 		}
 		if (idCulture != null) {

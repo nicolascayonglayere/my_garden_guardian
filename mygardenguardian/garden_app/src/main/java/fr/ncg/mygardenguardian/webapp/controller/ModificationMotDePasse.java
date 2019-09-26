@@ -62,7 +62,7 @@ public class ModificationMotDePasse {
 		userDto.setMdp(hashedPassword);
 		userDto = this.businessManager.getUtilisateurManager().modifierProfil(userDto);
 		monMdpModif.addFlashAttribute("messageMdp", userDto);
-		return ("redirect:/user/mon_profil");
+		return ("redirect:/accueil");
 	}
 
 	public IBusinessManagerFactory getBusinessManager() {

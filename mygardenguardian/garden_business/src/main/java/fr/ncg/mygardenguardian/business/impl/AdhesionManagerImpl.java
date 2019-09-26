@@ -63,7 +63,6 @@ public class AdhesionManagerImpl implements IAdhesionManager {
 			throw new RuntimeException("L'adhesion existe deja. Adhesion N° "
 					+ this.daoFacto.getAdhesionDao().findOne(monExAdhesion).get().getIdAdhesion());
 		}
-
 	}
 
 	@Override

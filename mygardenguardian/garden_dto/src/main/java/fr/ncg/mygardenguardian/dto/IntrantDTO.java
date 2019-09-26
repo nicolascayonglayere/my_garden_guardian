@@ -1,11 +1,17 @@
 package fr.ncg.mygardenguardian.dto;
 
+/**
+ * Data Transfer Object Intrant
+ * 
+ * @author nicolas
+ *
+ */
 public class IntrantDTO {
 
 	private Integer idIntrant;
 	private String nom;
 	private String reference;
-	// private CultureDTO culture;
+	private CultureDTO culture;
 
 	public IntrantDTO() {
 	}
@@ -39,18 +45,18 @@ public class IntrantDTO {
 		this.reference = reference;
 	}
 
-//	public CultureDTO getCulture() {
-//		return this.culture;
-//	}
-//
-//	public void setCulture(CultureDTO culture) {
-//		this.culture = culture;
-//	}
+	public CultureDTO getCulture() {
+		return this.culture;
+	}
+
+	public void setCulture(CultureDTO culture) {
+		this.culture = culture;
+	}
 
 	@Override
 	public String toString() {
-		return "IntrantDTO [idIntrant=" + this.idIntrant + ", nom=" + this.nom + ", reference=" + this.reference + "]";
-		// + ", culture=" + this.culture + "]";
+		return "IntrantDTO [idIntrant=" + this.idIntrant + ", nom=" + this.nom + ", reference=" + this.reference + "]"
+				+ "]";
 	}
 
 	@Override

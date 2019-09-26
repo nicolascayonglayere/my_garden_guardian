@@ -3,8 +3,20 @@ package fr.ncg.mygardenguardian.business.mapper;
 import fr.ncg.mygardenguardian.dto.AdhesionDTO;
 import fr.ncg.mygardenguardian.entites.Adhesion;
 
+/**
+ * Mapper pour {@link Adhesion}
+ * 
+ * @author nicolas
+ *
+ */
 public class AdhesionMapper {
 
+	/**
+	 * Methode depuis {@link AdhesionDTO} vers {@link Adhesion}
+	 * 
+	 * @param adhesion
+	 * @return {@link Adhesion}
+	 */
 	public static Adhesion fromAdhesionDTOToAdhesion(AdhesionDTO adhesion) {
 		Adhesion adh = new Adhesion();
 		if (adhesion.getIdAdhesion() != null) {
@@ -22,6 +34,12 @@ public class AdhesionMapper {
 		return adh;
 	}
 
+	/**
+	 * Methode depuis {@link Adhesion} vers {@link AdhesionDTO}
+	 * 
+	 * @param monAdhesion
+	 * @return {@link AdhesionDTO}
+	 */
 	public static AdhesionDTO fromAdhesionToAdhesionDTO(Adhesion monAdhesion) {
 		AdhesionDTO adhDto = new AdhesionDTO();
 		if (monAdhesion.getIdAdhesion() != null) {

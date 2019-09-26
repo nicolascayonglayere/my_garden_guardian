@@ -13,6 +13,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * Entite de persistance Adhesion
+ * 
+ * @author nicolas
+ *
+ */
+
 @Entity
 @Table(name = "adhesion", schema = "garden_guardian")
 public class Adhesion implements Serializable {

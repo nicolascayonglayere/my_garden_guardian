@@ -44,7 +44,7 @@ public class EnregistrementCulture {
 			System.out.println(errors.toString());
 			model.addAttribute("errors", errors.getAllErrors());
 			model.addAttribute("planteFormulaire", planteFormulaire);
-			return ("/culture/enregistrement_culture");
+			return ("culture/enregistrement_culture");
 		}
 
 		PlanteDTO maPlante = new PlanteDTO();

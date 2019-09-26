@@ -3,6 +3,12 @@ package fr.ncg.mygardenguardian.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Data Transfer Object Culture
+ * 
+ * @author nicolas
+ *
+ */
 public class CultureDTO {
 
 	private Integer idCulture;
@@ -12,7 +18,7 @@ public class CultureDTO {
 	private List<IntrantDTO> intrants;
 	private boolean enConstruction;
 	private List<CultureInstanceDTO> listeInstances;
-	// private UtilisateurDTO utilisateur;
+	private UtilisateurDTO utilisateur;
 	private Integer recommandationBasse;
 	private Integer recommandationHaute;
 
@@ -60,6 +66,7 @@ public class CultureDTO {
 			this.intrants = new ArrayList<IntrantDTO>();
 		}
 		this.intrants.add(i);
+		i.setCulture(this);
 	}
 
 	public void addOperationCulturale(OperationCulturaleDTO op) {
@@ -67,6 +74,7 @@ public class CultureDTO {
 			this.operationsCulturales = new ArrayList<OperationCulturaleDTO>();
 		}
 		this.operationsCulturales.add(op);
+		op.setCulture(this);
 	}
 
 	public boolean isEnConstruction() {
@@ -82,6 +90,7 @@ public class CultureDTO {
 			this.listeInstances = new ArrayList<CultureInstanceDTO>();
 		}
 		this.listeInstances.add(cal);
+		cal.setCulture(this);
 	}
 
 	public List<CultureInstanceDTO> getlisteInstances() {
@@ -114,6 +123,14 @@ public class CultureDTO {
 
 	public void setRecommandationHaute(Integer recommandationHaute) {
 		this.recommandationHaute = recommandationHaute;
+	}
+
+	public UtilisateurDTO getUtilisateur() {
+		return this.utilisateur;
+	}
+
+	public void setUtilisateur(UtilisateurDTO utilisateur) {
+		this.utilisateur = utilisateur;
 	}
 
 	@Override
